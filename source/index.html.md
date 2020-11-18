@@ -12,7 +12,12 @@ Welcome to the Evocalize management API. This API is designed for end users of t
 
 # Request And Response Info
 
-## Headers
+## API Endpoint
+
+`https://office-api.evocalize.com/`
+
+## Required Headers
+
 > Example Headers
 
 ```
@@ -21,8 +26,6 @@ x-evocalize-timestamp: 1604094273
 x-evocalize-signature: 690a0ac5a5a219bb4a773f5bc116a32553be4e8380845d854f07b5e8471bc954
 Content-Type: application/json
 ```
-
-### Header info
 
 Header | Required | Description
 ------ | -------- | -----------

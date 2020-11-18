@@ -25,7 +25,7 @@
 Returns a single user and associated groups. 
 
 ### HTTP Request
-```GET management/v1/user/{{ userId }}```
+`GET management/v1/user/{{ userId }}`
 
 ### URL Params
 
@@ -255,7 +255,7 @@ Endpoint that allows you to pass a JSON Array of User Request objects for creati
 The JSON objects passed in the array are the same as the ones listed in Create Or Update User.
 
 ### HTTP Request
-```POST management/v1/users/```
+`POST management/v1/users/`
 
 __Response Codes__:
 
@@ -273,7 +273,7 @@ No Body returned
 Deactivates all active programs for a given user placing them in an inactive state.
 
 ### HTTP Request
-```DELETE management/v1/user/{{ userId }}```
+`DELETE management/v1/user/{{ userId }}`
 
 __Response Codes__:
 
@@ -350,7 +350,7 @@ __Response Codes__:
 Endpoint for creating new groups or updating existing ones.
 
 ### HTTP Request
-```POST management/v1/group/```
+`POST management/v1/group/`
 
 ### Create / Update Group Properties
 Field | Required | Type | Description
