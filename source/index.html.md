@@ -1,241 +1,123 @@
 ---
-title: API Reference
-
-language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
-
-toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+title: Management API Reference
 
 includes:
-  - errors
-
-search: true
-
-code_clipboard: true
+ - _user_and_group_management_api
+ - errors
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Evocalize management API. This API is designed for end users of the Evocalize Developer Tools platform.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+# Request And Response Info
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+## Headers
+> Example Headers
 
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+```
+x-evocalize-client-key-id: a5646c38-fc29-11e9-8f0b-362b9e155667
+x-evocalize-timestamp: 1604094273
+x-evocalize-signature: 690a0ac5a5a219bb4a773f5bc116a32553be4e8380845d854f07b5e8471bc954
+Content-Type: application/json
 ```
 
-```python
-import kittn
+### Header info
 
-api = kittn.authorize('meowmeowmeow')
+Header | Required | Description
+------ | -------- | -----------
+X-Evocalize-Client-Key-Id | true | Client Key provided by Evocalize
+X-Evocalize-Timestamp | true |Time Since Epoch in seconds. ex: 1604094273. Requests with a timestamp over a minute old will not be accepted.
+X-Evocalize-Signature | true |Signature of the payload. See Signing Requests Below.
+Content-Type | true | `application/json`
+
+
+## Signing Requests: 
+   
+> Request signing example
+
+```kotlin
+// Concatenate all the parts
+val toValidate = StringBuilder()
+  .append(request.servletPath)
+  .append("\n")
+  // Omit this block if the request does not have a body
+  .append(request.body())
+  .append("\n")
+  //
+  .append(request.headers["X-Evocalize-Timestamp"])
+  .append("\n")
+  .append(myClientSecret)
+  .toString()
+                 
+val expectedSignature = Hashing.sha256().hashString(toValidate, Charsets.UTF_8)
+
+// expectedSignature will match request.headers["X-Evocalize-Signature"]
 ```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
+For security and identity purposes, we require all partners to sign all API requests. The methodology is straight forward. Join the following values with a new line character between each item
 
-```javascript
-const kittn = require('kittn');
+- UrlPath (including path params if present)
+- Any POST data (leave this out if you are not POSTing a body)
+- Value of the timestamp used in the X-Evocalize-Timestamp Header
+- Client Secret (this will be provided by Evocalize)
 
-let api = kittn.authorize('meowmeowmeow');
-```
+<aside class="notice">All code examples below assume that you are passing the required headers described in this section</aside>
 
-> Make sure to replace `meowmeowmeow` with your API key.
+## Response Format
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+> JSON Response Schema
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+{
+  "metadata": {
+    "<JSON Object>"
   },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+  "data": {
+    "<Request Specifc JSON Response>"
+  },
+  "errors": [
+    {
+      "message": "String",
+      "code": "String",
+      "field" : "String", // Omitted if null
+      "details": "<JSON Object>" // Omitted if null
+    }
+  ],
+  "nextPageToken": "String", 
+  "previousPageToken": "String"
+```
+
+> Example Success Response: 
+
+```json
+{
+  "data": {
+    "<Request Specifc JSON Response>"
   }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
+> Example Error Response:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "errors": [
+    {
+      "message": "Unauthorized Request",
+      "code": "EV_UNAUTHORIZED_MISSING_HEADERS"
+    }
+  ]
 }
 ```
 
-This endpoint deletes a specific kitten.
+All requests are returned as JSON wrapped in a standard response format. The Schema section shows all the potential fields that we could return. Do note that we do not transmit null values. The most common responses will look like the examples provided.
 
-### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
+Schema Field | Always Present | Description
+------------ | -------------- | -----------
+metadata | false | JSON object containing extra data around requests and responses. 
+data | false | Returned for requests that result with 2xx responses.
+errors | false | Returned for requests that result in non 2xx responses.
+nextPageToken | false | Page token appears for result sets larger than 100 items. Not present on last page of results.
+previousPageToken | false | Same logic as nextPageToken. Not present on first page of results.

@@ -1,22 +1,16 @@
 # Errors
 
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
-
-The Kittn API uses the following error codes:
+We always attempt to return the appropriate HTTP Status code when we return an error. Additionally we do our best to provide a human readable error message to help unblock you.
 
 
-Error Code | Meaning
----------- | -------
-400 | Bad Request -- Your request is invalid.
-401 | Unauthorized -- Your API key is wrong.
-403 | Forbidden -- The kitten requested is hidden for administrators only.
-404 | Not Found -- The specified kitten could not be found.
-405 | Method Not Allowed -- You tried to access a kitten with an invalid method.
-406 | Not Acceptable -- You requested a format that isn't json.
-410 | Gone -- The kitten requested has been removed from our servers.
-418 | I'm a teapot.
-429 | Too Many Requests -- You're requesting too many kittens! Slow down!
-500 | Internal Server Error -- We had a problem with our server. Try again later.
-503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.
+Error Code | HTTP Status Code | Meaning
+---------- | ---------------- | ------- 
+EV_BAD_REQUEST_INVALID_FIELDS | 400 | Request is missing required fields or has failed validation check
+EV_BAD_REQUEST_TOO_MANY_ITEMS | 400 | Batch request contains too many items
+EV_BAD_REQUEST_MALFORMED | 400 | Malformed request. EX: type mismatch
+EV_OBJECT_NOT_FOUND | 404 | Unable to locate requested resource
+EV_UNAUTHORIZED_INVALID_KEY | 401 | Provided Client Key Id is invalid
+EV_UNAUTHORIZED_MISSING_HEADERS | 401 | Missing one of the required headers
+EV_UNAUTHORIZED_INVALID_SIGNATURE | 401 | Signature provided in `X-Evocalize-Signature` is not valid
+EV_UNAUTHORIZED_EXPIRED_REQUEST | 401 | Request timestamp is over 1 minute old
+EV_INTERNAL_SERVER_ERROR | 500 | We had a problem with our server. Try again later
