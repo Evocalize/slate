@@ -6,7 +6,7 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Management API Reference</title>
-
+    <link href="images/favicon-ac4c29ad.png" rel="icon" type="image/png" />
     <style media="screen">
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -279,7 +279,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-c2914c33.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-5b8a2a79.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-b92d75a2.css" rel="stylesheet" media="print" />
       <script src="javascripts/all_nosearch-ec00d1ce.js"></script>
 
@@ -293,7 +293,9 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-888e044d.png" class="logo" alt="" />
+      <div class="logo-wrapper">
+        <img src="images/logo-888e044d.png" class="logo" alt="" />
+      </div>
       <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
@@ -373,9 +375,9 @@
 <blockquote>
 <p>Example Headers</p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>x-evocalize-client-key-id: a5646c38-fc29-11e9-8f0b-362b9e155667
-x-evocalize-timestamp: 1604094273
-x-evocalize-signature: 690a0ac5a5a219bb4a773f5bc116a32553be4e8380845d854f07b5e8471bc954
+<div class="highlight"><pre class="highlight plaintext"><code>X-Evocalize-Client-Key-Id: a5646c38-fc29-11e9-8f0b-362b9e155667
+X-Evocalize-Timestamp: 1604094273
+X-Evocalize-Signature: 690a0ac5a5a219bb4a773f5bc116a32553be4e8380845d854f07b5e8471bc954
 Content-Type: application/json
 </code></pre></div>
 <table><thead>
@@ -388,17 +390,17 @@ Content-Type: application/json
 <tr>
 <td>X-Evocalize-Client-Key-Id</td>
 <td>true</td>
-<td>Client Key provided by Evocalize</td>
+<td>ID of the Client Key provided by Evocalize.</td>
 </tr>
 <tr>
 <td>X-Evocalize-Timestamp</td>
 <td>true</td>
-<td>Time Since Epoch in seconds. ex: 1604094273. Requests with a timestamp over a minute old will not be accepted.</td>
+<td>Unix time since epoch in seconds, e.g. October 30, 2020 @ 9:44pm (UTC) =&gt; 1604094273. Requests with a timestamp over a minute old will not be accepted.</td>
 </tr>
 <tr>
 <td>X-Evocalize-Signature</td>
 <td>true</td>
-<td>Signature of the payload. See Signing Requests Below.</td>
+<td>Signature of the payload. See Signing Requests below.</td>
 </tr>
 <tr>
 <td>Content-Type</td>
@@ -417,23 +419,23 @@ Content-Type: application/json
   <span class="c1">// Omit this block if the request does not have a body</span>
   <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="nf">body</span><span class="p">())</span>
   <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
-  <span class="c1">//</span>
   <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s">"X-Evocalize-Timestamp"</span><span class="p">])</span>
   <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">myClientSecret</span><span class="p">)</span>
+  <span class="c1">// append the client key paired with X-Evocalize-Client-Key-Id</span>
+  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">myClientKey</span><span class="p">)</span>
   <span class="p">.</span><span class="nf">toString</span><span class="p">()</span>
 
 <span class="kd">val</span> <span class="py">expectedSignature</span> <span class="p">=</span> <span class="nc">Hashing</span><span class="p">.</span><span class="nf">sha256</span><span class="p">().</span><span class="nf">hashString</span><span class="p">(</span><span class="n">toValidate</span><span class="p">,</span> <span class="nc">Charsets</span><span class="p">.</span><span class="nc">UTF_8</span><span class="p">)</span>
 
 <span class="c1">// expectedSignature will match request.headers["X-Evocalize-Signature"]</span>
 </code></pre></div>
-<p>For security and identity purposes, we require all partners to sign all API requests. The methodology is straight forward. Join the following values with a new line character between each item</p>
+<p>For security and identity purposes, we require partners to sign all API requests. The methodology is straight forward. Join the following values with a new line character between each item</p>
 
 <ul>
 <li>UrlPath (including path params if present)</li>
-<li>Any POST data (leave this out if you are not POSTing a body)</li>
+<li>The body of the request (omit if your request does not contain a body, e.g. a GET request)</li>
 <li>Value of the timestamp used in the X-Evocalize-Timestamp Header</li>
-<li>Client Secret (this will be provided by Evocalize)</li>
+<li>Client Key (this is a secret that will be provided by Evocalize)</li>
 </ul>
 
 <aside class="notice">All code examples below assume that you are passing the required headers described in this section</aside>
@@ -442,29 +444,31 @@ Content-Type: application/json
 <p>JSON Response Schema</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"&lt;JSON Object&gt;"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"&lt;Request Specifc JSON Response&gt;"</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">Request</span><span class="w"> </span><span class="err">Specifc</span><span class="w"> </span><span class="err">JSON</span><span class="w"> </span><span class="err">object</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"field"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Omitted</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="kc">null</span><span class="w">
-      </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;JSON Object&gt;"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Omitted</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">        </span><span class="err">//</span><span class="w"> </span><span class="err">Omitted</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="err">//</span><span class="w"> </span><span class="err">JSON</span><span class="w"> </span><span class="err">object</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w"> 
-  </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="w">
+  </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">JSON</span><span class="w"> </span><span class="err">object</span><span class="w">
+  </span><span class="p">},</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Example Success Response: </p>
+<p>Example Success Response:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"&lt;Request Specifc JSON Response&gt;"</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">Request</span><span class="w"> </span><span class="err">Specifc</span><span class="w"> </span><span class="err">JSON</span><span class="w"> </span><span class="err">Response</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -480,7 +484,7 @@ Content-Type: application/json
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>All requests are returned as JSON wrapped in a standard response format. The Schema section shows all the potential fields that we could return. Do note that we do not transmit null values. The most common responses will look like the examples provided.</p>
+<p>All requests are returned as JSON wrapped in a standard response format. The Schema section shows all the potential fields that we could return. Do note that we do not include null values. The most common responses will look like the examples provided.</p>
 
 <table><thead>
 <tr>
@@ -489,11 +493,6 @@ Content-Type: application/json
 <th>Description</th>
 </tr>
 </thead><tbody>
-<tr>
-<td>metadata</td>
-<td>false</td>
-<td>JSON object containing extra data around requests and responses.</td>
-</tr>
 <tr>
 <td>data</td>
 <td>false</td>
@@ -514,6 +513,11 @@ Content-Type: application/json
 <td>false</td>
 <td>Same logic as nextPageToken. Not present on first page of results.</td>
 </tr>
+<tr>
+<td>metadata</td>
+<td>false</td>
+<td>JSON object containing extra data around requests and responses. This data is subject to change and should not be relied on.</td>
+</tr>
 </tbody></table>
 <h1 id='user-management-api'>User Management API</h1><h2 id='get-user'>Get User</h2>
 <blockquote>
@@ -522,22 +526,22 @@ Content-Type: application/json
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test USer"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test User"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example@evocalize.com"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Seattle Office"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
+      </span><span class="p">}</span><span class="w">
       </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Returns a single user and associated groups. </p>
+<p>Returns a single user and associated groups.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET management/v1/user/{{ userId }}</code></p>
+<p><code>GET management/v1/user/{userId}</code></p>
 <h3 id='url-params'>URL Params</h3>
 <table><thead>
 <tr>
@@ -555,7 +559,7 @@ Content-Type: application/json
 </tr>
 </tbody></table>
 
-<p><strong>Response Codes</strong>: </p>
+<p><strong>Response Codes</strong>:</p>
 
 <ul>
 <li><code>200 OK</code> status code on sucess</li>
@@ -567,7 +571,7 @@ Content-Type: application/json
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-   </span><span class="p">{</span><span class="w">
+    </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test User 1"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test1@evocalize.com"</span><span class="w">
@@ -588,11 +592,11 @@ Content-Type: application/json
       </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test3@evocalize.com"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"longtokenstringgoeshere"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">pages</span><span class="w">
-  </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"differenttokenstringgoeshere"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> 
+  </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_next_page_token"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">another</span><span class="w"> </span><span class="err">page</span><span class="w">
+  </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_previous_page_token"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">previous</span><span class="w"> </span><span class="err">page</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Returns all users. This is a paginated response - returning 100 results per page.  </p>
+<p>Returns all users. This is a paginated response - returning 100 results per page with optional page tokens to go to the next page and previous page if they exist.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET management/v1/users</code></p>
 <h3 id='request-params'>Request Params</h3>
@@ -610,7 +614,7 @@ Content-Type: application/json
 </tr>
 </tbody></table>
 
-<p><strong>Response Codes</strong>: </p>
+<p><strong>Response Codes</strong>:</p>
 
 <ul>
 <li><code>200 OK</code> - NOTE: will return an empty array and this status code if there are no users present.</li>
@@ -620,34 +624,34 @@ Content-Type: application/json
 <p>Create Request Example</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w"> 
-          </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-    </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w"> 
-    </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test1@evocalize.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test User 1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p>Update Request Example</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@example.com"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test User"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"replaceGroups"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56468"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8675309"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test1@evocalize.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test User 1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"replaceGroups"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
   </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -655,24 +659,24 @@ Content-Type: application/json
 <p>Create and Update Repsonse</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"email"</span><span class="p">:</span><span class="s2">"user@example.com"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Test User"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56468"</span><span class="p">,</span><span class="w"> 
-            </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8675309"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-    </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w"> 
-    </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test1@evocalize.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test User 1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows you to create or update a user and their group associations. You are able to call this endpoint and omit the groups property. In Create case the user would be created, but not be associated to any groups. In the case of update we would only update their name and or email.</p>
+<p>This endpoint allows you to create or update a user and their group associations. You are able to call this endpoint and omit the groups property. In the Create case, the user would be created, but not be associated to any groups. In the case of update we would only update their name and/or email.</p>
 
 <p>The group you want to associate with the user MUST exist prior to making this call.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>POST management/v1/user/</code></p>
+<p><code>POST management/v1/user</code></p>
 <h3 id='create-user-request-properties'>Create User Request Properties</h3>
 <table><thead>
 <tr>
@@ -691,7 +695,7 @@ Content-Type: application/json
 <tr>
 <td>email</td>
 <td>true</td>
-<td>Email for the user you are creating.</td>
+<td>Email of the user you are creating.</td>
 <td></td>
 </tr>
 <tr>
@@ -726,7 +730,7 @@ Content-Type: application/json
 <td>email</td>
 <td>false</td>
 <td>String</td>
-<td>Email for the user you are creating.</td>
+<td>Email of the user you are creating.</td>
 </tr>
 <tr>
 <td>name</td>
@@ -776,17 +780,17 @@ Content-Type: application/json
 </tr>
 </tbody></table>
 
-<p><strong>Valid group roles</strong>: </p>
+<p><strong>Valid group roles</strong>:</p>
 
 <ul>
 <li>group_user</li>
 <li>group_admin</li>
 </ul>
 
-<p><strong>Response Codes</strong>: </p>
+<p><strong>Response Codes</strong>:</p>
 
 <ul>
-<li><code>201 CREATED</code> - Returning the newly created / updated user.</li>
+<li><code>201 CREATED</code> - Returning the newly created or updated user.</li>
 <li><code>400 BAD REQUEST</code> - When the request is malformed or you attempt to associate to a non existant group.</li>
 </ul>
 <h2 id='create-or-update-user-batch'>Create Or Update User Batch</h2>
@@ -795,18 +799,18 @@ Content-Type: application/json
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test1@evocalize.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test User 1"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w"> 
-      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-        </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w"> 
+        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
     </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
+  </span><span class="p">}</span><span class="w">
   </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
@@ -815,19 +819,19 @@ Content-Type: application/json
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"String"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"email"</span><span class="p">:</span><span class="s2">"user@example.com"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Test User"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test1@evocalize.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test User 1"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"replaceGroups"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
     </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56468"</span><span class="p">,</span><span class="w"> 
+        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8675309"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w"> 
+      </span><span class="p">}</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
     </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
+  </span><span class="p">}</span><span class="w">
   </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
@@ -840,11 +844,11 @@ Content-Type: application/json
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Endpoint that allows you to pass a JSON Array of User Request objects for creation or updating. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days. </p>
+<p>This endpoint allows you to pass a JSON Array of User Request objects for creation or updating. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
 
 <p>The JSON objects passed in the array are the same as the ones listed in Create Or Update User.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
-<p><code>POST management/v1/users/</code></p>
+<p><code>POST management/v1/users</code></p>
 
 <p><strong>Response Codes</strong>:</p>
 
@@ -860,7 +864,7 @@ Content-Type: application/json
 </code></pre></div>
 <p>Deactivates all active programs for a given user placing them in an inactive state.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>DELETE management/v1/user/{{ userId }}</code></p>
+<p><code>DELETE management/v1/user/{userId}</code></p>
 
 <p><strong>Response Codes</strong>:</p>
 
@@ -873,28 +877,28 @@ Content-Type: application/json
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-   </span><span class="p">{</span><span class="w">
+    </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Group 1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Group 1"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5678"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Group 2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Group 2"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"91011"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Group 3"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Group 3"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1213"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Group 4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Group 4"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"longtokenstringgoeshere"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"differenttokenstringgoeshere"</span><span class="w">
+  </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_next_page_token"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">another</span><span class="w"> </span><span class="err">page</span><span class="w">
+  </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_previous_page_token"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">previous</span><span class="w"> </span><span class="err">page</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Returns all groups. This is a paginated response - returning 100 results per page.  </p>
+<p>Returns all groups. This is a paginated response - returning 100 results per page with optional page tokens to go to the next page and previous page if they exist.</p>
 <h3 id='http-request-6'>HTTP Request</h3>
 <p><code>GET management/v1/groups</code></p>
 <h3 id='request-params-2'>Request Params</h3>
@@ -908,11 +912,11 @@ Content-Type: application/json
 <tr>
 <td>pageToken</td>
 <td>false</td>
-<td>The page token (taken from either <code>nextPageToken</code>, or <code>previousPageToken</code> provided in the response) for the page you of results you want to view.</td>
+<td>The page token (taken from either <code>nextPageToken</code>, or <code>previousPageToken</code> provided in the response) for the page you want to retrieve.</td>
 </tr>
 </tbody></table>
 
-<p><strong>Response Codes</strong>: </p>
+<p><strong>Response Codes</strong>:</p>
 
 <ul>
 <li><code>200 OK</code> NOTE: will return an empty array and this status code if there are no groups present.</li>
@@ -922,8 +926,8 @@ Content-Type: application/json
 <p>Group Create/Update Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
- </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w"> 
- </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">  
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Group 1"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
@@ -938,7 +942,7 @@ Content-Type: application/json
 </span></code></pre></div>
 <p>Endpoint for creating new groups or updating existing ones.</p>
 <h3 id='http-request-7'>HTTP Request</h3>
-<p><code>POST management/v1/group/</code></p>
+<p><code>POST management/v1/group</code></p>
 <h3 id='create-update-group-properties'>Create / Update Group Properties</h3>
 <table><thead>
 <tr>
@@ -962,7 +966,7 @@ Content-Type: application/json
 </tr>
 </tbody></table>
 
-<p><strong>Response Codes</strong>: </p>
+<p><strong>Response Codes</strong>:</p>
 
 <ul>
 <li><code>201 CREATED</code></li>
@@ -972,10 +976,10 @@ Content-Type: application/json
 <p>Group Create Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w"> 
-     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">  
-    </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Group 1"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
   </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
@@ -988,9 +992,9 @@ Content-Type: application/json
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Endpoint that allows you to pass a JSON Array of Group Request objects for creation. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days. </p>
+<p>Endpoint that allows you to pass a JSON Array of Group Request objects for creation. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
 <h3 id='http-request-8'>HTTP Request</h3>
-<p><code>POST management/v1/groups/</code></p>
+<p><code>POST management/v1/groups</code></p>
 
 <p><strong>Response Codes</strong>:</p>
 
@@ -1013,9 +1017,9 @@ Content-Type: application/json
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>For batch endpoints we return a <code>report_id</code> string instead of the created objects. This endpoint allows you to view the status of a given batch. We retain this data for 30 days.</p>
+<p>For batch endpoints we return a <code>report_id</code> string instead of the created objects. This endpoint allows you to view the status of a given batch. We retain this data for 30 days after the report was generated.</p>
 <h3 id='http-request-9'>HTTP Request</h3>
-<p><code>GET management/v1/items/report/{{ reportId }}</code></p>
+<p><code>GET management/v1/items/report/{reportId}</code></p>
 <h3 id='url-params-2'>URL Params</h3>
 <table><thead>
 <tr>
@@ -1038,7 +1042,7 @@ Content-Type: application/json
 <p><code>200 OK</code>
 <code>404 NOT FOUND</code> - When we are unable to locate a report with that ID.</p>
 <h1 id='errors'>Errors</h1>
-<p>We always attempt to return the appropriate HTTP Status code when we return an error. Additionally we do our best to provide a human readable error message to help unblock you.</p>
+<p>We return the appropriate HTTP Status code when we return an error. Additionally we do our best to provide a human readable error message to help you figure out what went wrong.</p>
 
 <table><thead>
 <tr>
@@ -1050,47 +1054,47 @@ Content-Type: application/json
 <tr>
 <td>EV_BAD_REQUEST_INVALID_FIELDS</td>
 <td>400</td>
-<td>Request is missing required fields or has failed validation check</td>
+<td>Request is missing required fields or has failed validation check.</td>
 </tr>
 <tr>
 <td>EV_BAD_REQUEST_TOO_MANY_ITEMS</td>
 <td>400</td>
-<td>Batch request contains too many items</td>
+<td>Batch request contains too many items.</td>
 </tr>
 <tr>
 <td>EV_BAD_REQUEST_MALFORMED</td>
 <td>400</td>
-<td>Malformed request. EX: type mismatch</td>
+<td>Malformed request, e.g. a type mismatch.</td>
 </tr>
 <tr>
 <td>EV_OBJECT_NOT_FOUND</td>
 <td>404</td>
-<td>Unable to locate requested resource</td>
+<td>Unable to locate requested resource.</td>
 </tr>
 <tr>
 <td>EV_UNAUTHORIZED_INVALID_KEY</td>
 <td>401</td>
-<td>Provided Client Key Id is invalid</td>
+<td>Provided Client Key Id is invalid.</td>
 </tr>
 <tr>
 <td>EV_UNAUTHORIZED_MISSING_HEADERS</td>
 <td>401</td>
-<td>Missing one of the required headers</td>
+<td>Request is missing one of the required headers.</td>
 </tr>
 <tr>
 <td>EV_UNAUTHORIZED_INVALID_SIGNATURE</td>
 <td>401</td>
-<td>Signature provided in <code>X-Evocalize-Signature</code> is not valid</td>
+<td>Signature provided in <code>X-Evocalize-Signature</code> is not valid.</td>
 </tr>
 <tr>
 <td>EV_UNAUTHORIZED_EXPIRED_REQUEST</td>
 <td>401</td>
-<td>Request timestamp is over 1 minute old</td>
+<td>Request timestamp is over 1 minute old.</td>
 </tr>
 <tr>
 <td>EV_INTERNAL_SERVER_ERROR</td>
 <td>500</td>
-<td>We had a problem with our server. Try again later</td>
+<td>We had a problem with our server. Try again later.</td>
 </tr>
 </tbody></table>
 
