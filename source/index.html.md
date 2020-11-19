@@ -23,7 +23,7 @@ Welcome to the Evocalize management API. This API is designed for end users of t
 ```
 X-Evocalize-Client-Key-Id: a5646c38-fc29-11e9-8f0b-362b9e155667
 X-Evocalize-Timestamp: 1604094273
-X-evocalize-Signature: 690a0ac5a5a219bb4a773f5bc116a32553be4e8380845d854f07b5e8471bc954
+X-Evocalize-Signature: 690a0ac5a5a219bb4a773f5bc116a32553be4e8380845d854f07b5e8471bc954
 Content-Type: application/json
 ```
 
