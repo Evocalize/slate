@@ -72,6 +72,11 @@ html, body {
   }
 
   // This is the logo at the top of the ToC
+  .logo-wrapper {
+    padding: $logo-wrapper-padding;
+    max-width: 100%;
+  }
+
   .logo {
     display: block;
     max-width: 100%;
