@@ -2,8 +2,8 @@
 title: Management API Reference
 
 includes:
- - _user_and_group_management_api
- - errors
+  - _user_and_group_management_api
+  - errors
 ---
 
 # Introduction
@@ -27,16 +27,15 @@ X-evocalize-Signature: 690a0ac5a5a219bb4a773f5bc116a32553be4e8380845d854f07b5e84
 Content-Type: application/json
 ```
 
-Header | Required | Description
------- | -------- | -----------
-X-Evocalize-Client-Key-Id | true | ID of the Client Key provided by Evocalize.
-X-Evocalize-Timestamp | true | Unix time since epoch in seconds, e.g. October 30, 2020 @ 9:44pm (UTC) => 1604094273. Requests with a timestamp over a minute old will not be accepted.
-X-Evocalize-Signature | true | Signature of the payload. See Signing Requests below.
-Content-Type | true | `application/json`
+| Header                    | Required | Description                                                                                                                                             |
+| ------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| X-Evocalize-Client-Key-Id | true     | ID of the Client Key provided by Evocalize.                                                                                                             |
+| X-Evocalize-Timestamp     | true     | Unix time since epoch in seconds, e.g. October 30, 2020 @ 9:44pm (UTC) => 1604094273. Requests with a timestamp over a minute old will not be accepted. |
+| X-Evocalize-Signature     | true     | Signature of the payload. See Signing Requests below.                                                                                                   |
+| Content-Type              | true     | `application/json`                                                                                                                                      |
 
+## Signing Requests:
 
-## Signing Requests: 
-   
 > Request signing example
 
 ```kotlin
@@ -52,7 +51,7 @@ val toValidate = StringBuilder()
   // append the client key paired with X-Evocalize-Client-Key-Id
   .append(myClientKey)
   .toString()
-                 
+
 val expectedSignature = Hashing.sha256().hashString(toValidate, Charsets.UTF_8)
 
 // expectedSignature will match request.headers["X-Evocalize-Signature"]
@@ -83,17 +82,17 @@ For security and identity purposes, we require partners to sign all API requests
       "field" : "String", // Omitted if null
       "details": {        // Omitted if null
         // JSON object
-      } 
+      }
     }
   ],
-  "nextPageToken": "String", 
+  "nextPageToken": "String",
   "previousPageToken": "String",
   "metadata": {
     // JSON object
   },
 ```
 
-> Example Success Response: 
+> Example Success Response:
 
 ```json
 {
@@ -118,11 +117,10 @@ For security and identity purposes, we require partners to sign all API requests
 
 All requests are returned as JSON wrapped in a standard response format. The Schema section shows all the potential fields that we could return. Do note that we do not include null values. The most common responses will look like the examples provided.
 
-
-Schema Field | Always Present | Description
------------- | -------------- | ----------- 
-data | false | Returned for requests that result with 2xx responses.
-errors | false | Returned for requests that result in non 2xx responses.
-nextPageToken | false | Page token appears for result sets larger than 100 items. Not present on last page of results.
-previousPageToken | false | Same logic as nextPageToken. Not present on first page of results.
-metadata | false | JSON object containing extra data around requests and responses. This data is subject to change and should not be relied on.
+| Schema Field      | Always Present | Description                                                                                                                  |
+| ----------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| data              | false          | Returned for requests that result with 2xx responses.                                                                        |
+| errors            | false          | Returned for requests that result in non 2xx responses.                                                                      |
+| nextPageToken     | false          | Page token appears for result sets larger than 100 items. Not present on last page of results.                               |
+| previousPageToken | false          | Same logic as nextPageToken. Not present on first page of results.                                                           |
+| metadata          | false          | JSON object containing extra data around requests and responses. This data is subject to change and should not be relied on. |
