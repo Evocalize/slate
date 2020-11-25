@@ -368,7 +368,7 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Evocalize management API. This API is designed for end users of the Evocalize Developer Tools platform.</p>
+<p>Welcome to the Evocalize management API.</p>
 <h1 id='request-and-response-info'>Request And Response Info</h1><h2 id='api-endpoint'>API Endpoint</h2>
 <p><code>https://office-api.evocalize.com/</code></p>
 <h2 id='required-headers'>Required Headers</h2>
@@ -629,7 +629,6 @@ Content-Type: application/json
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test User 1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
     </span><span class="p">}</span><span class="w">
@@ -647,7 +646,6 @@ Content-Type: application/json
   </span><span class="nl">"replaceGroups"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
     </span><span class="p">}</span><span class="w">
@@ -664,8 +662,8 @@ Content-Type: application/json
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test User 1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Seattle Office"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
     </span><span class="p">}</span><span class="w">
     </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
@@ -761,12 +759,6 @@ Content-Type: application/json
 </tr>
 </thead><tbody>
 <tr>
-<td>userId</td>
-<td>true</td>
-<td>String</td>
-<td>The Id of the user.</td>
-</tr>
-<tr>
 <td>groupId</td>
 <td>true</td>
 <td>String</td>
@@ -804,7 +796,6 @@ Content-Type: application/json
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test User 1"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
       </span><span class="p">}</span><span class="w">
@@ -825,7 +816,6 @@ Content-Type: application/json
     </span><span class="nl">"replaceGroups"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
     </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8675309"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
       </span><span class="p">}</span><span class="w">
