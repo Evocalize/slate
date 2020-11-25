@@ -99,7 +99,6 @@ Returns all users. This is a paginated response - returning 100 results per page
   "name": "Test User 1",
   "groups": [
     {
-      "userId": "1234",
       "groupId": "seattle_office",
       "role": "group_admin"
     }
@@ -118,7 +117,6 @@ Returns all users. This is a paginated response - returning 100 results per page
   "replaceGroups": false,
   "groups": [
     {
-      "userId": "1234",
       "groupId": "seattle_office",
       "role": "group_admin"
     }
@@ -136,8 +134,8 @@ Returns all users. This is a paginated response - returning 100 results per page
   "name": "Test User 1",
   "groups": [
     {
-      "userId": "1234",
-      "groupId": "seattle_office",
+      "id": "seattle_office",
+      "name": "Seattle Office",
       "role": "group_admin"
     }
     // ...
@@ -176,7 +174,6 @@ The group you want to associate with the user MUST exist prior to making this ca
 
 | Field   | Required | Type   | Description                                          |
 | ------- | -------- | ------ | ---------------------------------------------------- |
-| userId  | true     | String | The Id of the user.                                  |
 | groupId | true     | String | The Id of the group you want the user associated to. |
 | role    | true     | String | The role of the user within the group.               |
 
@@ -202,7 +199,6 @@ The group you want to associate with the user MUST exist prior to making this ca
     "name": "Test User 1",
     "groups": [
       {
-        "userId": "1234",
         "groupId": "seattle_office",
         "role": "group_admin"
       }
@@ -224,7 +220,6 @@ The group you want to associate with the user MUST exist prior to making this ca
     "replaceGroups": false,
     "groups": [
       {
-        "userId": "1234",
         "groupId": "8675309",
         "role": "group_admin"
       }

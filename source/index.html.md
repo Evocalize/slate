@@ -8,7 +8,7 @@ includes:
 
 # Introduction
 
-Welcome to the Evocalize management API. This API is designed for end users of the Evocalize Developer Tools platform.
+Welcome to the Evocalize management API.
 
 # Request And Response Info
 
