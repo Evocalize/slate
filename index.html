@@ -362,6 +362,14 @@
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
+          <li>
+            <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#client-leads-webhook" class="toc-h2 toc-link" data-title="Client Leads Webhook">Client Leads Webhook</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
     </div>
     <div class="page-wrapper">
@@ -1085,6 +1093,314 @@ Content-Type: application/json
 <td>EV_INTERNAL_SERVER_ERROR</td>
 <td>500</td>
 <td>We had a problem with our server. Try again later.</td>
+</tr>
+</tbody></table>
+<h1 id='webhooks'>Webhooks</h1><h2 id='client-leads-webhook'>Client Leads Webhook</h2>
+<p>Evocalize can notify your organization via webhook any time a new lead is ingested from an upstream platform such as Facebook or Google. Upon notification from the upstream platform that new lead data has been created, we combine that with Evocalize data and your data, and send it to you, allowing you to handle leads in near real-time.</p>
+<h3 id='setup'>Setup</h3>
+<p>You will need to work with your account manager and supply Evocalize with an endpoint url where you would like to be notified with the payload specified below. Your endpoint url must use SSL (https) and accept a POST. You will need to have a <code>ClientKeyID</code> and a <code>ClientSecret</code>. These are the same values that you will use to call our API for other operations.</p>
+<h3 id='policies'>Policies</h3>
+<ul>
+<li>Each lead may be delivered more than once. This is rare, but it is possible. The leads[].id is unique to a particular lead and will not change between deliveries if a lead is delivered multiple times.</li>
+<li>Any response code in the range of 200 - 299 is considered a success, any other response code is considered a failure and we will attempt to redeliver the lead notification.</li>
+<li>The HTTPS request will time out after 5 seconds. If this happens, delivery is considered a failure and we will attempt to redeliver the lead notification.</li>
+<li>The time between retry attempts is exponential, with a maximum of 15 minutes between tries. After three hours have elapsed since the first attempt, we will no longer try to deliver the leads. If something has happened causing your platform to stop ingesting leads for more than 3 hours, contact your Evocalize account representative.</li>
+</ul>
+<h3 id='headers'>Headers</h3>
+<ul>
+<li><code>X-Evocalize-Payload-Version</code> - The version of the payload.</li>
+<li><code>X-Evocalize-Client-Key-Id</code> - Provided by Evocalize, your <code>ClientKeyId</code> from above.</li>
+<li><code>X-Evocalize-Timestamp</code> - Timestamp of when the request was sent.</li>
+<li><code>X-Evocalize-Signature</code> - The signature of the payload, see Signature below.</li>
+</ul>
+<h3 id='signature-validation-optional'>Signature Validation - Optional</h3>
+<blockquote>
+<p>Signature validation</p>
+</blockquote>
+<div class="highlight"><pre class="highlight kotlin tab-kotlin"><code><span class="c1">// Concatenate all the parts</span>
+<span class="kd">val</span> <span class="py">toValidate</span> <span class="p">=</span> <span class="nc">StringBuilder</span><span class="p">()</span>
+    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">servletPath</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="nf">body</span><span class="p">())</span>
+    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s">"X-Evocalize-Timestamp"</span><span class="p">])</span>
+    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">myClientSecret</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">toString</span><span class="p">()</span>
+
+<span class="c1">// expectedSignature will match request.headers["X-Evocalize-Signature"]</span>
+<span class="kd">val</span> <span class="py">expectedSignature</span> <span class="p">=</span> <span class="nc">Hashing</span><span class="p">.</span><span class="nf">sha256</span><span class="p">().</span><span class="nf">hashString</span><span class="p">(</span><span class="n">toValidate</span><span class="p">,</span> <span class="nc">Charsets</span><span class="p">.</span><span class="nc">UTF_8</span><span class="p">)</span>
+</code></pre></div>
+<p>For extra security, partners may have the need or desire to validate each individual request signature. Validating the request signature provides extra security over relying solely on the <code>ClientKeyId</code> because it uses the <code>ClientSecret</code> above. The <code>ClientSecret</code> is never sent over the wire. The methodology is simple. Join the following values into one string, separated by a newline, then hash them using SHA-256</p>
+
+<ul>
+<li>urlPath</li>
+<li>requestBody</li>
+<li>X-Evocalize-Timestamp header</li>
+<li>ClientSecret</li>
+</ul>
+
+<p>Since we require the use of the https protocol for our webhooks, it is up to each partner to choose if they would like to validate the signature.</p>
+<h3 id='payload'>Payload</h3>
+<blockquote>
+<p>Payload Example</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"leads"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"facebook:1584659102387"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"facebook"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"summary"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"leadgenId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1584659102387"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"pageId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1584659102389"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"leadFormId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1584659102390"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"adgroupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1584659102388"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"adId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1584659102388"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"createdAtEpochSeconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">1584659108</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"leadForm"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"field_one"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"value one"</span><span class="p">]</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"friendlyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Catalog Field Name"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"columnName"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"field value"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"program"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"projectId"</span><span class="p">:</span><span class="w"> </span><span class="mi">643545619583019092</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"programId"</span><span class="p">:</span><span class="w"> </span><span class="mi">643545619499133011</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"programName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"programName-1584659102374"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"programDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verbose program description-1584659102375"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"order"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">643545620052781143</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email-1584659102362@example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3775e2cc-e8f0-4402-b947-e8f2112fc1b4"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"orderItem"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"orderItemId"</span><span class="p">:</span><span class="w"> </span><span class="mi">643545620774201440</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Special consideration should be taken not to fail if a new field is present in your data that you did not expect. We will notify you when a field is removed from our specification, but we will not notify you when a field is added to the specification. If a field is removed from the specification, the payloadVersion will increment.</p>
+
+<p>The potential values of leadForm and content depends upon your imported data and program setup. Your account representative can help with this.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Nullable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>leads</td>
+<td>false</td>
+<td>array</td>
+<td>A list of lead data.</td>
+</tr>
+<tr>
+<td>leads[]</td>
+<td>false</td>
+<td>object</td>
+<td></td>
+</tr>
+<tr>
+<td>leads[].id</td>
+<td>false</td>
+<td>string</td>
+<td>The id of this lead.</td>
+</tr>
+<tr>
+<td>leads[].facebook</td>
+<td>false</td>
+<td>object</td>
+<td>Facebook data for this lead.</td>
+</tr>
+<tr>
+<td>leads[].facebook.summary</td>
+<td>false</td>
+<td>object</td>
+<td>Summary data for this facebook lead.</td>
+</tr>
+<tr>
+<td>leads[].facebook.summary.leadgenId</td>
+<td>false</td>
+<td>string</td>
+<td>Facebook&#39;s leadgen_id.</td>
+</tr>
+<tr>
+<td>leads[].facebook.summary.pageId</td>
+<td>false</td>
+<td>string</td>
+<td>The facebook page that the ad for this lead is associated with.</td>
+</tr>
+<tr>
+<td>leads[].facebook.summary.leadFormId</td>
+<td>false</td>
+<td>string</td>
+<td>The facebook lead form id associated with this lead.</td>
+</tr>
+<tr>
+<td>leads[].facebook.summary.adgroupId</td>
+<td>false</td>
+<td>string</td>
+<td>The facebook adgroup id associated with this lead.</td>
+</tr>
+<tr>
+<td>leads[].facebook.summary.adId</td>
+<td>false</td>
+<td>string</td>
+<td>The facebook ad id associated with this lead.</td>
+</tr>
+<tr>
+<td>leads[].facebook.summary.createdAtEpochSeconds</td>
+<td>false</td>
+<td>long</td>
+<td>The time this lead was created, as a unix timestamp in seconds.</td>
+</tr>
+<tr>
+<td>leads[].facebook.leadForm</td>
+<td>false</td>
+<td>array</td>
+<td>Values that a person filled out on the lead form.</td>
+</tr>
+<tr>
+<td>leads[].facebook.leadForm[]</td>
+<td>false</td>
+<td>object</td>
+<td></td>
+</tr>
+<tr>
+<td>leads[].facebook.leadForm[].name</td>
+<td>false</td>
+<td>string</td>
+<td>The name of the facebook lead form field.</td>
+</tr>
+<tr>
+<td>leads[].facebook.leadForm[].values</td>
+<td>false</td>
+<td>array</td>
+<td>An array of the values the user filled out.</td>
+</tr>
+<tr>
+<td>leads[].facebook.leadForm[].values[]</td>
+<td>false</td>
+<td>string</td>
+<td>Each element is a value that the end user selected or entered. In most cases there is only one element.</td>
+</tr>
+<tr>
+<td>leads[].content</td>
+<td>false</td>
+<td>array</td>
+<td>An array of content items associated with this ad.</td>
+</tr>
+<tr>
+<td>leads[].content[]</td>
+<td>false</td>
+<td>array</td>
+<td>An array of content fields for the item.</td>
+</tr>
+<tr>
+<td>leads[].content[][]</td>
+<td>false</td>
+<td>object</td>
+<td></td>
+</tr>
+<tr>
+<td>leads[].content[][].friendlyName</td>
+<td>true</td>
+<td>string</td>
+<td>The friendly name of this content field.</td>
+</tr>
+<tr>
+<td>leads[].content[][].name</td>
+<td>false</td>
+<td>string</td>
+<td>The actual name of this content field. It will be in snake_case.</td>
+</tr>
+<tr>
+<td>leads[].content[][].value</td>
+<td>true</td>
+<td>string</td>
+<td>The value for this content field. It could be null.</td>
+</tr>
+<tr>
+<td>leads[].program</td>
+<td>false</td>
+<td>object</td>
+<td>Details about the program that published the ad associated with this lead.</td>
+</tr>
+<tr>
+<td>leads[].program.projectId</td>
+<td>false</td>
+<td>long</td>
+<td>The evocalize project id associated with this lead.</td>
+</tr>
+<tr>
+<td>leads[].program.programId</td>
+<td>false</td>
+<td>long</td>
+<td>The evocalize program id associated with this lead.</td>
+</tr>
+<tr>
+<td>leads[].program.programName</td>
+<td>false</td>
+<td>long</td>
+<td>The name of the program that published this ad.</td>
+</tr>
+<tr>
+<td>leads[].program.programDescription</td>
+<td>true</td>
+<td>string</td>
+<td>The description of the program that published this ad.</td>
+</tr>
+<tr>
+<td>leads[].order</td>
+<td>true</td>
+<td>object</td>
+<td></td>
+</tr>
+<tr>
+<td>leads[].order.orderId</td>
+<td>false</td>
+<td>long</td>
+<td>The order id associated with the program.</td>
+</tr>
+<tr>
+<td>leads[].order.userId</td>
+<td>false</td>
+<td>string</td>
+<td>The user id associated with this order. This is the id in your system.</td>
+</tr>
+<tr>
+<td>leads[].order.groupId</td>
+<td>false</td>
+<td>string</td>
+<td>The group id associated with this order. This is the id in your system.</td>
+</tr>
+<tr>
+<td>leads[].order.orderItem</td>
+<td>false</td>
+<td>object</td>
+<td></td>
+</tr>
+<tr>
+<td>leads[].order.orderItem.orderItemId</td>
+<td>false</td>
+<td>long</td>
+<td>The order item id associated with the order project.</td>
 </tr>
 </tbody></table>
 
