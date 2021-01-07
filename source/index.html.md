@@ -3,7 +3,8 @@ title: Management API Reference
 
 includes:
   - _user_and_group_management_api
-  - _content
+  - _content_management_api
+  - _batch_report_api
   - _errors
   - _webhook_integration
 ---
