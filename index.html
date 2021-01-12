@@ -352,6 +352,52 @@
               </ul>
           </li>
           <li>
+            <a href="#content-management-api" class="toc-h1 toc-link" data-title="Content Management API">Content Management API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-repository" class="toc-h2 toc-link" data-title="Get Repository">Get Repository</a>
+                  </li>
+                  <li>
+                    <a href="#get-repositories" class="toc-h2 toc-link" data-title="Get Repositories">Get Repositories</a>
+                  </li>
+                  <li>
+                    <a href="#get-item" class="toc-h2 toc-link" data-title="Get Item">Get Item</a>
+                  </li>
+                  <li>
+                    <a href="#create-or-update-item" class="toc-h2 toc-link" data-title="Create Or Update Item">Create Or Update Item</a>
+                  </li>
+                  <li>
+                    <a href="#create-or-update-item-batch" class="toc-h2 toc-link" data-title="Create Or Update Item Batch">Create Or Update Item Batch</a>
+                  </li>
+                  <li>
+                    <a href="#delete-item" class="toc-h2 toc-link" data-title="Delete Item">Delete Item</a>
+                  </li>
+                  <li>
+                    <a href="#delete-item-batch" class="toc-h2 toc-link" data-title="Delete Item Batch">Delete Item Batch</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#content-access-api" class="toc-h1 toc-link" data-title="Content Access API">Content Access API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#access-basics" class="toc-h2 toc-link" data-title="Access Basics">Access Basics</a>
+                  </li>
+                  <li>
+                    <a href="#get-access-records-associated-to-a-repository" class="toc-h2 toc-link" data-title="Get Access Records associated to a repository">Get Access Records associated to a repository</a>
+                  </li>
+                  <li>
+                    <a href="#get-access-records-associated-to-a-repository-and-content-item" class="toc-h2 toc-link" data-title="Get Access Records associated to a repository and content item">Get Access Records associated to a repository and content item</a>
+                  </li>
+                  <li>
+                    <a href="#create-update-a-single-access-record" class="toc-h2 toc-link" data-title="Create/Update a single access record">Create/Update a single access record</a>
+                  </li>
+                  <li>
+                    <a href="#delete-access-record" class="toc-h2 toc-link" data-title="Delete Access Record">Delete Access Record</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#batch-report-api" class="toc-h1 toc-link" data-title="Batch Report API">Batch Report API</a>
               <ul class="toc-list-h2">
                   <li>
@@ -360,15 +406,15 @@
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
-          </li>
-          <li>
             <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#client-leads-webhook" class="toc-h2 toc-link" data-title="Client Leads Webhook">Client Leads Webhook</a>
                   </li>
               </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </ul>
     </div>
@@ -1000,6 +1046,692 @@ Content-Type: application/json
 <li><code>202 ACCEPTED</code> - List has been received and submitted for processing.</li>
 <li><code>400 BAD REQUEST</code> - Malformed request.</li>
 </ul>
+<h1 id='content-management-api'>Content Management API</h1><h2 id='get-repository'>Get Repository</h2>
+<blockquote>
+<p>Get Repository Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"repository_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Repository Name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">" Repository Description"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"isWritable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"field_name"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"isNullable"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">can</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="s2">"number"</span><span class="p">,</span><span class="w"> </span><span class="s2">"boolean"</span><span class="p">,</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="s2">"date_time"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Returns a single repository and associated fields.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET management/v1/repository/{repositoryId}</code></p>
+<h3 id='url-params'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repositoryId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the repository you are wanting to retrieve</td>
+</tr>
+</tbody></table>
+<h3 id='response-codes'>Response Codes:</h3>
+<ul>
+<li><code>200 OK</code> status code on sucess</li>
+<li><code>404 NOT FOUND</code> when it can&#39;t locate the repository.</li>
+</ul>
+<h2 id='get-repositories'>Get Repositories</h2>
+<blockquote>
+<p>Get Repositories Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"repository_id"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Repository Name"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Returns a list of repositories.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET management/v1/repositories</code></p>
+<h3 id='response-codes-2'>Response Codes:</h3>
+<ul>
+<li><code>200 OK</code> status code on sucess</li>
+</ul>
+<h2 id='get-item'>Get Item</h2>
+<blockquote>
+<p>Get Item Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"item_id"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Item Name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Returns a content item. The JSON object in the <code>values</code> field of the response will contains fields defined by the repository&#39;s fields.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>GET management/v1/repository/{repositoryId}/item/{itemId}</code></p>
+<h3 id='url-params-2'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repositoryId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the repository you are wanting to retrieve</td>
+</tr>
+<tr>
+<td>itemId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the item you are wanting to retrieve</td>
+</tr>
+</tbody></table>
+<h3 id='response-codes-3'>Response Codes:</h3>
+<ul>
+<li><code>200 OK</code> status code on sucess</li>
+<li><code>404 NOT FOUND</code> when it can&#39;t locate the item</li>
+</ul>
+<h2 id='create-or-update-item'>Create Or Update Item</h2>
+<blockquote>
+<p>Create Or Update Item Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"item_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Item Name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Create Or Update Item Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"item_id"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Item Name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Creates or updates a content item. The JSON request object should contain fields defined by the table&#39;s fields.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>POST management/v1/repository/{repositoryId}/item</code></p>
+<h3 id='url-params-3'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repositoryId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the repository in which you are wanting to create or update an item</td>
+</tr>
+</tbody></table>
+<h3 id='response-codes-4'>Response Codes:</h3>
+<ul>
+<li><code>200 OK</code> status code on sucess</li>
+</ul>
+<h2 id='create-or-update-item-batch'>Create Or Update Item Batch</h2>
+<blockquote>
+<p>Batch Create Or Update Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"item_id"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Item Name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Create and Update Batch Repsonse</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"reportId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HG3SrEndQch8dAZbjwBV"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to pass a JSON Array of Item Request objects for creation or updating. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
+
+<p>The JSON objects passed in the array are the same as the ones listed in Create Or Update Item.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>POST management/v1/repository/{repositoryId}/items</code></p>
+<h3 id='url-params-4'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repositoryId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the repository in which you are wanting to create or update items</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>202 ACCEPTED</code> - List has been received and submitted for processing.</li>
+<li><code>400 BAD REQUEST</code> - Malformed request.</li>
+</ul>
+<h2 id='delete-item'>Delete Item</h2>
+<blockquote>
+<p>Delete Item Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"item_id"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Item Name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Deletes a content item.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>DELETE management/v1/repository/{repositoryId}/item/{itemId}</code></p>
+<h3 id='url-params-5'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repositoryId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the repository in which you are wanting to delete an item</td>
+</tr>
+<tr>
+<td>itemId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the item you are wanting to delete</td>
+</tr>
+</tbody></table>
+<h3 id='response-codes-5'>Response Codes:</h3>
+<ul>
+<li><code>200 OK</code> status code on sucess</li>
+<li><code>404 NOT FOUND</code> when it can&#39;t locate the item</li>
+</ul>
+<h2 id='delete-item-batch'>Delete Item Batch</h2>
+<blockquote>
+<p>Batch Delete Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="s2">"item_id_1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"item_id_2"</span><span class="w">
+  </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Delete Batch Repsonse</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"reportId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HG3SrEndQch8dAZbjwBV"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to pass a JSON Array of Item IDs for deletion. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
+
+<p>The JSON objects passed in the array are the same as the ones listed in Create Or Update Item.</p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>POST management/v1/repository/{repositoryId}/items</code></p>
+<h3 id='url-params-6'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repositoryId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the repository in which you are wanting to delete items</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>202 ACCEPTED</code> - List has been received and submitted for processing.</li>
+<li><code>400 BAD REQUEST</code> - Malformed request.</li>
+</ul>
+<h1 id='content-access-api'>Content Access API</h1><h2 id='access-basics'>Access Basics</h2>
+<p>For each content item your organization uploads you will need coresponding access records. Access records define who can use the item for their ad campaigns and whether or not they have the ability to edit the item after it is in the system. Content Items have a one to many relationship to access records, although it is completely valid to have a content item only accessible by a single user.</p>
+
+<p>Access to a given content item can be defined at the following levels:
+- User based
+- Group Based
+- Group and Role based</p>
+
+<p>The ability to edit the content item can be granted by passing true for the <code>canEdit</code> flag. </p>
+<h2 id='get-access-records-associated-to-a-repository'>Get Access Records associated to a repository</h2>
+<blockquote>
+<p>Access Records Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"contentItemId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleId1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_user_1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"canEdit"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_user"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"isDeleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">records</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">applicable</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"next_page_token"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">another</span><span class="w"> </span><span class="err">page</span><span class="w">
+    </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"previous_page_token"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">previous</span><span class="w"> </span><span class="err">page</span><span class="w">
+</span><span class="p">}</span><span class="w">   
+</span></code></pre></div>
+<p>If you decline to pass query params - this call will return all access records associated with a given repository. Otherwise it will return return a subset based on the provied query parameters.</p>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code></li>
+</ul>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET management/v1/repository/{repositorySlug}/access</code></p>
+<h3 id='url-params'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repositorySlug</td>
+<td>String</td>
+<td>true</td>
+<td>The slug of the content repository whose access records you wish to view.</td>
+</tr>
+</tbody></table>
+<h3 id='request-query-params'>Request Query Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>string</td>
+<td>false</td>
+<td>Query for all records that match the provided userId.</td>
+</tr>
+<tr>
+<td>groupId</td>
+<td>string</td>
+<td>false</td>
+<td>Query for all records that match the provided groupId, note that this will return records that may or may not have a userId associated with them.</td>
+</tr>
+<tr>
+<td>role</td>
+<td>string</td>
+<td>false</td>
+<td>Query for all records that match the provided role. If this is omitted, all records will be return according to the other criteria provided.</td>
+</tr>
+</tbody></table>
+<h2 id='get-access-records-associated-to-a-repository-and-content-item'>Get Access Records associated to a repository and content item</h2>
+<blockquote>
+<p>Access Records Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"contentItemId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleId1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_user_1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"canEdit"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_user"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"isDeleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">records</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">applicable</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"next_page_token"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">another</span><span class="w"> </span><span class="err">page</span><span class="w">
+    </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"previous_page_token"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">previous</span><span class="w"> </span><span class="err">page</span><span class="w">
+</span><span class="p">}</span><span class="w">   
+</span></code></pre></div><h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET management/v1/repository/{repositorySlug}/access/item/{contentItemId}</code></p>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code></li>
+</ul>
+<h3 id='url-params-2'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repositorySlug</td>
+<td>string</td>
+<td>true</td>
+<td>The slug of the content repository whose access records you wish to view</td>
+</tr>
+<tr>
+<td>contentItemId</td>
+<td>string</td>
+<td>true</td>
+<td>The Id of the content item whose access records you wish to view</td>
+</tr>
+</tbody></table>
+<h3 id='request-query-params-2'>Request Query Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>string</td>
+<td>false</td>
+<td>Query for all records that match the provided userId.</td>
+</tr>
+<tr>
+<td>groupId</td>
+<td>string</td>
+<td>false</td>
+<td>Query for all records that match the provided groupId, note that this will return records that may or may not have a userId associated with them.</td>
+</tr>
+<tr>
+<td>role</td>
+<td>string</td>
+<td>false</td>
+<td>Query for all records that match the provided role. If this is omitted, all records will be return according to the other criteria provided.</td>
+</tr>
+</tbody></table>
+<h2 id='create-update-a-single-access-record'>Create/Update a single access record</h2>
+<blockquote>
+<p>Access Record Request Payload: Every <code>group_user</code> in the group <code>seattle_office</code> can use this content item. Can not edit.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"contentItemId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleId1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"canEdit"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_user"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Access Record Request Payload: User <code>seattle_user_1</code>, in group <code>seattle_office</code> has is able to use this content item. Can not edit.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"contentItemId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleId1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_user_1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"canEdit"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_user"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Access Record Response Payload</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"contentItemId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleId1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_user_1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"canEdit"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_user"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-xxx"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxx-xxx-xxx"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deletedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"isDeleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST management/v1/repository/{repositorySlug}/access/item</code></p>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>201 CREATED</code></li>
+</ul>
+<h3 id='create-update-access-record-request-fields'>Create / Update Access Record Request fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Nullable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contentItemId</td>
+<td>false</td>
+<td>string</td>
+<td>The content item id for which this access record is responsible for.</td>
+</tr>
+<tr>
+<td>userId</td>
+<td>true</td>
+<td>string</td>
+<td>If you would like access to be constrained to a specifc user, set this field. Otherwise pass null.</td>
+</tr>
+<tr>
+<td>groupId</td>
+<td>false</td>
+<td>string</td>
+<td>The group associated to this content item. If userId is null, then all members of the group (with the given role) have access to the content item</td>
+</tr>
+<tr>
+<td>role</td>
+<td>false</td>
+<td>string</td>
+<td>The role this access row applies too. Valid roles are <code>group_user</code>, <code>group_admin</code>. If you do not want to provide access based on role - pass <code>any</code></td>
+</tr>
+<tr>
+<td>canEdit</td>
+<td>false</td>
+<td>boolean</td>
+<td>Sets whether or not the users this access record applies too are allowed to edit the content.</td>
+</tr>
+</tbody></table>
+<h2 id='delete-access-record'>Delete Access Record</h2>
+<blockquote>
+<p>Remove Single Access for a given Content Item Record Request Payload (Request Includes <code>/{contentItemId}</code>).</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_user_2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Remove All Access Records Associated For A Given Content Item and <code>groupId</code> Request Payload (Request Includes <code>/{contentItemId}</code>).</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Remove All Access Records Associated For A Given Content Item Request Payload (Request Includes <code>/{contentItemId}</code>).</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Remove All Access Records For A Given Repository Matching a Specific <code>userId</code> (Request Includes <code>/{contentItemId}</code>).</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Remove All Access Records For A Given Repository Matching a Specific <code>groupId</code> (Request Does Not Include <code>/{contentItemId}</code>).</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Remove All Access Records For A Given Repository Matching a Specific <code>groupId</code> and <code>userId</code> (Request Does Not Include <code>/{contentItemId}</code>).</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Remove All Access Records In a Respository (Request Does Not Include <code>/{contentItemId}</code>)</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"contentItemId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleId1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_user_1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"canEdit"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_user"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"isDeleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">},</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">records</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">applicable</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"next_page_token"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">another</span><span class="w"> </span><span class="err">page</span><span class="w">
+    </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"previous_page_token"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">previous</span><span class="w"> </span><span class="err">page</span><span class="w">
+</span><span class="p">}</span><span class="w">   
+</span></code></pre></div>
+<p>Removing access follows a very similar pattern to querying for them. One important difference is that you <em>must</em> always pass each field, with <code>null</code> being a valid value. Example: If you wanted to remove all the access records for a given <code>contentItemId</code> then you would need to set <code>userId</code>, <code>groupId</code> and <code>role</code> as null. If you omit <code>contentItemId</code> the operation is applied against the entire <code>repository</code>. If your query does not match any access records the response will return an empty <code>json</code> array.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>DELETE management/v1/content/{repositorySlug}/{contentItemId}</code>,
+<code>DELETE management/v1/content/{repositorySlug}</code></p>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code></li>
+</ul>
+<h3 id='url-params-3'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contentItemId</td>
+<td>string</td>
+<td>false</td>
+<td>The Id of the content item whose access records you are removing.</td>
+</tr>
+</tbody></table>
+<h3 id='delete-access-record-fields'>Delete Access Record Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Nullable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>true</td>
+<td>string</td>
+<td>The user id for the associated access record.</td>
+</tr>
+<tr>
+<td>groupId</td>
+<td>true</td>
+<td>string</td>
+<td>The group id for the associated access record.</td>
+</tr>
+<tr>
+<td>role</td>
+<td>true</td>
+<td>string</td>
+<td>The role for the associated access record.</td>
+</tr>
+</tbody></table>
 <h1 id='batch-report-api'>Batch Report API</h1><h2 id='get-report'>Get Report</h2>
 <blockquote>
 <p>Get Report Response</p>
@@ -1016,9 +1748,9 @@ Content-Type: application/json
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>For batch endpoints we return a <code>report_id</code> string instead of the created objects. This endpoint allows you to view the status of a given batch. We retain this data for 30 days after the report was generated.</p>
-<h3 id='http-request-9'>HTTP Request</h3>
+<h3 id='http-request'>HTTP Request</h3>
 <p><code>GET management/v1/items/report/{reportId}</code></p>
-<h3 id='url-params-2'>URL Params</h3>
+<h3 id='url-params'>URL Params</h3>
 <table><thead>
 <tr>
 <th>URL Param</th>
@@ -1039,62 +1771,6 @@ Content-Type: application/json
 
 <p><code>200 OK</code>
 <code>404 NOT FOUND</code> - When we are unable to locate a report with that ID.</p>
-<h1 id='errors'>Errors</h1>
-<p>We return the appropriate HTTP Status code when we return an error. Additionally we do our best to provide a human readable error message to help you figure out what went wrong.</p>
-
-<table><thead>
-<tr>
-<th>Error Code</th>
-<th>HTTP Status Code</th>
-<th>Meaning</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>EV_BAD_REQUEST_INVALID_FIELDS</td>
-<td>400</td>
-<td>Request is missing required fields or has failed validation check.</td>
-</tr>
-<tr>
-<td>EV_BAD_REQUEST_TOO_MANY_ITEMS</td>
-<td>400</td>
-<td>Batch request contains too many items.</td>
-</tr>
-<tr>
-<td>EV_BAD_REQUEST_MALFORMED</td>
-<td>400</td>
-<td>Malformed request, e.g. a type mismatch.</td>
-</tr>
-<tr>
-<td>EV_OBJECT_NOT_FOUND</td>
-<td>404</td>
-<td>Unable to locate requested resource.</td>
-</tr>
-<tr>
-<td>EV_UNAUTHORIZED_INVALID_KEY</td>
-<td>401</td>
-<td>Provided Client Key Id is invalid.</td>
-</tr>
-<tr>
-<td>EV_UNAUTHORIZED_MISSING_HEADERS</td>
-<td>401</td>
-<td>Request is missing one of the required headers.</td>
-</tr>
-<tr>
-<td>EV_UNAUTHORIZED_INVALID_SIGNATURE</td>
-<td>401</td>
-<td>Signature provided in <code>X-Evocalize-Signature</code> is not valid.</td>
-</tr>
-<tr>
-<td>EV_UNAUTHORIZED_EXPIRED_REQUEST</td>
-<td>401</td>
-<td>Request timestamp is over 1 minute old.</td>
-</tr>
-<tr>
-<td>EV_INTERNAL_SERVER_ERROR</td>
-<td>500</td>
-<td>We had a problem with our server. Try again later.</td>
-</tr>
-</tbody></table>
 <h1 id='webhooks'>Webhooks</h1><h2 id='client-leads-webhook'>Client Leads Webhook</h2>
 <p>Evocalize can notify your organization via webhook any time a new lead is ingested from an upstream platform such as Facebook or Google. Upon notification from the upstream platform that new lead data has been created, we combine that with Evocalize data and your data, and send it to you, allowing you to handle leads in near real-time.</p>
 <h3 id='setup'>Setup</h3>
@@ -1401,6 +2077,62 @@ Content-Type: application/json
 <td>false</td>
 <td>long</td>
 <td>The order item id associated with the order project.</td>
+</tr>
+</tbody></table>
+<h1 id='errors'>Errors</h1>
+<p>We return the appropriate HTTP Status code when we return an error. Additionally we do our best to provide a human readable error message to help you figure out what went wrong.</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>HTTP Status Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EV_BAD_REQUEST_INVALID_FIELDS</td>
+<td>400</td>
+<td>Request is missing required fields or has failed validation check.</td>
+</tr>
+<tr>
+<td>EV_BAD_REQUEST_TOO_MANY_ITEMS</td>
+<td>400</td>
+<td>Batch request contains too many items.</td>
+</tr>
+<tr>
+<td>EV_BAD_REQUEST_MALFORMED</td>
+<td>400</td>
+<td>Malformed request, e.g. a type mismatch.</td>
+</tr>
+<tr>
+<td>EV_OBJECT_NOT_FOUND</td>
+<td>404</td>
+<td>Unable to locate requested resource.</td>
+</tr>
+<tr>
+<td>EV_UNAUTHORIZED_INVALID_KEY</td>
+<td>401</td>
+<td>Provided Client Key Id is invalid.</td>
+</tr>
+<tr>
+<td>EV_UNAUTHORIZED_MISSING_HEADERS</td>
+<td>401</td>
+<td>Request is missing one of the required headers.</td>
+</tr>
+<tr>
+<td>EV_UNAUTHORIZED_INVALID_SIGNATURE</td>
+<td>401</td>
+<td>Signature provided in <code>X-Evocalize-Signature</code> is not valid.</td>
+</tr>
+<tr>
+<td>EV_UNAUTHORIZED_EXPIRED_REQUEST</td>
+<td>401</td>
+<td>Request timestamp is over 1 minute old.</td>
+</tr>
+<tr>
+<td>EV_INTERNAL_SERVER_ERROR</td>
+<td>500</td>
+<td>We had a problem with our server. Try again later.</td>
 </tr>
 </tbody></table>
 
