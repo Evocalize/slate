@@ -1,4 +1,4 @@
-# Content Access
+# Content Access API
 
 ## Access Basics
 
@@ -9,7 +9,6 @@ Access to a given content item can be defined at the following levels:
 - Group Based
 - Group and Role based
 
-It's important to note that you you can create multiple access records tying content items to multiple 
 The ability to edit the content item can be granted by passing true for the `canEdit` flag. 
 
 ## Get Access Records associated to a repository
@@ -41,7 +40,7 @@ If you decline to pass query params - this call will return all access records a
 
 ### HTTP Request
 
-`GET management/v1/content/{repositorySlug}`
+`GET management/v1/repository/{repositorySlug}/access`
 
 ### URL Params
 
@@ -81,7 +80,7 @@ If you decline to pass query params - this call will return all access records a
 
 ### HTTP Request
 
-`GET management/v1/content/{repositorySlug}/{contentItemId}`
+`GET management/v1/repository/{repositorySlug}/access/item/{contentItemId}`
 
 **Response Codes**:
 
@@ -103,7 +102,7 @@ If you decline to pass query params - this call will return all access records a
 | role | string | false | Query for all records that match the provided role. If this is omitted, all records will be return according to the other criteria provided. |  
 
 
-## Update/Create a single access record
+## Create/Update a single access record
 
 > Access Record Request Payload: Every `group_user` in the group `seattle_office` can use this content item. Can not edit.
 
@@ -149,7 +148,7 @@ If you decline to pass query params - this call will return all access records a
 
 ### HTTP Request
 
-`POST management/v1/content/{repositorySlug}`
+`POST management/v1/repository/{repositorySlug}/access/item`
 
 **Response Codes**:
 
@@ -257,11 +256,11 @@ If you decline to pass query params - this call will return all access records a
 }   
 ```
 
-Removing access follows a very similar pattern to querying for them. One important difference is that you _must_ always pass each field, with `null` being a valid value. Example: If you wanted to remove all the access records for a given `contentItemId` then you would need to set `userId`, `groupId` and `role` as null. If you omit `contentItemId` the operation is applied against the entire `repository`.
+Removing access follows a very similar pattern to querying for them. One important difference is that you _must_ always pass each field, with `null` being a valid value. Example: If you wanted to remove all the access records for a given `contentItemId` then you would need to set `userId`, `groupId` and `role` as null. If you omit `contentItemId` the operation is applied against the entire `repository`. If your query does not match any access records the response will return an empty `json` array.
 
 ### HTTP Request
 
-`DELETE management/v1/content/{repositorySlug}/{contentItemId}`
+`DELETE management/v1/content/{repositorySlug}/{contentItemId}`,
 `DELETE management/v1/content/{repositorySlug}`
 
 **Response Codes**:
