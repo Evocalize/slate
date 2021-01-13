@@ -467,7 +467,7 @@ Content-Type: application/json
 <p>Request signing example</p>
 </blockquote>
 <div class="highlight"><pre class="highlight kotlin tab-kotlin"><code><span class="c1">// Concatenate all the parts</span>
-<span class="kd">val</span> <span class="py">toValidate</span> <span class="p">=</span> <span class="nc">StringBuilder</span><span class="p">()</span>
+<span class="kd">val</span> <span class="py">signatureParts</span> <span class="p">=</span> <span class="nc">StringBuilder</span><span class="p">()</span>
   <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">servletPath</span><span class="p">)</span>
   <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
   <span class="c1">// Omit this block if the request does not have a body</span>
@@ -475,13 +475,12 @@ Content-Type: application/json
   <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
   <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s">"X-Evocalize-Timestamp"</span><span class="p">])</span>
   <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
-  <span class="c1">// append the client key paired with X-Evocalize-Client-Key-Id</span>
-  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">myClientKey</span><span class="p">)</span>
+  <span class="c1">// append the client key secret</span>
+  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">myClientKeySecret</span><span class="p">)</span>
   <span class="p">.</span><span class="nf">toString</span><span class="p">()</span>
 
-<span class="kd">val</span> <span class="py">expectedSignature</span> <span class="p">=</span> <span class="nc">Hashing</span><span class="p">.</span><span class="nf">sha256</span><span class="p">().</span><span class="nf">hashString</span><span class="p">(</span><span class="n">toValidate</span><span class="p">,</span> <span class="nc">Charsets</span><span class="p">.</span><span class="nc">UTF_8</span><span class="p">)</span>
-
-<span class="c1">// expectedSignature will match request.headers["X-Evocalize-Signature"]</span>
+<span class="c1">// Take this value and pass it as the value for the header key "X-Evocalize-Signature"</span>
+<span class="kd">val</span> <span class="py">signature</span> <span class="p">=</span> <span class="nc">Hashing</span><span class="p">.</span><span class="nf">sha256</span><span class="p">().</span><span class="nf">hashString</span><span class="p">(</span><span class="n">signatureParts</span><span class="p">,</span> <span class="nc">Charsets</span><span class="p">.</span><span class="nc">UTF_8</span><span class="p">)</span>
 </code></pre></div>
 <p>For security and identity purposes, we require partners to sign all API requests. The methodology is straight forward. Join the following values with a new line character between each item</p>
 
@@ -489,7 +488,7 @@ Content-Type: application/json
 <li>UrlPath (including path params if present)</li>
 <li>The body of the request (omit if your request does not contain a body, e.g. a GET request)</li>
 <li>Value of the timestamp used in the X-Evocalize-Timestamp Header</li>
-<li>Client Key (this is a secret that will be provided by Evocalize)</li>
+<li>Client Key Secret (this is a secret that will be provided by Evocalize)</li>
 </ul>
 
 <aside class="notice">All code examples below assume that you are passing the required headers described in this section</aside>
