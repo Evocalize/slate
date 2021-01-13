@@ -44,7 +44,7 @@ Content-Type: application/json
 
 ```kotlin
 // Concatenate all the parts
-val toValidate = StringBuilder()
+val signatureParts = StringBuilder()
   .append(request.servletPath)
   .append("\n")
   // Omit this block if the request does not have a body
@@ -52,13 +52,12 @@ val toValidate = StringBuilder()
   .append("\n")
   .append(request.headers["X-Evocalize-Timestamp"])
   .append("\n")
-  // append the client key paired with X-Evocalize-Client-Key-Id
-  .append(myClientKey)
+  // append the client key secret
+  .append(myClientKeySecret)
   .toString()
 
-val expectedSignature = Hashing.sha256().hashString(toValidate, Charsets.UTF_8)
-
-// expectedSignature will match request.headers["X-Evocalize-Signature"]
+// Take this value and pass it as the value for the header key "X-Evocalize-Signature"
+val signature = Hashing.sha256().hashString(signatureParts, Charsets.UTF_8)
 ```
 
 For security and identity purposes, we require partners to sign all API requests. The methodology is straight forward. Join the following values with a new line character between each item
@@ -66,7 +65,7 @@ For security and identity purposes, we require partners to sign all API requests
 - UrlPath (including path params if present)
 - The body of the request (omit if your request does not contain a body, e.g. a GET request)
 - Value of the timestamp used in the X-Evocalize-Timestamp Header
-- Client Key (this is a secret that will be provided by Evocalize)
+- Client Key Secret (this is a secret that will be provided by Evocalize)
 
 <aside class="notice">All code examples below assume that you are passing the required headers described in this section</aside>
 
