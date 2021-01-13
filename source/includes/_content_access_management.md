@@ -54,7 +54,8 @@ If you decline to pass query params - this call will return all access records a
 | --------- | ------ | -------- | ---------------------------------------------- |
 | userId | string | false | Query for all records that match the provided userId. | 
 | groupId | string | false | Query for all records that match the provided groupId, note that this will return records that may or may not have a userId associated with them. |
-| role | string | false | Query for all records that match the provided role. If this is omitted, all records will be return according to the other criteria provided. |  
+| role | string | false | Query for all records that match the provided role. If this is omitted, all records will be return according to the other criteria provided. |
+| deletedOnly | boolean | false | When this is passed we will only return items that have been deleted. |
 
 
 ## Get Access Records associated to a repository and content item
@@ -99,7 +100,9 @@ If you decline to pass query params - this call will return all access records a
 | --------- | ------ | -------- | ---------------------------------------------- |
 | userId | string | false | Query for all records that match the provided userId. | 
 | groupId | string | false | Query for all records that match the provided groupId, note that this will return records that may or may not have a userId associated with them. |
-| role | string | false | Query for all records that match the provided role. If this is omitted, all records will be return according to the other criteria provided. |  
+| role | string | false | Query for all records that match the provided role. If this is omitted, all records will be return according to the other criteria provided. |
+| deletedOnly | boolean | false | When this is passed we will only return items that have been deleted. |
+
 
 
 ## Create/Update a single access record
@@ -138,9 +141,6 @@ If you decline to pass query params - this call will return all access records a
         "groupId": "seattle_office",
         "canEdit": false,
         "role": "group_user",
-        "createdAt": "xxx-xxx-xxx",
-        "updatedAt": "xxxx-xxx-xxx",
-        "deletedAt": null,
         "isDeleted": false
     }
 }
@@ -153,7 +153,6 @@ If you decline to pass query params - this call will return all access records a
 **Response Codes**:
 
 - `201 CREATED`
-
 
 ### Create / Update Access Record Request fields
 
@@ -241,22 +240,13 @@ If you decline to pass query params - this call will return all access records a
 
 ```json
 {
-    "data": [
-        {
-            "contentItemId": "exampleId1",
-            "userId": "seattle_user_1",
-            "groupId": "seattle_office",
-            "canEdit": false,
-            "role": "group_user",
-            "isDeleted": true
-        }, // more records if applicable
-    ],
-    "nextPageToken": "next_page_token", // only present when there is another page
-    "previousPageToken": "previous_page_token" // only present when there is a previous page
+    "data": {
+        "numberOfAccessRecordsDeleted": 5
+    }
 }   
 ```
 
-Removing access follows a very similar pattern to querying for them. One important difference is that you _must_ always pass each field, with `null` being a valid value. Example: If you wanted to remove all the access records for a given `contentItemId` then you would need to set `userId`, `groupId` and `role` as null. If you omit `contentItemId` the operation is applied against the entire `repository`. If your query does not match any access records the response will return an empty `json` array.
+Removing access follows a very similar pattern to querying for them. One important difference is that you _must_ always pass each field, with `null` being a valid value. Example: If you wanted to remove all the access records for a given `contentItemId` then you would need to set `userId`, `groupId` and `role` as null. If you omit `contentItemId` the operation is applied against the entire `repository`. If your query does not match any access records the response will indicate `0`.
 
 ### HTTP Request
 
