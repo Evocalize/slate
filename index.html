@@ -1432,6 +1432,12 @@ Content-Type: application/json
 <td>false</td>
 <td>Query for all records that match the provided role. If this is omitted, all records will be return according to the other criteria provided.</td>
 </tr>
+<tr>
+<td>deletedOnly</td>
+<td>boolean</td>
+<td>false</td>
+<td>When this is passed we will only return items that have been deleted.</td>
+</tr>
 </tbody></table>
 <h2 id='get-access-records-associated-to-a-repository-and-content-item'>Get Access Records associated to a repository and content item</h2>
 <blockquote>
@@ -1508,6 +1514,12 @@ Content-Type: application/json
 <td>false</td>
 <td>Query for all records that match the provided role. If this is omitted, all records will be return according to the other criteria provided.</td>
 </tr>
+<tr>
+<td>deletedOnly</td>
+<td>boolean</td>
+<td>false</td>
+<td>When this is passed we will only return items that have been deleted.</td>
+</tr>
 </tbody></table>
 <h2 id='create-update-a-single-access-record'>Create/Update a single access record</h2>
 <blockquote>
@@ -1542,9 +1554,6 @@ Content-Type: application/json
         </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"canEdit"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
         </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_user"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-xxx"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxx-xxx-xxx"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"deletedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
         </span><span class="nl">"isDeleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1664,21 +1673,12 @@ Content-Type: application/json
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"contentItemId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleId1"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_user_1"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"canEdit"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_user"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"isDeleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-        </span><span class="p">},</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">records</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">applicable</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"next_page_token"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">another</span><span class="w"> </span><span class="err">page</span><span class="w">
-    </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"previous_page_token"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">previous</span><span class="w"> </span><span class="err">page</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"numberOfAccessRecordsDeleted"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">   
 </span></code></pre></div>
-<p>Removing access follows a very similar pattern to querying for them. One important difference is that you <em>must</em> always pass each field, with <code>null</code> being a valid value. Example: If you wanted to remove all the access records for a given <code>contentItemId</code> then you would need to set <code>userId</code>, <code>groupId</code> and <code>role</code> as null. If you omit <code>contentItemId</code> the operation is applied against the entire <code>repository</code>. If your query does not match any access records the response will return an empty <code>json</code> array.</p>
+<p>Removing access follows a very similar pattern to querying for them. One important difference is that you <em>must</em> always pass each field, with <code>null</code> being a valid value. Example: If you wanted to remove all the access records for a given <code>contentItemId</code> then you would need to set <code>userId</code>, <code>groupId</code> and <code>role</code> as null. If you omit <code>contentItemId</code> the operation is applied against the entire <code>repository</code>. If your query does not match any access records the response will indicate <code>0</code>.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>DELETE management/v1/content/{repositorySlug}/{contentItemId}</code>,
 <code>DELETE management/v1/content/{repositorySlug}</code></p>
