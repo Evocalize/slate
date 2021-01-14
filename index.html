@@ -393,6 +393,9 @@
                     <a href="#create-update-a-single-access-record" class="toc-h2 toc-link" data-title="Create/Update a single access record">Create/Update a single access record</a>
                   </li>
                   <li>
+                    <a href="#create-update-access-record-batch" class="toc-h2 toc-link" data-title="Create / Update Access Record Batch">Create / Update Access Record Batch</a>
+                  </li>
+                  <li>
                     <a href="#delete-access-record" class="toc-h2 toc-link" data-title="Delete Access Record">Delete Access Record</a>
                   </li>
               </ul>
@@ -1604,6 +1607,65 @@ Content-Type: application/json
 <td>Sets whether or not the users this access record applies too are allowed to edit the content.</td>
 </tr>
 </tbody></table>
+<h2 id='create-update-access-record-batch'>Create / Update Access Record Batch</h2>
+<blockquote>
+<p>Batch Create Or Update Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"contentItemId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleId1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_user_1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"canEdit"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_user"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"contentItemId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleId2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_user_1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"canEdit"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Create and Update Batch Repsonse</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"reportId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HG3SrEndQch8dAZbjwBV"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to pass a JSON Array of Access Record Request objects for creation or updating. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
+
+<p>The JSON objects passed in the array are the same as the ones listed in Create Or Update Access Record.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>POST management/v1/repository/{repositoryId}/access/items</code></p>
+<h3 id='url-params-3'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repositoryId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the repository in which you are wanting to create or update items</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>202 ACCEPTED</code> - List has been received and submitted for processing.</li>
+<li><code>400 BAD REQUEST</code> - Malformed request.</li>
+</ul>
 <h2 id='delete-access-record'>Delete Access Record</h2>
 <blockquote>
 <p>Remove Single Access for a given Content Item Record Request Payload (Request Includes <code>/{contentItemId}</code>).</p>
@@ -1678,7 +1740,7 @@ Content-Type: application/json
 </span><span class="p">}</span><span class="w">   
 </span></code></pre></div>
 <p>Removing access follows a very similar pattern to querying for them. One important difference is that you <em>must</em> always pass each field, with <code>null</code> being a valid value. Example: If you wanted to remove all the access records for a given <code>contentItemId</code> then you would need to set <code>userId</code>, <code>groupId</code> and <code>role</code> as null. If you omit <code>contentItemId</code> the operation is applied against the entire <code>repository</code>. If your query does not match any access records the response will indicate <code>0</code>.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
 <p><code>DELETE management/v1/content/{repositorySlug}/{contentItemId}</code>,
 <code>DELETE management/v1/content/{repositorySlug}</code></p>
 
@@ -1687,7 +1749,7 @@ Content-Type: application/json
 <ul>
 <li><code>200 OK</code></li>
 </ul>
-<h3 id='url-params-3'>URL Params</h3>
+<h3 id='url-params-4'>URL Params</h3>
 <table><thead>
 <tr>
 <th>URL Param</th>
