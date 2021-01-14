@@ -164,6 +164,59 @@ If you decline to pass query params - this call will return all access records a
 | role                                           | false    | string | The role this access row applies too. Valid roles are `group_user`, `group_admin`. If you do not want to provide access based on role - pass `any`|
 | canEdit                                        | false    | boolean| Sets whether or not the users this access record applies too are allowed to edit the content. |
 
+## Create / Update Access Record Batch
+
+> Batch Create Or Update Request
+
+```json
+[
+    {
+        "contentItemId": "exampleId1",
+        "userId": "seattle_user_1",
+        "groupId": "seattle_office",
+        "canEdit": false,
+        "role": "group_user"
+    },
+    {
+        "contentItemId": "exampleId2",
+        "userId": "seattle_user_1",
+        "groupId": "seattle_office",
+        "canEdit": false,
+        "role": "group_admin"
+    }
+  // ...
+]
+```
+
+> Create and Update Batch Repsonse
+
+```json
+{
+  "data": {
+    "reportId": "HG3SrEndQch8dAZbjwBV"
+  }
+}
+```
+
+This endpoint allows you to pass a JSON Array of Access Record Request objects for creation or updating. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a `report_id` which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.
+
+The JSON objects passed in the array are the same as the ones listed in Create Or Update Access Record.
+
+### HTTP Request
+
+`POST management/v1/repository/{repositoryId}/access/items`
+
+### URL Params
+
+| URL Param    | Required | type   | Description                                                                 |
+| ------------ | -------- | ------ | --------------------------------------------------------------------------- |
+| repositoryId | true     | String | The ID of the repository in which you are wanting to create or update items |
+
+**Response Codes**:
+
+- `202 ACCEPTED` - List has been received and submitted for processing.
+- `400 BAD REQUEST` - Malformed request.
+
 ## Delete Access Record
 
 > Remove Single Access for a given Content Item Record Request Payload (Request Includes `/{contentItemId}`).
