@@ -24,7 +24,7 @@ The ability to edit the content item can be granted by passing true for the `can
             "groupId": "seattle_office",
             "canEdit": false,
             "role": "group_user",
-            "isDeleted": false
+            "deleted": false
         }, // more records if applicable
     ],
     "nextPageToken": "next_page_token", // only present when there is another page
@@ -71,7 +71,7 @@ If you decline to pass query params - this call will return all access records a
             "groupId": "seattle_office",
             "canEdit": false,
             "role": "group_user",
-            "isDeleted": false
+            "deleted": false
         }, // more records if applicable
     ],
     "nextPageToken": "next_page_token", // only present when there is another page
@@ -141,7 +141,7 @@ If you decline to pass query params - this call will return all access records a
         "groupId": "seattle_office",
         "canEdit": false,
         "role": "group_user",
-        "isDeleted": false
+        "deleted": false
     }
 }
 ```
