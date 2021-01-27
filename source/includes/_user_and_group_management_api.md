@@ -187,6 +187,40 @@ The group you want to associate with the user MUST exist prior to making this ca
 - `201 CREATED` - Returning the newly created or updated user.
 - `400 BAD REQUEST` - When the request is malformed or you attempt to associate to a non existant group.
 
+## Get User Associated Facebook Pages
+
+> Get User Associated Facebook Pages Response
+
+```json
+{
+  "data": [
+    {
+      "id": "12309817412312",
+      "facebookPageName": "Big Time Facebook Page",
+      "facebookPageId": "1231412312",
+      "instagramId": "1231243154123"
+    }
+  ]
+}
+```
+
+Returns a list of Facebook pages associated to the user.
+
+### HTTP Request
+
+`GET management/v1/user/{userId}/facebook/pages`
+
+### URL Params
+
+| URL Param | type   | Required | Description                                    |
+| --------- | ------ | -------- | ---------------------------------------------- |
+| userId    | String | true     | The ID of the user whose pages you want to view |
+
+**Response Codes**:
+
+- `200 OK ` status code on sucess
+- `404 NOT FOUND` when it can't locate the user.
+
 ## Create Or Update User Batch
 
 > Batch Create Request
