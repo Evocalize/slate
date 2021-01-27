@@ -2,6 +2,7 @@
 title: Management API Reference
 
 includes:
+  - _jwt_token
   - _user_and_group_management_api
   - _content_management_api
   - _content_access_management
