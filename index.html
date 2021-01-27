@@ -330,6 +330,9 @@
                     <a href="#create-or-update-user" class="toc-h2 toc-link" data-title="Create Or Update User">Create Or Update User</a>
                   </li>
                   <li>
+                    <a href="#get-user-associated-facebook-pages" class="toc-h2 toc-link" data-title="Get User Associated Facebook Pages">Get User Associated Facebook Pages</a>
+                  </li>
+                  <li>
                     <a href="#create-or-update-user-batch" class="toc-h2 toc-link" data-title="Create Or Update User Batch">Create Or Update User Batch</a>
                   </li>
                   <li>
@@ -841,6 +844,47 @@ Content-Type: application/json
 <li><code>201 CREATED</code> - Returning the newly created or updated user.</li>
 <li><code>400 BAD REQUEST</code> - When the request is malformed or you attempt to associate to a non existant group.</li>
 </ul>
+<h2 id='get-user-associated-facebook-pages'>Get User Associated Facebook Pages</h2>
+<blockquote>
+<p>Get User Associated Facebook Pages Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12309817412312"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"facebookPageName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Big Time Facebook Page"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"facebookPageId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1231412312"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"instagramId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1231243154123"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Returns a list of Facebook pages associated to the user.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET management/v1/user/{userId}/facebook/pages</code></p>
+<h3 id='url-params-2'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>String</td>
+<td>true</td>
+<td>The ID of the user whose pages you want to view</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> status code on sucess</li>
+<li><code>404 NOT FOUND</code> when it can&#39;t locate the user.</li>
+</ul>
 <h2 id='create-or-update-user-batch'>Create Or Update User Batch</h2>
 <blockquote>
 <p>Batch Create Request</p>
@@ -893,7 +937,7 @@ Content-Type: application/json
 <p>This endpoint allows you to pass a JSON Array of User Request objects for creation or updating. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
 
 <p>The JSON objects passed in the array are the same as the ones listed in Create Or Update User.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
 <p><code>POST management/v1/users</code></p>
 
 <p><strong>Response Codes</strong>:</p>
@@ -909,7 +953,7 @@ Content-Type: application/json
 <div class="highlight"><pre class="highlight plaintext"><code>No Body returned
 </code></pre></div>
 <p>Deactivates all active programs for a given user placing them in an inactive state.</p>
-<h3 id='http-request-5'>HTTP Request</h3>
+<h3 id='http-request-6'>HTTP Request</h3>
 <p><code>DELETE management/v1/user/{userId}</code></p>
 
 <p><strong>Response Codes</strong>:</p>
@@ -945,7 +989,7 @@ Content-Type: application/json
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Returns all groups. This is a paginated response - returning 100 results per page with optional page tokens to go to the next page and previous page if they exist.</p>
-<h3 id='http-request-6'>HTTP Request</h3>
+<h3 id='http-request-7'>HTTP Request</h3>
 <p><code>GET management/v1/groups</code></p>
 <h3 id='request-params-2'>Request Params</h3>
 <table><thead>
@@ -987,7 +1031,7 @@ Content-Type: application/json
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Endpoint for creating new groups or updating existing ones.</p>
-<h3 id='http-request-7'>HTTP Request</h3>
+<h3 id='http-request-8'>HTTP Request</h3>
 <p><code>POST management/v1/group</code></p>
 <h3 id='create-update-group-properties'>Create / Update Group Properties</h3>
 <table><thead>
@@ -1039,7 +1083,7 @@ Content-Type: application/json
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Endpoint that allows you to pass a JSON Array of Group Request objects for creation. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
-<h3 id='http-request-8'>HTTP Request</h3>
+<h3 id='http-request-9'>HTTP Request</h3>
 <p><code>POST management/v1/groups</code></p>
 
 <p><strong>Response Codes</strong>:</p>
