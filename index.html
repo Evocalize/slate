@@ -318,6 +318,20 @@
               </ul>
           </li>
           <li>
+            <a href="#jwt-access-tokens" class="toc-h1 toc-link" data-title="JWT Access Tokens">JWT Access Tokens</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#jwt-basics" class="toc-h2 toc-link" data-title="JWT Basics">JWT Basics</a>
+                  </li>
+                  <li>
+                    <a href="#domains-variables-etc" class="toc-h2 toc-link" data-title="Domains, Variables, etc.">Domains, Variables, etc.</a>
+                  </li>
+                  <li>
+                    <a href="#authentication-flow" class="toc-h2 toc-link" data-title="Authentication Flow">Authentication Flow</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#user-management-api" class="toc-h1 toc-link" data-title="User Management API">User Management API</a>
               <ul class="toc-list-h2">
                   <li>
@@ -578,6 +592,61 @@ Content-Type: application/json
 <td>JSON object containing extra data around requests and responses. This data is subject to change and should not be relied on.</td>
 </tr>
 </tbody></table>
+<h1 id='jwt-access-tokens'>JWT Access Tokens</h1><h2 id='jwt-basics'>JWT Basics</h2>
+<p>The primary technology/concept used for authentication between our two systems is a JSON Web Token. The following link has documentation that you may find useful.</p>
+
+<ul>
+<li>https://jwt.io/​ - Documentation on all things JWT. On this site, you can learn all there is to
+know about the standard, libraries to use, test out the tokens you generate, etc.</li>
+</ul>
+
+<p>To create a valid JWT you will need to sign it with your evocalize <code>jwt_secret</code>. We will provide this value to you.</p>
+<h2 id='domains-variables-etc'>Domains, Variables, etc.</h2><h3 id='variables-you-provide-to-evocalize'>Variables you provide to Evocalize</h3>
+<p>You will need you provide us with Login URL&#39;s to send a user if the arrive on the site unauthenticated or their JWT token expires. Typically we recommend having both a staging and a production endpoint
+when integrating.</p>
+<h3 id='sso-endpoints-for-evocalize-web-app'>SSO Endpoints for Evocalize Web App</h3>
+<p>This is where you will redirect your users after generating a JWT for them on your SSO page. See below for information you need to pass to this endpoint.</p>
+
+<ul>
+<li>Staging:​ ​https://office-staging.your-white-label-domain.com/#/sso?token=&lt;...&gt;</li>
+<li>Production: ​https://office.your-white-label-domain.com/#/sso?token=&lt;...&gt;</li>
+</ul>
+<h2 id='authentication-flow'>Authentication Flow</h2>
+<blockquote>
+<p>JWT Auth flow psuedo code example</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+<span class="c1">// 0. Authenticate the user in your system to verify they are who they say they are.</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">authenticate</span><span class="p">();</span>
+
+<span class="c1">// 1. Generate a JWT with the "sub" set to include the userId (same ID passed to Evocalize in API calls or feed files)</span>
+<span class="c1">// note: `jwt_secret` will be provided by Evocalize</span>
+<span class="c1">// here is an example JWT payload that we need you to generate:</span>
+<span class="kd">const</span> <span class="nx">userJwtBlob</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">sub</span><span class="p">:</span> <span class="dl">'</span><span class="s1">yourOrg|</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="c1">// where yourOrg is the value we provide you with and user.id with the ID you send in API calls or feed files.</span>
+    <span class="na">iat</span><span class="p">:</span> <span class="mi">1563831852</span><span class="p">,</span> <span class="c1">// "Issued At" (seconds since Unix Epoch)</span>
+    <span class="na">exp</span><span class="p">:</span> <span class="mi">1563918252</span> <span class="c1">// "Expires At" (seconds since Unix Epoch)</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">jwt</span> <span class="o">=</span> <span class="nx">generateJwt</span><span class="p">(</span><span class="nx">userJwtBlob</span><span class="p">,</span> <span class="nx">jwtSecret</span><span class="p">);</span>
+
+<span class="c1">// 2. Redirect the user to a new Evocalize SSO endpoint with the JWT</span>
+<span class="nx">redirectUser</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://office.your-white-label-domain.com/#/ss?token=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">jwt</span><span class="p">);</span>
+
+</code></pre></div>
+<p>You will need to create a new SSO endpoint (or update your current one) to generate a
+token for your users using a secret key provided by Evocalize. You can then send your
+users to a specific endpoint to get them seamlessly authenticated in our application.
+The following workflow shows an example end-to-end process. Some of it is in pseudo
+code to keep things succinct. If any portions require clarity, please reach out to us and
+we can assist you further.</p>
+<h3 id='flow'>Flow</h3>
+<ul>
+<li>User navigates to your new (or existing) SSO endpoint.</li>
+<li>User signs in (or is already authenticated).</li>
+<li>Generate a JWT (JavaScript example on the right).</li>
+<li>Evocalize Office UI loads on/sso and the user is authenticated.</li>
+</ul>
 <h1 id='user-management-api'>User Management API</h1><h2 id='get-user'>Get User</h2>
 <blockquote>
 <p>Get User Response</p>
