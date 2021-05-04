@@ -141,7 +141,7 @@ The potential values of leadForm and content depends upon your imported data and
 | leads[].program.programId                      | false    | long   | The evocalize program id associated with this lead.                                                     |
 | leads[].program.programName                    | false    | long   | The name of the program that published this ad.                                                         |
 | leads[].program.programDescription             | true     | string | The description of the program that published this ad.                                                  |
-| leads[].program.programVariables               | true     | object | An object map containing values specific to your application. If you have values that you need our API to return for this field, please contact your Evocalize account representative. |
+| leads[].program.programVariables               | true     | object | A key-value map containing values specific to your application. If you have values that you need our API to return for this field, please contact your Evocalize account representative. |
 | leads[].order                                  | true     | object |                                                                                                         |
 | leads[].order.orderId                          | false    | long   | The order id associated with the program.                                                               |
 | leads[].order.userId                           | false    | string | The user id associated with this order. This is the id in your system.                                  |
