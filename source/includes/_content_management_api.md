@@ -257,7 +257,7 @@ The JSON objects passed in the array are the same as the ones listed in Create O
 
 ### HTTP Request
 
-`POST management/v1/repository/{repositoryId}/items`
+`DELETE management/v1/repository/{repositoryId}/items`
 
 ### URL Params
 
