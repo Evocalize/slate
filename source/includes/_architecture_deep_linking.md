@@ -30,9 +30,10 @@ contentFilter=%7B%22status%22%3A%20%7B%22contains%22%3A%20%22Sold%22%7D%7D
 All query parameters must be properly encoded URI components. For further information on this, please see documentation
 [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent)
 
-| Query Param    | Required | type         | Description                                          |
-| -------------- | -------- | ------------ | ---------------------------------------------------- |
-| contentFilter  | false    | Encoded JSON | JSON enabling filtering of content                   |
+| Query Param    | Required | type         | Description                                                             |
+| -------------- | -------- | ------------ | ----------------------------------------------------------------------- |
+| contentFilter  | false    | Encoded JSON | JSON enabling filtering of content                                      |
+| sideNav        | false    | String       | "closed" or "open" to control whether or not the left nav is displayed. |
 
 ## Currently Running Programs
 
@@ -70,7 +71,20 @@ The following parameters can be used on their own or together to pre-select form
 user. These can help reduce steps for users to place an order by pre-selecting things like content or a
 Blueprint. Users can still change these values once the page has loaded.
 
-| Query Param    | Required | type         | Description                                                            |
-| -------------- | -------- | ------------ | ---------------------------------------------------------------------- |
-| productIds     | false    | Int          | A single blueprint ID. Pre-selects the blueprint for program creation. |
-| contentIds     | false    | Int Array    | Comma-separated IDs. Pre-selects content to be used for the program.   |
+| Query Param    | Required | type         | Description                                                             |
+| -------------- | -------- | ------------ | ----------------------------------------------------------------------- |
+| productIds     | false    | Int          | A single blueprint ID. Pre-selects the blueprint for program creation.  |
+| contentIds     | false    | Int Array    | Comma-separated IDs. Pre-selects content to be used for the program.    |
+| sideNav        | false    | String       | "closed" or "open" to control whether or not the left nav is displayed. |
+
+## Automated Program Creation
+
+This URL will take a user to the automated program creation screen.
+
+### Base URL
+
+`/#/architecture/<ARCHITECTURE_ID>/automatedProgramCreate`
+
+| Query Param    | Required | type         | Description                                                             |
+| -------------- | -------- | ------------ | ----------------------------------------------------------------------- |
+| sideNav        | false    | String       | "closed" or "open" to control whether or not the left nav is displayed. |
