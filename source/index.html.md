@@ -9,6 +9,7 @@ includes:
   - _batch_report_api
   - _webhook_integration
   - _errors
+  - _architecture_deep_linking
 ---
 
 # Introduction
