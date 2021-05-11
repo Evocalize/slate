@@ -436,6 +436,23 @@
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
+          <li>
+            <a href="#architecture-deep-linking" class="toc-h1 toc-link" data-title="Architecture Deep Linking">Architecture Deep Linking</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#content" class="toc-h2 toc-link" data-title="Content">Content</a>
+                  </li>
+                  <li>
+                    <a href="#currently-running-programs" class="toc-h2 toc-link" data-title="Currently Running Programs">Currently Running Programs</a>
+                  </li>
+                  <li>
+                    <a href="#program-creation-purchase-base" class="toc-h2 toc-link" data-title="Program Creation/Purchase Base">Program Creation/Purchase Base</a>
+                  </li>
+                  <li>
+                    <a href="#automated-program-creation" class="toc-h2 toc-link" data-title="Automated Program Creation">Automated Program Creation</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
     </div>
     <div class="page-wrapper">
@@ -2319,6 +2336,213 @@ we can assist you further.</p>
 <td>We had a problem with our server. Try again later.</td>
 </tr>
 </tbody></table>
+<h1 id='architecture-deep-linking'>Architecture Deep Linking</h1><h2 id='content'>Content</h2>
+<p>The following information explains how to generate a deep link to take a user to view all of their content under a
+specific architecture.</p>
+<h3 id='base-url'>Base URL</h3>
+<p><code>/#/architecture/&lt;ARCHITECTURE_ID&gt;/content</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<blockquote>
+<p>Content Filter Example - adding an automatic filter on the status attribute where the value contains &quot;Sold&quot;</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>contentFilter=%7B%22status%22%3A%20%7B%22contains%22%3A%20%22Sold%22%7D%7D
+</code></pre></div>
+<blockquote>
+<p>The raw value from the example above is</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>{
+  "status": {
+    "contains": "Sold"
+  }
+}
+</code></pre></div>
+<p>All query parameters must be properly encoded URI components. For further information on this, please see documentation
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">here</a></p>
+
+<table><thead>
+<tr>
+<th>Query Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contentFilter</td>
+<td>false</td>
+<td>Encoded JSON</td>
+<td>JSON enabling filtering of content</td>
+</tr>
+<tr>
+<td>sideNav</td>
+<td>false</td>
+<td>String</td>
+<td>&quot;closed&quot; or &quot;open&quot; to control whether or not the left nav is displayed.</td>
+</tr>
+</tbody></table>
+<h2 id='currently-running-programs'>Currently Running Programs</h2>
+<p>The link below is where you should send users to view all the purchases they have made for a specific architecture.</p>
+<h3 id='base-url-2'>Base URL</h3>
+<p><code>/#/architecture/&lt;ARCHITECTURE_ID&gt;/programs</code></p>
+<h3 id='query-parameters-2'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Query Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sideNav</td>
+<td>false</td>
+<td>String</td>
+<td>&quot;closed&quot; or &quot;open&quot; to control whether or not the left nav is displayed.</td>
+</tr>
+</tbody></table>
+<h2 id='program-creation-purchase-base'>Program Creation/Purchase Base</h2>
+<p>This URL will take a user to the order process without a Blueprint or any items selected (they will be prompted to
+select both in the UI):</p>
+<h3 id='base-url-3'>Base URL</h3>
+<p><code>/#/architecture/&lt;ARCHITECTURE_ID&gt;/programCreate</code></p>
+<h3 id='query-parameters-3'>Query Parameters</h3>
+<blockquote>
+<p>Send a user to the place order page with a specific blueprint selected</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>/#/architecture/&lt;ARCHITECTURE_ID&gt;/programCreate?productIds=&lt;BLUEPRINT_ID&gt;
+</code></pre></div>
+<blockquote>
+<p>Send a user to the place order page with a blueprint selected and one of their items selected</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>/#/architecture/&lt;ARCHITECTURE_ID&gt;/programCreate?productIds=&lt;BLUEPRINT_ID&gt;&amp;contentIds=&lt;CONTENT_ID_1&gt;
+</code></pre></div>
+<p>The following parameters can be used on their own or together to pre-select form field options for a user. These can
+help reduce steps for users to place an order by pre-selecting things like content or a Blueprint. Users can still
+change these values once the page has loaded.</p>
+
+<table><thead>
+<tr>
+<th>Query Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>productIds</td>
+<td>false</td>
+<td>Int</td>
+<td>A single blueprint ID. Pre-selects the blueprint for program creation.</td>
+</tr>
+<tr>
+<td>contentIds</td>
+<td>false</td>
+<td>Int Array</td>
+<td>Comma-separated IDs. Pre-selects content to be used for the program.</td>
+</tr>
+<tr>
+<td>sideNav</td>
+<td>false</td>
+<td>String</td>
+<td>&quot;closed&quot; or &quot;open&quot; to control whether or not the left nav is displayed.</td>
+</tr>
+</tbody></table>
+<h2 id='automated-program-creation'>Automated Program Creation</h2>
+<p>This URL will take a user to the automated program creation screen.</p>
+<h3 id='base-url-4'>Base URL</h3>
+<p><code>/#/architecture/&lt;ARCHITECTURE_ID&gt;/automatedProgramCreate</code></p>
+<h3 id='query-parameters-4'>Query Parameters</h3>
+<blockquote>
+<p>Filter JSON example</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>[
+    {
+        "column": "agent_name",
+        "rules": [
+            { "operator": "eq", "value": "Jim FakeName" },
+            { "operator": "eq", "value": "Jane FakeName" }
+        ]
+    },
+    {
+        "column": "price",
+        "rules": [
+            { "operator": "range", "value": { "gt": 1000000, "lt": 2000000 } }
+        ]
+    }
+]
+</code></pre></div>
+<blockquote>
+<p>Remove unnecessary white space. As long as all the white space is url encoded this step
+is not required, but it results in a shorter url. Take care not to remove space in string 
+values e.g. &quot;New York&quot; vs &quot;NewYork&quot;</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>[{"column":"agent_name","rules":[{"operator":"eq","value":"Jim FakeName"},{"operator":"eq","value":"Jane FakeName"}]},{"column":"price","rules":[{"operator":"range","value":{"gt":1000000,"lt":2000000}}]}]
+</code></pre></div>
+<blockquote>
+<p>Convert to url parameter</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>filters=%5B%7B%22column%22%3A%22agent_name%22%2C%22rules%22%3A%5B%7B%22operator%22%3A%22eq%22%2C%22value%22%3A%22Jim%20FakeName%22%7D%2C%7B%22operator%22%3A%22eq%22%2C%22value%22%3A%22Jane%20FakeName%22%7D%5D%7D%2C%7B%22column%22%3A%22price%22%2C%22rules%22%3A%5B%7B%22operator%22%3A%22range%22%2C%22value%22%3A%7B%22gt%22%3A1000000%2C%22lt%22%3A2000000%7D%7D%5D%7D%5D 
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Query Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sideNav</td>
+<td>false</td>
+<td>String</td>
+<td>&quot;closed&quot; or &quot;open&quot; to control whether or not the left nav is displayed.</td>
+</tr>
+<tr>
+<td>filters</td>
+<td>false</td>
+<td>encoded JSON</td>
+<td>A json array of filters with the column you are filtering, along with an array of rules with operator and value.</td>
+</tr>
+<tr>
+<td>showWizard</td>
+<td>false</td>
+<td>boolean</td>
+<td>Whether or not the automated programs wizard should be displayed. Defaults to true if not provided.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Filters</strong></p>
+
+<p>As explained in the query param table above, <code>filters</code> is a json array of filters with the column you are filtering, along
+with an array of rules with operator and value:</p>
+
+<ul>
+<li>&quot;column&quot;: the content column you are filtering e.g. &quot;num_bath&quot; or &quot;city&quot;</li>
+<li>&quot;rules&quot;: list of operator value pairs eg: rules: <code>[{&quot;operator&quot;:&quot;contains&quot;,&quot;value&quot;:&quot;Seattle&quot;}]</code>
+
+<ul>
+<li>&quot;operator&quot; (meaning - Column|Types):
+
+<ul>
+<li>&quot;eq&quot; - (equals - String|Number|Date)</li>
+<li>&quot;contains&quot; - (contains - String)</li>
+<li>&quot;gt&quot; - (greater than - Number)</li>
+<li>&quot;lt&quot; - (less than - Number)</li>
+<li>&quot;range&quot; - (between 2 - Number)</li>
+<li>&quot;after&quot; - (after - Date)</li>
+<li>&quot;before&quot; - (before - Date)</li>
+<li>&quot;is_true&quot; - true</li>
+<li>&quot;is_false&quot; - false</li>
+</ul></li>
+<li>value - the value e.g
+
+<ul>
+<li>use empty string &quot;&quot; for Boolean (true false) types e.g. {&quot;operator&quot;:&quot;is_true&quot;,&quot;value&quot;:&quot;&quot;}</li>
+<li>use no &quot;&quot; for number types e.g. {&quot;operator&quot;:&quot;gt&quot;,&quot;value&quot;:100}</li>
+<li>range is a special case. eg. between 100-2,000: &quot;value&quot;:{&quot;gt&quot;:100,&quot;lt&quot;:2000}</li>
+</ul></li>
+</ul></li>
+</ul>
 
       </div>
       <div class="dark-box">
