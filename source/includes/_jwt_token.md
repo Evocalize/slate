@@ -60,7 +60,7 @@ we can assist you further.
 - User navigates to your new (or existing) SSO endpoint.
 - User signs in (or is already authenticated).
 - Generate a JWT (JavaScript example on the right).
-- Redirect the user to the `/sso` endpoint providing the JWT as the value for
+- Redirect the user to the `/sso` endpoint, providing the JWT as the value for
   the `token` query parameter.
 - If successful, the user is authenticated, and the Evocalize Office UI loads.
   If an error or some failure occurs, then an error screen is displayed with a "try again"
