@@ -619,7 +619,7 @@ know about the standard, libraries to use, test out the tokens you generate, etc
 
 <p>To create a valid JWT you will need to sign it with your evocalize <code>jwt_secret</code>. We will provide this value to you.</p>
 <h2 id='domains-variables-etc'>Domains, Variables, etc.</h2><h3 id='variables-you-provide-to-evocalize'>Variables you provide to Evocalize</h3>
-<p>You will need you provide us with Login URL&#39;s to send a user if the arrive on the site unauthenticated or their JWT token expires. Typically we recommend having both a staging and a production endpoint
+<p>You will need you provide us with Login URL&#39;s to send a user if the arrive on the site unauthenticated or their JWT token expires. Typically, we recommend having both a staging and a production endpoint
 when integrating.</p>
 <h3 id='sso-endpoints-for-evocalize-web-app'>SSO Endpoints for Evocalize Web App</h3>
 <p>This is where you will redirect your users after generating a JWT for them on your SSO page. See below for information you need to pass to this endpoint.</p>
@@ -630,7 +630,7 @@ when integrating.</p>
 </ul>
 <h2 id='authentication-flow'>Authentication Flow</h2>
 <blockquote>
-<p>JWT Auth flow psuedo code example</p>
+<p>JWT Auth flow pseudo code example</p>
 </blockquote>
 <div class="highlight"><pre class="highlight javascript tab-javascript"><code>
 <span class="c1">// 0. Authenticate the user in your system to verify they are who they say they are.</span>
@@ -648,7 +648,7 @@ when integrating.</p>
 <span class="kd">const</span> <span class="nx">jwt</span> <span class="o">=</span> <span class="nx">generateJwt</span><span class="p">(</span><span class="nx">userJwtBlob</span><span class="p">,</span> <span class="nx">jwtSecret</span><span class="p">);</span>
 
 <span class="c1">// 2. Redirect the user to a new Evocalize SSO endpoint with the JWT</span>
-<span class="nx">redirectUser</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://office.your-white-label-domain.com/#/ss?token=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">jwt</span><span class="p">);</span>
+<span class="nx">redirectUser</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://your-white-label-domain.com/#/sso?token=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">jwt</span><span class="p">);</span>
 
 </code></pre></div>
 <p>You will need to create a new SSO endpoint (or update your current one) to generate a
@@ -1520,7 +1520,7 @@ we can assist you further.</p>
 <li><code>200 OK</code></li>
 </ul>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET management/v1/repository/{repositorySlug}/access</code></p>
+<p><code>GET management/v1/repository/{repositoryId}/access</code></p>
 <h3 id='url-params'>URL Params</h3>
 <table><thead>
 <tr>
@@ -1531,10 +1531,10 @@ we can assist you further.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>repositorySlug</td>
+<td>repositoryId</td>
 <td>String</td>
 <td>true</td>
-<td>The slug of the content repository whose access records you wish to view.</td>
+<td>The ID of the content repository whose access records you wish to view.</td>
 </tr>
 </tbody></table>
 <h3 id='request-query-params'>Request Query Params</h3>
@@ -1590,7 +1590,7 @@ we can assist you further.</p>
     </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"previous_page_token"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">previous</span><span class="w"> </span><span class="err">page</span><span class="w">
 </span><span class="p">}</span><span class="w">   
 </span></code></pre></div><h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET management/v1/repository/{repositorySlug}/access/item/{contentItemId}</code></p>
+<p><code>GET management/v1/repository/{repositoryId}/access/item/{contentItemId}</code></p>
 
 <p><strong>Response Codes</strong>:</p>
 
@@ -1607,16 +1607,16 @@ we can assist you further.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>repositorySlug</td>
+<td>repositoryId</td>
 <td>string</td>
 <td>true</td>
-<td>The slug of the content repository whose access records you wish to view</td>
+<td>The ID of the content repository whose access records you wish to view</td>
 </tr>
 <tr>
 <td>contentItemId</td>
 <td>string</td>
 <td>true</td>
-<td>The Id of the content item whose access records you wish to view</td>
+<td>The ID of the content item whose access records you wish to view</td>
 </tr>
 </tbody></table>
 <h3 id='request-query-params-2'>Request Query Params</h3>
@@ -1690,7 +1690,7 @@ we can assist you further.</p>
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request-3'>HTTP Request</h3>
-<p><code>POST management/v1/repository/{repositorySlug}/access/item</code></p>
+<p><code>POST management/v1/repository/{repositoryId}/access/item</code></p>
 
 <p><strong>Response Codes</strong>:</p>
 
@@ -1871,8 +1871,8 @@ we can assist you further.</p>
 </span></code></pre></div>
 <p>Removing access follows a very similar pattern to querying for them. One important difference is that you <em>must</em> always pass each field, with <code>null</code> being a valid value. Example: If you wanted to remove all the access records for a given <code>contentItemId</code> then you would need to set <code>userId</code>, <code>groupId</code> and <code>role</code> as null. If you omit <code>contentItemId</code> the operation is applied against the entire <code>repository</code>. If your query does not match any access records the response will indicate <code>0</code>.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>DELETE management/v1/content/{repositorySlug}/{contentItemId}</code>,
-<code>DELETE management/v1/content/{repositorySlug}</code></p>
+<p><code>DELETE management/v1/repository/{repositoryId}/access/item/{contentItemId}</code>,
+<code>DELETE management/v1/repository/{repositoryId}/access</code></p>
 
 <p><strong>Response Codes</strong>:</p>
 
