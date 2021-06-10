@@ -14,7 +14,7 @@ To create a valid JWT you will need to sign it with your evocalize `jwt_secret`.
 
 ### Variables you provide to Evocalize
 
-You will need you provide us with Login URL's to send a user if the arrive on the site unauthenticated or their JWT token expires. Typically we recommend having both a staging and a production endpoint
+You will need you provide us with Login URL's to send a user if the arrive on the site unauthenticated or their JWT token expires. Typically, we recommend having both a staging and a production endpoint
 when integrating.
 
 ### SSO Endpoints for Evocalize Web App
@@ -26,7 +26,7 @@ This is where you will redirect your users after generating a JWT for them on yo
 
 ## Authentication Flow
 
-> JWT Auth flow psuedo code example
+> JWT Auth flow pseudo code example
 
 ```javascript
 
@@ -45,7 +45,7 @@ const userJwtBlob = {
 const jwt = generateJwt(userJwtBlob, jwtSecret);
 
 // 2. Redirect the user to a new Evocalize SSO endpoint with the JWT
-redirectUser('https://office.your-white-label-domain.com/#/ss?token=' + jwt);
+redirectUser('https://your-white-label-domain.com/#/sso?token=' + jwt);
 
 ```
 
