@@ -40,13 +40,13 @@ If you decline to pass query params - this call will return all access records a
 
 ### HTTP Request
 
-`GET management/v1/repository/{repositorySlug}/access`
+`GET management/v1/repository/{repositoryId}/access`
 
 ### URL Params
 
 | URL Param | Type   | Required  | Description                                    |
 | --------- | ------ | --------- | ---------------------------------------------- |
-| repositorySlug | String | true | The slug of the content repository whose access records you wish to view. |
+| repositoryId | String | true | The ID of the content repository whose access records you wish to view. |
 
 ### Request Query Params
 
@@ -81,7 +81,7 @@ If you decline to pass query params - this call will return all access records a
 
 ### HTTP Request
 
-`GET management/v1/repository/{repositorySlug}/access/item/{contentItemId}`
+`GET management/v1/repository/{repositoryId}/access/item/{contentItemId}`
 
 **Response Codes**:
 
@@ -91,8 +91,8 @@ If you decline to pass query params - this call will return all access records a
 
 | URL Param | Type   | Required | Description                                    |
 | --------- | ------ | -------- | ---------------------------------------------- |
-| repositorySlug | string | true | The slug of the content repository whose access records you wish to view |
-| contentItemId | string | true | The Id of the content item whose access records you wish to view |
+| repositoryId | string | true | The ID of the content repository whose access records you wish to view |
+| contentItemId | string | true | The ID of the content item whose access records you wish to view |
 
 ### Request Query Params
 
@@ -148,7 +148,7 @@ If you decline to pass query params - this call will return all access records a
 
 ### HTTP Request
 
-`POST management/v1/repository/{repositorySlug}/access/item`
+`POST management/v1/repository/{repositoryId}/access/item`
 
 **Response Codes**:
 
@@ -303,8 +303,8 @@ Removing access follows a very similar pattern to querying for them. One importa
 
 ### HTTP Request
 
-`DELETE management/v1/content/{repositorySlug}/{contentItemId}`,
-`DELETE management/v1/content/{repositorySlug}`
+`DELETE management/v1/repository/{repositoryId}/access/item/{contentItemId}`,
+`DELETE management/v1/repository/{repositoryId}/access`
 
 **Response Codes**:
 
