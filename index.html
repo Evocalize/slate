@@ -423,6 +423,9 @@
                   <li>
                     <a href="#get-report" class="toc-h2 toc-link" data-title="Get Report">Get Report</a>
                   </li>
+                  <li>
+                    <a href="#get-errors-batch-rquests" class="toc-h2 toc-link" data-title="Get Errors Batch Rquests">Get Errors Batch Rquests</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -1966,6 +1969,56 @@ button that loads the <code>/sso</code> endpoint again when it is clicked.</li>
 
 <p><code>200 OK</code>
 <code>404 NOT FOUND</code> - When we are unable to locate a report with that ID.</p>
+<h2 id='get-errors-batch-rquests'>Get Errors Batch Rquests</h2>
+<blockquote>
+<p>Get Report Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"input"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test User"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example@evocalize.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seattle_office"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Seattle Office"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_admin"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="s2">"Duplicate user create request detected: user with example@evocalize.com has already been associated to another user id."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"restErrorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EV_BAD_REQUEST_DUPLICATE"</span><span class="w"> </span><span class="err">//this</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">not</span><span class="w"> </span><span class="err">always</span><span class="w"> </span><span class="err">present.</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_next_page_token"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">another</span><span class="w"> </span><span class="err">page</span><span class="w">
+  </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_previous_page_token"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">previous</span><span class="w"> </span><span class="err">page</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint displays error information for items in a given batch (retrieved by passing the <code>report_id</code> similar to the above call) that were not successful. The error messages and error codes generally are the ones you would see if using the non batch endpoints. For debugging purposes we return the input used so you can amend any mistakes. If there are no errors associated with a report this endpoint will return an empty array for the data field.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET management/v1/items/report/{reportId}/errors</code></p>
+<h3 id='url-params-2'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>reportId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the report you are wanting to retrieve</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<p><code>200 OK</code></p>
 <h1 id='webhooks'>Webhooks</h1><h2 id='client-leads-webhook'>Client Leads Webhook</h2>
 <p>Evocalize can notify your organization via webhook any time a new lead is ingested from an upstream platform such as Facebook or Google. Upon notification from the upstream platform that new lead data has been created, we combine that with Evocalize data and your data, and send it to you, allowing you to handle leads in near real-time.</p>
 <h3 id='setup'>Setup</h3>
@@ -2308,6 +2361,11 @@ button that loads the <code>/sso</code> endpoint again when it is clicked.</li>
 <td>EV_BAD_REQUEST_MALFORMED</td>
 <td>400</td>
 <td>Malformed request, e.g. a type mismatch.</td>
+</tr>
+<tr>
+<td>EV_BAD_REQUEST_DUPLICATE</td>
+<td>400</td>
+<td>An object with a different id already exists.</td>
 </tr>
 <tr>
 <td>EV_OBJECT_NOT_FOUND</td>
