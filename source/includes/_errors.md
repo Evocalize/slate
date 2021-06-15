@@ -7,6 +7,7 @@ We return the appropriate HTTP Status code when we return an error. Additionally
 | EV_BAD_REQUEST_INVALID_FIELDS     | 400              | Request is missing required fields or has failed validation check. |
 | EV_BAD_REQUEST_TOO_MANY_ITEMS     | 400              | Batch request contains too many items.                             |
 | EV_BAD_REQUEST_MALFORMED          | 400              | Malformed request, e.g. a type mismatch.                           |
+| EV_BAD_REQUEST_DUPLICATE          | 400              | An object with a different id already exists.                      |
 | EV_OBJECT_NOT_FOUND               | 404              | Unable to locate requested resource.                               |
 | EV_UNAUTHORIZED_INVALID_KEY       | 401              | Provided Client Key Id is invalid.                                 |
 | EV_UNAUTHORIZED_MISSING_HEADERS   | 401              | Request is missing one of the required headers.                    |
