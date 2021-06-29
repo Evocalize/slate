@@ -385,7 +385,7 @@ Endpoint for creating new groups or updating existing ones.
 | Field | Required | Type   | Description                                         |
 | ----- | -------- | ------ | --------------------------------------------------- |
 | id    | true     | String | ID of the group you wish to create or update.       |
-| name  | true     | String | The Name of the group you are creating or updating. |
+| name  | true     | String | The human-readable name of the group you are creating or updating. |
 
 **Response Codes**:
 

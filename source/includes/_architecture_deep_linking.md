@@ -54,7 +54,7 @@ The link below is where you should send users to view all the purchases they hav
 This URL will take a user to the order process without a Blueprint or any items selected (they will be prompted to
 select both in the UI):
 
-### Base URL
+### Base PATH
 
 `/#/architecture/<ARCHITECTURE_ID>/programCreate`
 
@@ -62,14 +62,14 @@ select both in the UI):
 
 > Send a user to the place order page with a specific blueprint selected
 
-```
-/#/architecture/<ARCHITECTURE_ID>/programCreate?productIds=<BLUEPRINT_ID>
+```javascript
+redirectUser('https://your-white-label-domain.com/#/architecture/<ARCHITECTURE_ID>/programCreate?productIds=<BLUEPRINT_ID>');
 ```
 
 > Send a user to the place order page with a blueprint selected and one of their items selected
 
-```
-/#/architecture/<ARCHITECTURE_ID>/programCreate?productIds=<BLUEPRINT_ID>&contentIds=<CONTENT_ID_1>
+```javascript
+redirectUser('https://your-white-label-domain.com/#/architecture/<ARCHITECTURE_ID>/programCreate?productIds=<BLUEPRINT_ID>&contentIds=<CONTENT_ID_1>');
 ```
 
 The following parameters can be used on their own or together to pre-select form field options for a user. These can
@@ -94,7 +94,7 @@ This URL will take a user to the automated program creation screen.
 
 > Filter JSON example
 
-```
+```json
 [
     {
         "column": "agent_name",
@@ -116,7 +116,7 @@ This URL will take a user to the automated program creation screen.
 > is not required, but it results in a shorter url. Take care not to remove space in string 
 > values e.g. "New York" vs "NewYork"
 
-```
+```json
 [{"column":"agent_name","rules":[{"operator":"eq","value":"Jim FakeName"},{"operator":"eq","value":"Jane FakeName"}]},{"column":"price","rules":[{"operator":"range","value":{"gt":1000000,"lt":2000000}}]}]
 ```
 
