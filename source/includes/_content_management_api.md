@@ -131,7 +131,7 @@ Returns a content item. The JSON object in the `values` field of the response wi
 }
 ```
 
-Creates or updates a content item. The JSON request object should contain fields defined by the table's fields.
+Creates or updates a content item. The JSON request object should contain fields defined by the repository's fields.
 
 ### HTTP Request
 
