@@ -65,3 +65,11 @@ we can assist you further.
 - If successful, the user is authenticated, and the Evocalize Office UI loads.
   If an error or some failure occurs, then an error screen is displayed with a "try again"
   button that loads the `/sso` endpoint again when it is clicked.
+
+### Variables to Provide to Evocalize
+Setting up SSO requires some coordination with your Evocalize contact. Here are the
+variables you will need to send us:
+
+- The URL to which users will be redirected from our application when they need to be authenticated (for
+  example, after their login has expired).
+  - Typically, we recommend staging and production endpoints for this level of integration.
