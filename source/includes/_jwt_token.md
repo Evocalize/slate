@@ -9,15 +9,14 @@ know about the standard, libraries to use, test out the tokens you generate, etc
 
 To create a valid JWT you will need to sign it with your evocalize `jwt_secret`. We will provide this value to you.
 
+## Variables you provide to Evocalize
 
-## Domains, Variables, etc.
+### Login URLs
 
-### Variables you provide to Evocalize
+You will need to provide us with Login URLs to send a user to if they arrive at the site unauthenticated or
+their login expires. Typically, we recommend having both a staging and a production endpoint when integrating.
 
-You will need you provide us with Login URL's to send a user if they arrive at the site unauthenticated or their JWT token expires. Typically, we recommend having both a staging and a production endpoint
-when integrating.
-
-### SSO Endpoints for Evocalize Web App
+## SSO Endpoints for Evocalize Web App
 
 This is where you will redirect your users after generating a JWT for them on your SSO page. See below for information you need to pass to this endpoint.
 
@@ -65,11 +64,4 @@ we can assist you further.
 - If successful, the user is authenticated, and the Evocalize CMP UI loads.
   If an error or some failure occurs, then an error screen is displayed with a "try again"
   button that loads the `/sso` endpoint again when it is clicked.
-
-### Variables to Provide to Evocalize
-Setting up SSO requires some coordination with your Evocalize contact. Here are the
-variables you will need to send us:
-
-- The URL to which users will be redirected from our application when they need to be authenticated (for
-  example, after their login has expired).
-  - Typically, we recommend staging and production endpoints for this level of integration.
+  
