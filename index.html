@@ -637,7 +637,8 @@ Content-Type: application/json
 know about the standard, libraries to use, test out the tokens you generate, etc.</li>
 </ul>
 
-<p>To create a valid JWT you will need to sign it with your evocalize <code>jwt_secret</code>. We will provide this value to you.</p>
+<p>To create a valid JWT you will need to sign it with your evocalize <code>jwt_secret</code> using HS256 (HMAC with SHA-256).
+We will provide the <code>jwt_secret</code> value to you.</p>
 <h2 id='variables-you-provide-to-evocalize'>Variables you provide to Evocalize</h2><h3 id='login-urls'>Login URLs</h3>
 <p>You will need to provide us with Login URLs to send a user to if they arrive at the site unauthenticated or
 their login expires. Typically, we recommend having both a staging and a production endpoint when integrating.</p>
