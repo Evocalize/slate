@@ -7,7 +7,8 @@ The primary technology/concept used for authentication between our two systems i
 - https://jwt.io/ - Documentation on all things JWT. On this site, you can learn all there is to
 know about the standard, libraries to use, test out the tokens you generate, etc.
 
-To create a valid JWT you will need to sign it with your evocalize `jwt_secret`. We will provide this value to you.
+To create a valid JWT you will need to sign it with your evocalize `jwt_secret` using HS256 (HMAC with SHA-256).
+We will provide the `jwt_secret` value to you.
 
 ## Variables you provide to Evocalize
 
