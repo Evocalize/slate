@@ -75,8 +75,8 @@ Returns a list of repositories.
   "data": {
     "values": {
       "id": "item_id",
-      "name": "Item Name",
-      "value": 42
+      "repository_field_name_1": "some value here",
+      "repository_field_name_2": 42
       // ...
     }
   }
@@ -109,8 +109,8 @@ Returns a content item. The JSON object in the `values` field of the response wi
 {
   "values": {
     "id": "item_id",
-    "name": "Item Name",
-    "value": 42
+    "repository_field_name_1": "some value here",
+    "repository_field_name_2": 42
     // ...
   }
 }
@@ -123,8 +123,8 @@ Returns a content item. The JSON object in the `values` field of the response wi
   "data": {
     "values": {
       "id": "item_id",
-      "name": "Item Name",
-      "value": 42
+      "repository_field_name_1": "some value here",
+      "repository_field_name_2": 42
       // ...
     }
   }
@@ -156,8 +156,8 @@ Creates or updates a content item. The JSON request object should contain fields
   {
     "values": {
       "id": "item_id",
-      "name": "Item Name",
-      "value": 42
+      "repository_field_name_1": "some value here",
+      "repository_field_name_2": 42
       // ...
     }
   }
@@ -203,8 +203,8 @@ The JSON objects passed in the array are the same as the ones listed in Create O
   "data": {
     "values": {
       "id": "item_id",
-      "name": "Item Name",
-      "value": 42
+      "repository_field_name_1": "some value here",
+      "repository_field_name_2": 42
       // ...
     }
   }
