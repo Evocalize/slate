@@ -446,10 +446,10 @@
                     <a href="#get-facebook-audiences" class="toc-h2 toc-link" data-title="Get Facebook Audiences">Get Facebook Audiences</a>
                   </li>
                   <li>
-                    <a href="#create-facebook-audience" class="toc-h2 toc-link" data-title="Create Facebook Audience">Create Facebook Audience</a>
+                    <a href="#add-existing-facebook-audience" class="toc-h2 toc-link" data-title="Add Existing Facebook Audience">Add Existing Facebook Audience</a>
                   </li>
                   <li>
-                    <a href="#bulk-create-facebook-audiences" class="toc-h2 toc-link" data-title="Bulk Create Facebook Audiences">Bulk Create Facebook Audiences</a>
+                    <a href="#bulk-add-existing-facebook-audiences" class="toc-h2 toc-link" data-title="Bulk Add Existing Facebook Audiences">Bulk Add Existing Facebook Audiences</a>
                   </li>
               </ul>
           </li>
@@ -2358,7 +2358,7 @@ button that loads the <code>/sso</code> endpoint again when it is clicked.</li>
 <h1 id='facebook-audiences-api'>Facebook Audiences API</h1>
 <p>If you have existing facebook audiences that you would like to
 import into Evocalize, then you can use this API. We currently
-support create and retrieve at this time.</p>
+support add and retrieve at this time.</p>
 <h2 id='get-facebook-audiences'>Get Facebook Audiences</h2>
 <blockquote>
 <p>Get Facebook Audiences Response</p>
@@ -2409,9 +2409,9 @@ with optional page tokens to go to the next page and previous page if they exist
 <ul>
 <li><code>200 OK</code> - NOTE: will return an empty array and this status code if there are no audiences present.</li>
 </ul>
-<h2 id='create-facebook-audience'>Create Facebook Audience</h2>
+<h2 id='add-existing-facebook-audience'>Add Existing Facebook Audience</h2>
 <blockquote>
-<p>Create Request Example</p>
+<p>Add Request Example</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"facebookAudienceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"someAudienceIdFromFacebook"</span><span class="p">,</span><span class="w">
@@ -2420,7 +2420,7 @@ with optional page tokens to go to the next page and previous page if they exist
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Create Response Example</p>
+<p>Add Response Example</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2432,10 +2432,10 @@ with optional page tokens to go to the next page and previous page if they exist
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Use this endpoint to add a facebook audience to Evocalize.</p>
+<p>Use this endpoint to add an existing facebook audience to Evocalize.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>POST management/v1/facebookaudience</code></p>
-<h3 id='create-facebook-audience-request-properties'>Create Facebook Audience Request Properties</h3>
+<h3 id='add-facebook-audience-request-properties'>Add Facebook Audience Request Properties</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -2463,9 +2463,9 @@ with optional page tokens to go to the next page and previous page if they exist
 <td>The ID of the user in Evocalize who owns this audience. The audience will only display for this user. If null, then the audience will display for everyone.</td>
 </tr>
 </tbody></table>
-<h2 id='bulk-create-facebook-audiences'>Bulk Create Facebook Audiences</h2>
+<h2 id='bulk-add-existing-facebook-audiences'>Bulk Add Existing Facebook Audiences</h2>
 <blockquote>
-<p>Bulk Create Request Example</p>
+<p>Bulk Add Request Example</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -2481,12 +2481,12 @@ with optional page tokens to go to the next page and previous page if they exist
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Use this endpoint to add multiple facebook audiences to Evocalize
-in a single call. You can create up to 500 audiences per call. This
+<p>Use this endpoint to add multiple existing facebook audiences to Evocalize
+in a single call. You can add up to 500 audiences per call. This
 endpoint has no response body.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>POST management/v1/facebookaudiences</code></p>
-<h3 id='create-facebook-audience-request-properties-2'>Create Facebook Audience Request Properties</h3>
+<h3 id='add-facebook-audience-request-properties-2'>Add Facebook Audience Request Properties</h3>
 <p>The request body is a json object with one property, <code>audiences</code>. <code>audiences</code> is an array of facebook
 audience objects. Each object has the fields described below:</p>
 
