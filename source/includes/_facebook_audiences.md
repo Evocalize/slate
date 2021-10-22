@@ -2,7 +2,7 @@
 
 If you have existing facebook audiences that you would like to
 import into Evocalize, then you can use this API. We currently
-support create and retrieve at this time.
+support add and retrieve at this time.
 
 ## Get Facebook Audiences
 
@@ -49,9 +49,9 @@ with optional page tokens to go to the next page and previous page if they exist
 
 - `200 OK` - NOTE: will return an empty array and this status code if there are no audiences present.
 
-## Create Facebook Audience
+## Add Existing Facebook Audience
 
-> Create Request Example
+> Add Request Example
 
 ```json
 {
@@ -61,7 +61,7 @@ with optional page tokens to go to the next page and previous page if they exist
 }
 ```
 
-> Create Response Example
+> Add Response Example
 
 ```json
 {
@@ -75,13 +75,13 @@ with optional page tokens to go to the next page and previous page if they exist
 }
 ```
 
-Use this endpoint to add a facebook audience to Evocalize.
+Use this endpoint to add an existing facebook audience to Evocalize.
 
 ### HTTP Request
 
 `POST management/v1/facebookaudience`
 
-### Create Facebook Audience Request Properties
+### Add Facebook Audience Request Properties
 
 | Field              | Required | Type    | Description                                                             |
 | -------------------| -------- | ------- | ----------------------------------------------------------------------- |
@@ -89,9 +89,9 @@ Use this endpoint to add a facebook audience to Evocalize.
 | name               | true     | String  | The name of the audience. |                                                                     |
 | userId             | false    | String  | The ID of the user in Evocalize who owns this audience. The audience will only display for this user. If null, then the audience will display for everyone. |                                                                |
 
-## Bulk Create Facebook Audiences
+## Bulk Add Existing Facebook Audiences
 
-> Bulk Create Request Example
+> Bulk Add Request Example
 
 ```json
 {
@@ -109,15 +109,15 @@ Use this endpoint to add a facebook audience to Evocalize.
 }
 ```
 
-Use this endpoint to add multiple facebook audiences to Evocalize
-in a single call. You can create up to 500 audiences per call. This
+Use this endpoint to add multiple existing facebook audiences to Evocalize
+in a single call. You can add up to 500 audiences per call. This
 endpoint has no response body.
 
 ### HTTP Request
 
 `POST management/v1/facebookaudiences`
 
-### Create Facebook Audience Request Properties
+### Add Facebook Audience Request Properties
 
 The request body is a json object with one property, `audiences`. `audiences` is an array of facebook
 audience objects. Each object has the fields described below:
