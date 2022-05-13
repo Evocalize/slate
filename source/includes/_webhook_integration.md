@@ -53,7 +53,7 @@ Since we require the use of the https protocol for our webhooks, it is up to eac
 
 ### Payload
 
-> Payload Example
+> Payload Example (Facebook Lead)
 
 ```json
 {
@@ -108,43 +108,185 @@ Since we require the use of the https protocol for our webhooks, it is up to eac
 }
 ```
 
+> Payload Example (Google Lead)
+
+```json
+{
+  "leads": [
+    {
+      "id": "google:1584659102387",
+      "google": {
+        "summary": {
+          "campaignId": 1652440203600,
+          "formId": 1652440203601,
+          "adgroupId": 1652440203602,
+          "creativeId": 1652440203603,
+          "gclId": "gclId-1652440203604",
+          "leadId": "1652440203598"
+        },
+        "leadForm": [{ "name": "field_one", "values": ["value one"] }]
+      },
+      "content": [
+        [
+          {
+            "friendlyName": "Catalog Field Name",
+            "name": "columnName",
+            "value": "field value"
+          }
+        ]
+      ],
+      "program": {
+        "projectId": 643545619583019092,
+        "programId": 643545619499133011,
+        "programName": "programName-1584659102374",
+        "programDescription": "verbose program description-1584659102375",
+        "programVariables": {
+          "customValue1": "custom value for your application",
+          "customValue2": 42
+        }
+      },
+      "order": {
+        "orderId": 643545620052781143,
+        "userId": "email-1584659102362@example.com",
+        "groupId": "3775e2cc-e8f0-4402-b947-e8f2112fc1b4",
+        "orderItem": {
+          "orderItemId": 643545620774201440
+        }
+      }
+    }
+  ]
+}
+```
+
+> Payload Example (TikTok Lead)
+
+```json
+{
+  "leads": [
+    {
+      "id": "tikTok:8a2bd6e1-5bfb-4e4e-b6fa-cc48c737bd8a",
+      "tikTok": {
+        "summary": {
+          "formId": 1652440203717,
+          "campaignId": 1652440203718,
+          "adGroupId": 1652440203720,
+          "adId": 1652440203722,
+          "createdAtEpochSeconds": 1652440203724
+        },
+        "leadForm": [{ "name": "field_one", "values": ["value_one"] }]
+      },
+      "content": [
+        [
+          {
+            "friendlyName": "Catalog Field Name",
+            "name": "columnName",
+            "value": "field value"
+          }
+        ]
+      ],
+      "program": {
+        "projectId": 643545619583019092,
+        "programId": 643545619499133011,
+        "programName": "programName-1584659102374",
+        "programDescription": "verbose program description-1584659102375",
+        "programVariables": {
+          "customValue1": "custom value for your application",
+          "customValue2": 42
+        }
+      },
+      "order": {
+        "orderId": 643545620052781143,
+        "userId": "email-1584659102362@example.com",
+        "groupId": "3775e2cc-e8f0-4402-b947-e8f2112fc1b4",
+        "orderItem": {
+          "orderItemId": 643545620774201440
+        }
+      }
+    }
+  ]
+}
+```
+
 Special consideration should be taken not to fail if a new field is present in your data that you did not expect. We will notify you when a field is removed from our specification, but we will not notify you when a field is added to the specification. If a field is removed from the specification, the payloadVersion will increment.
 
 The potential values of leadForm and content depends upon your imported data and program setup. Your account representative can help with this.
 
+| Field                                         | Nullable | Type   | Description                                                                |
+| --------------------------------------------- | -------- | ------ | -------------------------------------------------------------------------- |
+| leads                                         | false    | array  | A list of lead data.                                                       |
+| leads[]                                       | false    | object |                                                                            |
+| leads[].id                                    | false    | string | The id of this lead.                                                       |
+| leads[].facebook                              | true     | object | Facebook data for this lead. Details for this object are provided below.   |
+| leads[].google                                | true     | object | Google data for this lead. Details for this object are provided below.     |
+| leads[].tikTok                                | true     | object | TikTok data for this lead. Details for this object are provided below.     |
+| leads[].content                               | false    | array  | An array of content items associated with this ad.                         |
+| leads[].content[]                             | false    | array  | An array of content fields for the item.                                   |
+| leads[].content[][]                           | false    | object |                                                                            |
+| leads[].content[][].friendlyName              | true     | string | The friendly name of this content field.                                   |
+| leads[].content[][].name                      | false    | string | The actual name of this content field. It will be in snake_case.           |
+| leads[].content[][].value                     | true     | string | The value for this content field. It could be null.                        |
+| leads[].program                               | false    | object | Details about the program that published the ad associated with this lead. |
+| leads[].program.projectId                     | false    | long   | The evocalize project id associated with this lead.                        |
+| leads[].program.programId                     | false    | long   | The evocalize program id associated with this lead.                        |
+| leads[].program.programName                   | false    | long   | The name of the program that published this ad.                            |
+| leads[].program.programDescription            | true     | string | The description of the program that published this ad.                     |
+| leads[].program.programVariables<sup>\*</sup> | true     | object | A key-value map containing values specific to your application.            |
+| leads[].order                                 | true     | object |                                                                            |
+| leads[].order.orderId                         | false    | long   | The order id associated with the program.                                  |
+| leads[].order.userId                          | false    | string | The user id associated with this order. This is the id in your system.     |
+| leads[].order.groupId                         | false    | string | The group id associated with this order. This is the id in your system.    |
+| leads[].order.orderItem                       | false    | object |                                                                            |
+| leads[].order.orderItem.orderItemId           | false    | long   | The order item id associated with the order project.                       |
+
+<sup>\*</sup>If you have values that you need our API to return for this field, please contact your Evocalize account representative.
+
+### Facebook Lead Data
+
 | Field                                          | Nullable | Type   | Description                                                                                             |
 | ---------------------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------- |
-| leads                                          | false    | array  | A list of lead data.                                                                                    |
-| leads[]                                        | false    | object |                                                                                                         |
-| leads[].id                                     | false    | string | The id of this lead.                                                                                    |
-| leads[].facebook                               | false    | object | Facebook data for this lead.                                                                            |
-| leads[].facebook.summary                       | false    | object | Summary data for this facebook lead.                                                                    |
+| leads[].facebook.summary                       | false    | object | Summary data for this Facebook lead.                                                                    |
 | leads[].facebook.summary.leadgenId             | false    | string | Facebook's leadgen_id.                                                                                  |
-| leads[].facebook.summary.pageId                | false    | string | The facebook page that the ad for this lead is associated with.                                         |
-| leads[].facebook.summary.leadFormId            | false    | string | The facebook lead form id associated with this lead.                                                    |
-| leads[].facebook.summary.adgroupId             | false    | string | The facebook adgroup id associated with this lead.                                                      |
-| leads[].facebook.summary.adId                  | false    | string | The facebook ad id associated with this lead.                                                           |
+| leads[].facebook.summary.pageId                | false    | string | The Facebook page that the ad for this lead is associated with.                                         |
+| leads[].facebook.summary.leadFormId            | false    | string | The Facebook lead form id associated with this lead.                                                    |
+| leads[].facebook.summary.adgroupId             | false    | string | The Facebook adgroup id associated with this lead.                                                      |
+| leads[].facebook.summary.adId                  | false    | string | The Facebook ad id associated with this lead.                                                           |
 | leads[].facebook.summary.createdAtEpochSeconds | false    | long   | The time this lead was created, as a unix timestamp in seconds.                                         |
 | leads[].facebook.leadForm                      | false    | array  | Values that a person filled out on the lead form.                                                       |
 | leads[].facebook.leadForm[]                    | false    | object |                                                                                                         |
-| leads[].facebook.leadForm[].name               | false    | string | The name of the facebook lead form field.                                                               |
+| leads[].facebook.leadForm[].name               | false    | string | The name of the Facebook lead form field.                                                               |
 | leads[].facebook.leadForm[].values             | false    | array  | An array of the values the user filled out.                                                             |
 | leads[].facebook.leadForm[].values[]           | false    | string | Each element is a value that the end user selected or entered. In most cases there is only one element. |
-| leads[].content                                | false    | array  | An array of content items associated with this ad.                                                      |
-| leads[].content[]                              | false    | array  | An array of content fields for the item.                                                                |
-| leads[].content[][]                            | false    | object |                                                                                                         |
-| leads[].content[][].friendlyName               | true     | string | The friendly name of this content field.                                                                |
-| leads[].content[][].name                       | false    | string | The actual name of this content field. It will be in snake_case.                                        |
-| leads[].content[][].value                      | true     | string | The value for this content field. It could be null.                                                     |
-| leads[].program                                | false    | object | Details about the program that published the ad associated with this lead.                              |
-| leads[].program.projectId                      | false    | long   | The evocalize project id associated with this lead.                                                     |
-| leads[].program.programId                      | false    | long   | The evocalize program id associated with this lead.                                                     |
-| leads[].program.programName                    | false    | long   | The name of the program that published this ad.                                                         |
-| leads[].program.programDescription             | true     | string | The description of the program that published this ad.                                                  |
-| leads[].program.programVariables               | true     | object | A key-value map containing values specific to your application. If you have values that you need our API to return for this field, please contact your Evocalize account representative. |
-| leads[].order                                  | true     | object |                                                                                                         |
-| leads[].order.orderId                          | false    | long   | The order id associated with the program.                                                               |
-| leads[].order.userId                           | false    | string | The user id associated with this order. This is the id in your system.                                  |
-| leads[].order.groupId                          | false    | string | The group id associated with this order. This is the id in your system.                                 |
-| leads[].order.orderItem                        | false    | object |                                                                                                         |
-| leads[].order.orderItem.orderItemId            | false    | long   | The order item id associated with the order project.                                                    |
+
+### Google Lead Data
+
+| Field                              | Nullable | Type   | Description                                                                                             |
+| ---------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------- |
+| leads[].google.summary             | false    | object | Summary data for this Google lead.                                                                      |
+| leads[].google.summary.campaignId  | false    | string | Google's campaign ID.                                                                                   |
+| leads[].google.summary.formId      | false    | string | The Google lead form ID.                                                                                |
+| leads[].google.summary.adgroupId   | false    | string | The Google ad group ID.                                                                                 |
+| leads[].google.summary.creativeId  | true     | string | The Google creative ID.                                                                                 |
+| leads[].google.summary.gclId       | false    | string | The Google click id .                                                                                   |
+| leads[].google.summary.leadId      | false    | long   | The Google lead ID.                                                                                     |
+| leads[].google.leadForm            | false    | array  | Values that a person filled out on the lead form.                                                       |
+| leads[].google.leadForm[]          | false    | object |                                                                                                         |
+| leads[].google.leadForm[].name     | false    | string | The name of the facebook lead form field.                                                               |
+| leads[].google.leadForm[].values   | false    | array  | An array of the values the user filled out.                                                             |
+| leads[].google.leadForm[].values[] | false    | string | Each element is a value that the end user selected or entered. In most cases there is only one element. |
+
+### TikTok Lead Data
+
+| Field                                        | Nullable | Type   | Description                                                                                             |
+| -------------------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------- |
+| leads[].tikTok.summary                       | false    | object | Summary data for this facebook lead.                                                                    |
+| leads[].tikTok.summary.leadgenId             | false    | string | Facebook's leadgen_id.                                                                                  |
+| leads[].tikTok.summary.pageId                | false    | string | The facebook page that the ad for this lead is associated with.                                         |
+| leads[].tikTok.summary.leadFormId            | false    | string | The facebook lead form id associated with this lead.                                                    |
+| leads[].tikTok.summary.adgroupId             | false    | string | The facebook adgroup id associated with this lead.                                                      |
+| leads[].tikTok.summary.adId                  | false    | string | The facebook ad id associated with this lead.                                                           |
+| leads[].tikTok.summary.createdAtEpochSeconds | false    | long   | The time this lead was created, as a unix timestamp in seconds.                                         |
+| leads[].tikTok.leadForm                      | false    | array  | Values that a person filled out on the lead form.                                                       |
+| leads[].tikTok.leadForm[]                    | false    | object |                                                                                                         |
+| leads[].tikTok.leadForm[].name               | false    | string | The name of the facebook lead form field.                                                               |
+| leads[].tikTok.leadForm[].values             | false    | array  | An array of the values the user filled out.                                                             |
+| leads[].tikTok.leadForm[].values[]           | false    | string | Each element is a value that the end user selected or entered. In most cases there is only one element. |
