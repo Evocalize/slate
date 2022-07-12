@@ -76,11 +76,12 @@ The following parameters can be used on their own or together to pre-select form
 help reduce steps for users to place an order by pre-selecting things like content or a Blueprint. Users can still
 change these values once the page has loaded.
 
-| Query Param    | Required | type         | Description                                                             |
-| -------------- | -------- | ------------ | ----------------------------------------------------------------------- |
-| productIds     | false    | Int          | A single blueprint ID. Pre-selects the blueprint for program creation.  |
-| contentIds     | false    | Int Array    | Comma-separated IDs. Pre-selects content to be used for the program.    |
-| sideNav        | false    | String       | "closed" or "open" to control whether or not the left nav is displayed. |
+| Query Param    | Required | type         | Description                                                                                                                                |
+| -------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| productIds     | false    | Int          | A single blueprint ID. Pre-selects the blueprint for program creation.                                                                     |
+| contentIds     | false    | Int Array    | Comma-separated IDs. Pre-selects content to be used for the program.                                                                       |
+| sideNav        | false    | String       | "closed" or "open" to control whether or not the left nav is displayed.                                                                    |
+| step           | false    | String       | values: (spend\|summary) Attempts to skip to a specific step of the program creation. Will not skip a step if there is a validation error. |
 
 ## Automated Program Creation
 
