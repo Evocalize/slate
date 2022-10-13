@@ -454,6 +454,17 @@
               </ul>
           </li>
           <li>
+            <a href="#media-library-api" class="toc-h1 toc-link" data-title="Media Library API">Media Library API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-or-update-media" class="toc-h2 toc-link" data-title="Create Or Update Media">Create Or Update Media</a>
+                  </li>
+                  <li>
+                    <a href="#delete-media" class="toc-h2 toc-link" data-title="Delete Media">Delete Media</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
           <li>
@@ -2802,6 +2813,118 @@ audience objects. Each object has the fields described below:</p>
 <td>The ID of the user in Evocalize who owns this audience. The audience will only display for this user. If null, then the audience will display for everyone.</td>
 </tr>
 </tbody></table>
+<h1 id='media-library-api'>Media Library API</h1>
+<p>The Evocalize CMP Media Library allows for the storage and permissions of various media assets. Media assets are
+references to media files that are suitable for being used in an advertising creative in at least one of the marking
+channels supported by the Evocalize platform. Currently, we support image and video assets.</p>
+
+<p>This API can be used to import partner-owned advertising media into their Media Library.</p>
+<h2 id='create-or-update-media'>Create Or Update Media</h2>
+<blockquote>
+<p>Create Or Update Request Example</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Image Name"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.example.com/image.png"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">on</span><span class="w"> </span><span class="err">create</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Create Or Update Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Image Name"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.example.com/image.png"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">on</span><span class="w"> </span><span class="err">create</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to create or update media within your organization.</p>
+
+<p>On create, this API allows assigning user ownership to a media. Users owning the media will be able to see it in their
+Media Library via the CMP and create/edit ad campaigns with it. Media cannot change user ownership once it is created.</p>
+
+<p>On update, the URL and name can change but not the media type.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST management/v1/media</code></p>
+<h3 id='create-or-update-media-request-properties'>Create or Update Media Request Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>String</td>
+<td>ID of the media you are created/updating. This must be unique per media</td>
+</tr>
+<tr>
+<td>name</td>
+<td>true</td>
+<td>String</td>
+<td>Name of the media you are creating/updating.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>String</td>
+<td>The media type associated with the URL. Cannot change on updates. Valid types are <code>image</code>, <code>video</code>.</td>
+</tr>
+<tr>
+<td>url</td>
+<td>true</td>
+<td>String</td>
+<td>A public URL to the media you would like to import.</td>
+</tr>
+<tr>
+<td>userId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the user that would own this media. Ignored on updates.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Valid media types</strong>:</p>
+
+<ul>
+<li>image</li>
+<li>video</li>
+</ul>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Returning the newly created or updated media.</li>
+<li><code>400 BAD REQUEST</code> - When the request is malformed, or you attempt to associate to a non-existent media.</li>
+</ul>
+<h2 id='delete-media'>Delete Media</h2>
+<blockquote>
+<p>Delete Media response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>No Body returned
+</code></pre></div>
+<p>This allows deleting media from your organization.</p>
+
+<p>Once media is deleted, users will not be able use it in new ad campaigns.
+However, active ad campaigns referencing deleted media will continue using the media until completion.</p>
+
+<p>Media created via the Create Or Update Media API can only be deleted via this API.
+Users owning the media cannot delete the media from their Media Library via the CMP.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>DELETE management/v1/media/{id}</code></p>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>202 ACCEPTED</code></li>
+</ul>
 <h1 id='errors'>Errors</h1>
 <p>We return the appropriate HTTP Status code when we return an error. Additionally we do our best to provide a human readable error message to help you figure out what went wrong.</p>
 
