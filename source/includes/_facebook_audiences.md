@@ -2,9 +2,9 @@
 
 **[DEPRECATED] Replaced by the Audience Manager API.**
 
-Facebook Audiences API will continue to work until Evocalize has determined a date to sunset these endpoints.
-Facebook audiences added successfully via these endpoints will be available in the Audience Manager. View the Audience
-Manager API for more information on creating and retrieving audiences including Facebook audiences.
+Facebook Audiences API will continue to work until Evocalize has determined a date to sunset these endpoints. Audiences
+added using these endpoints will be available in the Audience Manager. View the Audience Manager API for more
+information on creating and retrieving audiences.
 
 ## Get Facebook Audiences
 
