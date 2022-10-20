@@ -9,6 +9,7 @@ includes:
   - _batch_report_api
   - _webhook_integration
   - _facebook_audiences
+  - _audiences
   - _media 
   - _errors
   - _architecture_deep_linking

@@ -18,17 +18,20 @@ This API can be used to import partner-owned advertising media into their Media 
   "url": "https://api.example.com/image.png",
   "userId": "test_user_id" // only present on create
 }
+
 ```
 
 > Create Or Update Response
 
 ```json
 {
-  "id": "1234",
-  "name": "Image Name",
-  "type": "image",
-  "url": "https://api.example.com/image.png",
-  "userId": "test_user_id" // only present on create
+  "data": {
+    "id": "1234",
+    "name": "Image Name",
+    "type": "image",
+    "url": "https://api.example.com/image.png",
+    "userId": "test_user_id" // only present on create
+  }
 }
 ```
 
@@ -61,7 +64,7 @@ On update, the URL and name can change but not the media type.
 **Response Codes**:
 
 - `200 OK` - Returning the newly created or updated media.
-- `400 BAD REQUEST` - When the request is malformed, or you attempt to associate to a non-existent media.
+- `400 BAD REQUEST` - When the request is malformed, or you attempt to associate to a non-existent user.
 
 ## Delete Media
 

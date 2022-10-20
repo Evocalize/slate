@@ -1,8 +1,10 @@
 # Facebook Audiences API
 
-If you have existing facebook audiences that you would like to
-import into Evocalize, then you can use this API. We currently
-support add and retrieve at this time.
+**[DEPRECATED] Replaced by the Audience Manager API.**
+
+Facebook Audiences API will continue to work until Evocalize has determined a date to sunset these endpoints. Audiences
+added using these endpoints will be available in the Audience Manager. View the Audience Manager API for more
+information on creating and retrieving audiences.
 
 ## Get Facebook Audiences
 
@@ -55,9 +57,9 @@ with optional page tokens to go to the next page and previous page if they exist
 
 ```json
 {
-	"facebookAudienceId": "someAudienceIdFromFacebook",
-	"name": "Test Audience",
-	"userId": "idOfSomeUserInEvocalize"
+  "facebookAudienceId": "someAudienceIdFromFacebook",
+  "name": "Test Audience",
+  "userId": "idOfSomeUserInEvocalize"
 }
 ```
 
@@ -95,17 +97,17 @@ Use this endpoint to add an existing facebook audience to Evocalize.
 
 ```json
 {
-	"audiences": [
-		{
-			"facebookAudienceId": "foo",
-			"name": "Test Audience 1"
-		},
-		{
-			"facebookAudienceId": "bar",
-			"name": "Test Audience 2",
-			"userId": "someUserId"
-		}
-	]
+  "audiences": [
+    {
+      "facebookAudienceId": "foo",
+      "name": "Test Audience 1"
+    },
+    {
+      "facebookAudienceId": "bar",
+      "name": "Test Audience 2",
+      "userId": "someUserId"
+    }
+  ]
 }
 ```
 

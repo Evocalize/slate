@@ -72,7 +72,8 @@ Returns a single user and associated groups.
 }
 ```
 
-Returns all users. This is a paginated response - returning 100 results per page with optional page tokens to go to the next page and previous page if they exist.
+Returns all users. This is a paginated response - returning 100 results per page with optional page tokens to go to the
+next page and previous page if they exist.
 
 ### HTTP Request
 
@@ -143,7 +144,9 @@ Returns all users. This is a paginated response - returning 100 results per page
 }
 ```
 
-This endpoint allows you to create or update a user and their group associations. You are able to call this endpoint and omit the groups property. In the Create case, the user would be created, but not be associated to any groups. In the case of update we would only update their name and/or email.
+This endpoint allows you to create or update a user and their group associations. You are able to call this endpoint and
+omit the groups property. In the Create case, the user would be created, but not be associated to any groups. In the
+case of update we would only update their name and/or email.
 
 The group you want to associate with the user MUST exist prior to making this call.
 
@@ -153,17 +156,17 @@ The group you want to associate with the user MUST exist prior to making this ca
 
 ### Create User Request Properties
 
-| Field  | Required | Type                                                                                                        | Description                                                             |
-| ------ | -------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| id     | true     | String                                                                                                      | ID of the user you are creating. This needs to be unique and immutable. |
-| email  | true     | Email of the user you are creating.                                                                         |
-| name   | true     | Full name of the user you are creating.                                                                     |
-| groups | false    | Array of UserGroupAssociation objects. If this is not present on create or update, no groups will be added. |
+| Field  | Required | Type       | Description                                                                                                 |
+|--------|----------|------------|-------------------------------------------------------------------------------------------------------------|
+| id     | true     | String     | ID of the user you are creating. This needs to be unique and immutable.                                     |
+| email  | true     | String     | Email of the user you are creating.                                                                         |
+| name   | true     | String     | Full name of the user you are creating.                                                                     |
+| groups | false    | JSON Array | Array of UserGroupAssociation objects. If this is not present on create or update, no groups will be added. |
 
 ### Update User Request Properties
 
 | Field         | Required | Type       | Description                                                                                                                                                              |
-| ------------- | -------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|---------------|----------|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | id            | true     | String     | ID of the user you are updating.                                                                                                                                         |
 | email         | false    | String     | Email of the user you are creating.                                                                                                                                      |
 | name          | false    | String     | Full name of the user you are creating.                                                                                                                                  |
@@ -173,7 +176,7 @@ The group you want to associate with the user MUST exist prior to making this ca
 ### User Group Association Properties
 
 | Field   | Required | Type   | Description                                          |
-| ------- | -------- | ------ | ---------------------------------------------------- |
+|---------|----------|--------|------------------------------------------------------|
 | groupId | true     | String | The Id of the group you want the user associated to. |
 | role    | true     | String | The role of the user within the group.               |
 
@@ -212,8 +215,8 @@ Returns a list of Facebook pages associated to the user.
 
 ### URL Params
 
-| URL Param | type   | Required | Description                                    |
-| --------- | ------ | -------- | ---------------------------------------------- |
+| URL Param | type   | Required | Description                                     |
+|-----------|--------|----------|-------------------------------------------------|
 | userId    | String | true     | The ID of the user whose pages you want to view |
 
 **Response Codes**:
@@ -274,7 +277,10 @@ Returns a list of Facebook pages associated to the user.
 }
 ```
 
-This endpoint allows you to pass a JSON Array of User Request objects for creation or updating. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a `report_id` which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.
+This endpoint allows you to pass a JSON Array of User Request objects for creation or updating. Batches are limited to
+1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will
+receive a `report_id` which can be used to track status of the requests as they are processed in our system. Reports are
+stored for 30 days.
 
 The JSON objects passed in the array are the same as the ones listed in Create Or Update User.
 
@@ -336,7 +342,8 @@ Deactivates all active programs for a given user placing them in an inactive sta
 }
 ```
 
-Returns all groups. This is a paginated response - returning 100 results per page with optional page tokens to go to the next page and previous page if they exist.
+Returns all groups. This is a paginated response - returning 100 results per page with optional page tokens to go to the
+next page and previous page if they exist.
 
 ### HTTP Request
 
@@ -415,7 +422,10 @@ Endpoint for creating new groups or updating existing ones.
 }
 ```
 
-Endpoint that allows you to pass a JSON Array of Group Request objects for creation. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a `report_id` which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.
+Endpoint that allows you to pass a JSON Array of Group Request objects for creation. Batches are limited to 1000 items
+at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive
+a `report_id` which can be used to track status of the requests as they are processed in our system. Reports are stored
+for 30 days.
 
 ### HTTP Request
 
