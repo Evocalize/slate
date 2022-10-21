@@ -37,7 +37,7 @@ user.authenticate();
 // note: `jwt_secret` will be provided by Evocalize
 // here is an example JWT payload that we need you to generate:
 const userJwtBlob = {
-    sub: 'yourOrg|' + user.id, // where yourOrg is the value we provide you with and user.id with the ID you send in API calls or feed files.
+    sub: 'yourOrgSlug|' + user.id, // where yourOrgSlug is the value we provide you with and user.id with the ID you send in API calls or feed files.
     iat: 1563831852, // "Issued At" (seconds since Unix Epoch)
     exp: 1563835452 // "Expires At" (seconds since Unix Epoch) set to 1 hour after iat
 };
