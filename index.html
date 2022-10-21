@@ -310,9 +310,6 @@
                     <a href="#required-headers" class="toc-h2 toc-link" data-title="Required Headers">Required Headers</a>
                   </li>
                   <li>
-                    <a href="#signing-requests" class="toc-h2 toc-link" data-title="Signing Requests:">Signing Requests:</a>
-                  </li>
-                  <li>
                     <a href="#response-format" class="toc-h2 toc-link" data-title="Response Format">Response Format</a>
                   </li>
               </ul>
@@ -524,8 +521,7 @@
 <p>Example Headers</p>
 </blockquote>
 <div class="highlight"><pre class="highlight plaintext"><code>X-Evocalize-Client-Key-Id: a5646c38-fc29-11e9-8f0b-362b9e155667
-X-Evocalize-Timestamp: 1604094273
-X-Evocalize-Signature: 690a0ac5a5a219bb4a773f5bc116a32553be4e8380845d854f07b5e8471bc954
+X-Evocalize-Client-Key: 690a0ac5a5a219bb4a773f5bc116a325 
 Content-Type: application/json
 </code></pre></div>
 <table><thead>
@@ -541,14 +537,9 @@ Content-Type: application/json
 <td>ID of the Client Key provided by Evocalize.</td>
 </tr>
 <tr>
-<td>X-Evocalize-Timestamp</td>
+<td>X-Evocalize-Client-Key</td>
 <td>true</td>
-<td>Unix time since epoch in seconds, e.g. October 30, 2020 @ 9:44pm (UTC) =&gt; 1604094273. Requests with a timestamp over a minute old will not be accepted.</td>
-</tr>
-<tr>
-<td>X-Evocalize-Signature</td>
-<td>true</td>
-<td>Signature of the payload. See Signing Requests below.</td>
+<td>The Secret Key Provided to you by Evocalize</td>
 </tr>
 <tr>
 <td>Content-Type</td>
@@ -556,36 +547,6 @@ Content-Type: application/json
 <td><code>application/json</code></td>
 </tr>
 </tbody></table>
-<h2 id='signing-requests'>Signing Requests:</h2>
-<blockquote>
-<p>Request signing example</p>
-</blockquote>
-<div class="highlight"><pre class="highlight kotlin tab-kotlin"><code><span class="c1">// Concatenate all the parts</span>
-<span class="kd">val</span> <span class="py">signatureParts</span> <span class="p">=</span> <span class="nc">StringBuilder</span><span class="p">()</span>
-  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">servletPath</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
-  <span class="c1">// Omit this block if the request does not have a body</span>
-  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="nf">body</span><span class="p">())</span>
-  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s">"X-Evocalize-Timestamp"</span><span class="p">])</span>
-  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
-  <span class="c1">// append the client key secret</span>
-  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">myClientKeySecret</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">toString</span><span class="p">()</span>
-
-<span class="c1">// Take this value and pass it as the value for the header key "X-Evocalize-Signature"</span>
-<span class="kd">val</span> <span class="py">signature</span> <span class="p">=</span> <span class="nc">Hashing</span><span class="p">.</span><span class="nf">sha256</span><span class="p">().</span><span class="nf">hashString</span><span class="p">(</span><span class="n">signatureParts</span><span class="p">,</span> <span class="nc">Charsets</span><span class="p">.</span><span class="nc">UTF_8</span><span class="p">)</span>
-</code></pre></div>
-<p>For security and identity purposes, we require partners to sign all API requests. The methodology is straight forward. Join the following values with a new line character between each item</p>
-
-<ul>
-<li>UrlPath (including path params if present)</li>
-<li>The body of the request (omit if your request does not contain a body, e.g. a GET request)</li>
-<li>Value of the timestamp used in the X-Evocalize-Timestamp Header</li>
-<li>Client Key Secret (this is a secret that will be provided by Evocalize)</li>
-</ul>
-
-<aside class="notice">All code examples below assume that you are passing the required headers described in this section</aside>
 <h2 id='response-format'>Response Format</h2>
 <blockquote>
 <p>JSON Response Schema</p>
@@ -698,7 +659,7 @@ their login expires. Typically, we recommend having both a staging and a product
 <span class="c1">// note: `jwt_secret` will be provided by Evocalize</span>
 <span class="c1">// here is an example JWT payload that we need you to generate:</span>
 <span class="kd">const</span> <span class="nx">userJwtBlob</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">sub</span><span class="p">:</span> <span class="dl">'</span><span class="s1">yourOrg|</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="c1">// where yourOrg is the value we provide you with and user.id with the ID you send in API calls or feed files.</span>
+    <span class="na">sub</span><span class="p">:</span> <span class="dl">'</span><span class="s1">yourOrgSlug|</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="c1">// where yourOrgSlug is the value we provide you with and user.id with the ID you send in API calls or feed files.</span>
     <span class="na">iat</span><span class="p">:</span> <span class="mi">1563831852</span><span class="p">,</span> <span class="c1">// "Issued At" (seconds since Unix Epoch)</span>
     <span class="na">exp</span><span class="p">:</span> <span class="mi">1563835452</span> <span class="c1">// "Expires At" (seconds since Unix Epoch) set to 1 hour after iat</span>
 <span class="p">};</span>
