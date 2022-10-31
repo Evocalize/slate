@@ -463,13 +463,16 @@
                     <a href="#create-audience-placeholder" class="toc-h2 toc-link" data-title="Create Audience Placeholder">Create Audience Placeholder</a>
                   </li>
                   <li>
-                    <a href="#generate-audience-placeholder-url" class="toc-h2 toc-link" data-title="Generate Audience Placeholder URL">Generate Audience Placeholder URL</a>
+                    <a href="#upload-audience-data-csv" class="toc-h2 toc-link" data-title="Upload Audience Data CSV">Upload Audience Data CSV</a>
                   </li>
                   <li>
                     <a href="#add-existing-channel-audience" class="toc-h2 toc-link" data-title="Add Existing Channel Audience">Add Existing Channel Audience</a>
                   </li>
                   <li>
                     <a href="#add-audience-placeholder-permissions" class="toc-h2 toc-link" data-title="Add Audience Placeholder Permissions">Add Audience Placeholder Permissions</a>
+                  </li>
+                  <li>
+                    <a href="#get-audience-placeholder-by-id" class="toc-h2 toc-link" data-title="Get Audience Placeholder By ID">Get Audience Placeholder By ID</a>
                   </li>
                   <li>
                     <a href="#get-audiences-placeholders-for-user" class="toc-h2 toc-link" data-title="Get Audiences Placeholders For User">Get Audiences Placeholders For User</a>
@@ -2827,41 +2830,24 @@ Audience Placeholder&#39;s associated audiences.</p>
 by your organization. Evocalize configures a set of rules for your organization for determining the type of audience(s)
 to create per channel, the account to create the audience under, and the account(s) to share the audience with.</p>
 
-<p>The creation process starts with creating an Audience Placeholder using the <code>Create Audience Placeholder API</code>. Once an
-Audience Placeholder has been created, your organization will need to upload a CSV containing your audience data to the
-URL in the API response. Upon completion of uploading your customer data, Evocalize will automatically begin creating
-audiences on behalf of your organization. Audiences created by this process will be associated with the Audience
-Placeholder created by this API. Audience creation can take up to 24 hours to complete.</p>
+<p>The creation process for an Audience Placeholder and associated audiences is:</p>
 
-<blockquote>
-<p>Audience Data CSV Example</p>
-</blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>email
-emailAddress01@example.com
-emailAddress02@example.com
-emailAddress03@example.com
-</code></pre></div>
-<p>Audience data needs to be uploaded in the form of a CSV so Evocalize can assign users to the newly created audiences.
-Moreover, the CSV must be in plain text and the first row must contain the data identifier name of each column. Ideally,
-the CSV must have at least 300 data identifiers to ensure a minimum of 100 matches. Below is a list of the supported
-data identifiers.</p>
-
-<table><thead>
-<tr>
-<th>Data Identifier</th>
-<th>Header</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Email Address</td>
-<td>email</td>
-<td>The email address of the user.</td>
-</tr>
-</tbody></table>
+<ol>
+<li>Create an Audience Placeholder using the <code>Create Audience Placeholder API</code>. A successful response should include the
+newly created Audience Placeholder with a <code>pending</code> status. No audiences are associated with it.</li>
+<li>Upload your customer data using the <code>Upload Audience CSV Data API</code>. Upon completion of uploading your customer data,
+Evocalize will automatically begin creating audiences on behalf of your organization. A successful response should
+include the Audience Placeholder updated to a <code>processing</code> status.</li>
+<li>Audience creation can take up to 24 hours to complete. Channel-specific audiences created by this process will be
+associated with the Audience Placeholder. Once audience creation is complete, the Audience Placeholder will be
+updated to a <code>completed</code> status. Moreover, Audience Placeholder and associated audiences can be used in blueprints
+supporting audience targeting. You can check the status of the Audience Placeholder and associated audiences using
+the <code>Get Audience Placeholder By ID API</code>.</li>
+</ol>
 <h3 id='partner-provided-audiences'>Partner-Provided Audiences</h3>
 <p>Audience Placeholders can be associated with active, existing channel-specific audiences provided by your organization.
-See <code>Add Existing Channel Audience API</code> for more information.</p>
+See <code>Add Existing Channel Audience API</code> for more information. Audience Placeholders that are created from a
+partner-provided audience can immediately be used in blueprints supporting audience targeting.</p>
 <h2 id='create-audience-placeholder'>Create Audience Placeholder</h2>
 <blockquote>
 <p>Create Audience Placeholder Request Example</p>
@@ -2883,12 +2869,12 @@ See <code>Add Existing Channel Audience API</code> for more information.</p>
     </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.example.com/uploadCsvToDestination"</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows you to create an Audience Placeholder and generate a URL for uploading your customer data. The
-generated URL will expire after 24 hours. See <code>Generate Audience Placeholder URL</code> for generating new URLs.</p>
+<p>This endpoint allows you to create an Audience Placeholder which will be used to associate associate audiences created
+by Evocalize. Successfully created Audience Placeholders will have a <code>pending</code> status.</p>
 
 <p>Audience Placeholders and associated audiences can be scoped to users, groups, or all users in the organization. Specify
 one of the following in your request to limit the scope:</p>
@@ -2929,13 +2915,13 @@ Placeholder and associated audiences.</li>
 <td>userId</td>
 <td>false</td>
 <td>String</td>
-<td>The ID of the user that would own this Audience Placeholder and associated channel audiences.</td>
+<td>The ID of the user that would own this Audience Placeholder and associated audiences.</td>
 </tr>
 <tr>
 <td>groupId</td>
 <td>false</td>
 <td>String</td>
-<td>The ID of the group that would own this Audience Placeholder and associated channel audiences.</td>
+<td>The ID of the group that would own this Audience Placeholder and associated audiences.</td>
 </tr>
 <tr>
 <td>groupRole</td>
@@ -2948,33 +2934,76 @@ Placeholder and associated audiences.</li>
 <p><strong>Response Codes</strong>:</p>
 
 <ul>
-<li><code>200 OK</code> - Returning the newly created Audience Placeholder&#39;s ID and generated URL.</li>
+<li><code>200 OK</code> - Returning the newly created Audience Placeholder details including the ID.</li>
 <li><code>400 BAD REQUEST</code> - When the request is malformed, or you attempt to associate to a non-existent user or group.</li>
 </ul>
-<h2 id='generate-audience-placeholder-url'>Generate Audience Placeholder URL</h2>
+<h2 id='upload-audience-data-csv'>Upload Audience Data CSV</h2>
+<p>After Evocalize creates audiences on behalf of your organization, these audiences will need to be assigned users using
+customer data collected by your organization. This customer data can be provided to Evocalize in the form of a CSV and
+uploaded via this endpoint.</p>
+
+<p>Th CSV must contain a header row which is the first row containing the data identifier name of each column. Moreover,
+every value in the CSV must be hashed as SHA-256. Ideally, the CSV must have at least 300 data identifiers to ensure
+a minimum of 100 matches. Below is a list of the supported data identifiers.</p>
+
 <blockquote>
-<p>Generate Audience Placeholder URL Response</p>
+<p>Audience Data CSV Example (Plain Text)</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>email,phone,firstname,lastname
+emailaddress@example.com,15129876543,test,user
+</code></pre></div>
+<blockquote>
+<p>Audience Data CSV Example (SHA-256)</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>email,phone,firstname,lastname
+d42d751294f09be1b195bdea0f5049af7c7da93a99f4c688705ddcacdd16b4c1,88fb2986c52c22fbc4038a49ddd37b3650d0c52806fe520b288672770dc14730,9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08,04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Data Identifier</th>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Email Address</td>
+<td>email</td>
+<td>Email must be lowercase, and not have any white space characters.</td>
+</tr>
+<tr>
+<td>Phone</td>
+<td>phone</td>
+<td>Phone must contain only digits, not have any leading zeros, and be prefixed with the country code.</td>
+</tr>
+<tr>
+<td>First Name</td>
+<td>firstname</td>
+<td>First name must be lowercase, have no punctuations, and be UTF-8 formatted.</td>
+</tr>
+<tr>
+<td>Last Name</td>
+<td>lastname</td>
+<td>Last name must be lowercase, have no punctuations, and be UTF-8 formatted.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Upload Audience Data CSV Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.example.com/uploadCsvToNewDestination"</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint generates a new Audience Placeholder URL for uploading your customer data. The generated URL will expire
-after 24 hours.</p>
-
-<p><strong>Response Codes</strong>:</p>
-
-<ul>
-<li><code>200 OK</code> - Returning the Audience Placeholder&#39;s ID and a URL for uploading your customer data.</li>
-<li><code>403 Forbidden</code> - User has insufficient privileges or Audience Placeholder does not exist.</li>
-</ul>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST management/v1/audience/{placeholderId}/url</code></p>
+<p>This multipart form endpoint can be used to upload your audience data in the form of a CSV. The data must be hashed as
+SHA-256. When uploading your CSV via this multipart endpoint, specify the CSV under the <code>file</code> key in the multipart
+form.</p>
+<h3 id='http-request-multipart-form'>HTTP Request (Multipart Form)</h3>
+<p><code>POST management/v1/audience/{placeholderId}/csv/upload</code></p>
 <h3 id='url-params'>URL Params</h3>
 <table><thead>
 <tr>
@@ -2988,9 +3017,33 @@ after 24 hours.</p>
 <td>placeholderId</td>
 <td>true</td>
 <td>String</td>
-<td>The ID of the Audience Placeholder that would generate a new URL for.</td>
+<td>The ID of the Audience Placeholder.</td>
 </tr>
 </tbody></table>
+<h3 id='upload-audience-data-csv-multipart-form-request'>Upload Audience Data CSV Multipart Form Request</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>file</td>
+<td>true</td>
+<td>CSV</td>
+<td>A CSV file containing the SHA-256 hashed audience data.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Returning the Audience Placeholder&#39;s ID and a URL for uploading your customer data.</li>
+<li><code>400 BAD REQUEST</code> - When the request is malformed, the audience is already processing changes, or the CSV is invalid.</li>
+<li><code>403 FORBIDDEN</code> - User has insufficient privileges or Audience Placeholder does not exist.</li>
+</ul>
 <h2 id='add-existing-channel-audience'>Add Existing Channel Audience</h2>
 <blockquote>
 <p>Add Existing Channel Audience Request Example</p>
@@ -3013,7 +3066,8 @@ after 24 hours.</p>
     </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"channelAudiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"channelAudienceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_audience_id"</span><span class="p">,</span><span class="w">
@@ -3043,7 +3097,7 @@ associated audiences.</li>
 <li>If neither <code>userId</code> nor <code>groupId</code> are present, all users in the organization can view and use the Audience
 Placeholder and associated audiences.</li>
 </ol>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-2'>HTTP Request</h3>
 <p><code>POST management/v1/audience/provided</code></p>
 <h3 id='add-existing-channel-audience-request-properties'>Add Existing Channel Audience Request Properties</h3>
 <table><thead>
@@ -3082,13 +3136,13 @@ Placeholder and associated audiences.</li>
 <td>userId</td>
 <td>false</td>
 <td>String</td>
-<td>The ID of the user that would own this Audience Placeholder and associated channel audience.</td>
+<td>The ID of the user that would own this Audience Placeholder and associated audience.</td>
 </tr>
 <tr>
 <td>groupId</td>
 <td>false</td>
 <td>String</td>
-<td>The ID of the group that would own this Audience Placeholder and associated channel audience.</td>
+<td>The ID of the group that would own this Audience Placeholder and associated audience.</td>
 </tr>
 <tr>
 <td>groupRole</td>
@@ -3104,7 +3158,7 @@ Placeholder and associated audiences.</li>
 <li><code>200 OK</code> - Returning the newly created Audience Placeholder ID associated with the imported channel audience.</li>
 <li><code>400 BAD REQUEST</code> - When the request is malformed, the audience is not active or accessible to Evocalize, or you
 attempt to associate to a non-existent user or group.</li>
-<li><code>403 Forbidden</code> - User has insufficient privileges.</li>
+<li><code>403 FORBIDDEN</code> - User has insufficient privileges or Audience Placeholder does not exist.</li>
 </ul>
 
 <p><strong>Valid channel types</strong>:</p>
@@ -3135,7 +3189,8 @@ attempt to associate to a non-existent user or group.</li>
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -3152,8 +3207,8 @@ associated audiences.</li>
 <li>If neither <code>userId</code> nor <code>groupId</code> are present, all users in the organization can view and use the Audience
 Placeholder and associated audiences.</li>
 </ol>
-<h3 id='http-request-4'>HTTP Request</h3>
-<p><code>POST management/v1/audience/{placeholderId}/url</code></p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST management/v1/audience/{placeholderId}/permissions</code></p>
 <h3 id='add-audience-placeholder-permissions-request-properties'>Add Audience Placeholder Permissions Request Properties</h3>
 <table><thead>
 <tr>
@@ -3167,13 +3222,13 @@ Placeholder and associated audiences.</li>
 <td>userId</td>
 <td>false</td>
 <td>String</td>
-<td>The ID of the user that would own this Audience Placeholder and associated channel audience.</td>
+<td>The ID of the user that would own this Audience Placeholder and associated audience.</td>
 </tr>
 <tr>
 <td>groupId</td>
 <td>false</td>
 <td>String</td>
-<td>The ID of the group that would own this Audience Placeholder and associated channel audience.</td>
+<td>The ID of the group that would own this Audience Placeholder and associated audience.</td>
 </tr>
 <tr>
 <td>groupRole</td>
@@ -3187,13 +3242,13 @@ Placeholder and associated audiences.</li>
 
 <ul>
 <li><code>200 OK</code> - Returning the Audience Placeholder ID associated.</li>
-<li><code>403 Forbidden</code> - User has insufficient privileges or Audience Placeholder does not exist.</li>
+<li><code>403 FORBIDDEN</code> - User has insufficient privileges or Audience Placeholder does not exist.</li>
 </ul>
-<h2 id='get-audiences-placeholders-for-user'>Get Audiences Placeholders For User</h2>
-<p>Returns a list of Audience Placeholders and associated channel audiences available to the user.</p>
+<h2 id='get-audience-placeholder-by-id'>Get Audience Placeholder By ID</h2>
+<p>Returns the Audience Placeholder and associated audiences.</p>
 
 <blockquote>
-<p>Get Audience Placeholders For User Response</p>
+<p>Get Audience Placeholder By ID Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -3201,7 +3256,8 @@ Placeholder and associated audiences.</li>
       </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"channelAudiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"channelAudienceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_audience_id"</span><span class="p">,</span><span class="w">
@@ -3215,8 +3271,8 @@ Placeholder and associated audiences.</li>
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-5'>HTTP Request</h3>
-<p><code>GET management/v1/user/{userId}/audiences</code></p>
+</span></code></pre></div><h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET management/v1/audiences/{placeholderId}</code></p>
 <h3 id='url-params-2'>URL Params</h3>
 <table><thead>
 <tr>
@@ -3227,13 +3283,13 @@ Placeholder and associated audiences.</li>
 </tr>
 </thead><tbody>
 <tr>
-<td>userId</td>
+<td>placeholderId</td>
 <td>true</td>
 <td>String</td>
-<td>The ID of the user you are wanting to retrieve audiences for.</td>
+<td>The ID of the Audience Placeholder you are wanting to retrieve.</td>
 </tr>
 </tbody></table>
-<h3 id='get-audience-placeholders-for-user-response-properties'>Get Audience Placeholders For User Response Properties</h3>
+<h3 id='get-audience-placeholder-by-id-response-properties'>Get Audience Placeholder By ID Response Properties</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -3246,7 +3302,7 @@ Placeholder and associated audiences.</li>
 <td>placeholderId</td>
 <td>false</td>
 <td>String</td>
-<td>The ID of the Audience Placeholder that is user-accessible.</td>
+<td>The ID of the Audience Placeholder.</td>
 </tr>
 <tr>
 <td>name</td>
@@ -3261,13 +3317,29 @@ Placeholder and associated audiences.</li>
 <td>The description of the Audience Placeholder.</td>
 </tr>
 <tr>
-<td>channelAudiences</td>
+<td>status</td>
+<td>false</td>
+<td>String</td>
+<td>The status of the Audience Placeholder.</td>
+</tr>
+<tr>
+<td>audiences</td>
 <td>false</td>
 <td>JSON ARRAY</td>
-<td>JSON Array of ChannelAudience objects. List includes created and active audiences.</td>
+<td>JSON Array of Audience objects. List includes created and active audiences.</td>
 </tr>
 </tbody></table>
-<h3 id='channel-audience-properties'>Channel Audience Properties</h3>
+
+<p><strong>Placeholder Statuses</strong>:</p>
+
+<ul>
+<li><code>pending</code> - Audience Placeholder has no associated audiences and requires a CSV upload to begin creating audiences.</li>
+<li><code>processing</code> - Audience Placeholder is processing changes from the most recent successfully uploaded audience data
+CSV.</li>
+<li><code>completed</code> - Audience Placeholder has completed processing changes from the most recent successfully uploaded
+audience data CSV.</li>
+</ul>
+<h3 id='audience-response-properties'>Audience Response Properties</h3>
 <table><thead>
 <tr>
 <th>Field</th>
@@ -3335,7 +3407,163 @@ audience.</li>
 <p><strong>Response Codes</strong>:</p>
 
 <ul>
-<li><code>200 OK</code> - Returning the available Audience Placeholders and associated channel audiences for a user.</li>
+<li><code>200 OK</code> - Returning the available Audience Placeholders and associated audiences for a user.</li>
+<li><code>404 NOT FOUND</code> - When the request is malformed.</li>
+</ul>
+<h2 id='get-audiences-placeholders-for-user'>Get Audiences Placeholders For User</h2>
+<p>Returns a list of Audience Placeholders and associated audiences available to the user.</p>
+
+<blockquote>
+<p>Get Audience Placeholders For User Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"channelAudienceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_audience_id"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook Audience Name"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook Audience Description"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"potentialSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2700000"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-5'>HTTP Request</h3>
+<p><code>GET management/v1/user/{userId}/audiences</code></p>
+<h3 id='url-params-3'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the user you are wanting to retrieve audiences for.</td>
+</tr>
+</tbody></table>
+<h3 id='get-audience-placeholders-for-user-response-properties'>Get Audience Placeholders For User Response Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Nullable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>placeholderId</td>
+<td>false</td>
+<td>String</td>
+<td>The ID of the Audience Placeholder that is user-accessible.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>false</td>
+<td>String</td>
+<td>The name of the Audience Placeholder.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>false</td>
+<td>String</td>
+<td>The description of the Audience Placeholder.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>false</td>
+<td>String</td>
+<td>The status of the Audience Placeholder.</td>
+</tr>
+<tr>
+<td>audiences</td>
+<td>false</td>
+<td>JSON ARRAY</td>
+<td>JSON Array of Audience objects. List includes created and active audiences.</td>
+</tr>
+</tbody></table>
+<h3 id='audience-response-properties-2'>Audience Response Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Nullable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>channel</td>
+<td>false</td>
+<td>String</td>
+<td>The name of the channel that audience is created under.</td>
+</tr>
+<tr>
+<td>channelAudienceId</td>
+<td>false</td>
+<td>String</td>
+<td>The ID of the channel-specific audience.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>false</td>
+<td>String</td>
+<td>The name of the channel-specific audience.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>false</td>
+<td>String</td>
+<td>The description of the channel-specific audience.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>false</td>
+<td>String</td>
+<td>The type of the channel-specific audience.</td>
+</tr>
+<tr>
+<td>potentialSize</td>
+<td>false</td>
+<td>String</td>
+<td>The approximate size of the channel-specific audience. Returns <code>-1</code> for inactive lookalike audiences and <code>&lt; 1000</code> when size is below 1000.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>false</td>
+<td>String</td>
+<td>The status of the channel-specific audience.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Audience Statuses</strong>:</p>
+
+<ul>
+<li><code>active</code> - Audience is active and ready to be used in marketing campaigns.</li>
+<li><code>inactive</code> - Audience is inactive and cannot be used in marketing campaigns. Updates can be applied to activate
+audience.</li>
+<li><code>pending</code> - Audience is processing creation or updates. Audiences can be used in marketing campaigns but will not be
+applied until processing is finished.</li>
+<li><code>deleted</code> - Audience is deleted and cannot be used in marketing campaigns. Updates cannot be applied to activate
+audience.</li>
+</ul>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Returning the available Audience Placeholders and associated audiences for a user.</li>
 <li><code>404 NOT FOUND</code> - When the request is malformed or the user does not exist.</li>
 </ul>
 <h1 id='media-library-api'>Media Library API</h1>
