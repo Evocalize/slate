@@ -341,7 +341,7 @@ Returns the Audience Placeholder and associated audiences.
 
 ### HTTP Request
 
-`GET management/v1/audiences/{placeholderId}`
+`GET management/v1/audience/{placeholderId}`
 
 ### URL Params
 
