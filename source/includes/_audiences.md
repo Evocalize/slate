@@ -16,34 +16,24 @@ Audience Placeholders can be associated with audiences created by Evocalize usin
 by your organization. Evocalize configures a set of rules for your organization for determining the type of audience(s)
 to create per channel, the account to create the audience under, and the account(s) to share the audience with.
 
-The creation process starts with creating an Audience Placeholder using the `Create Audience Placeholder API`. Once an
-Audience Placeholder has been created, your organization will need to upload a CSV containing your audience data to the
-URL in the API response. Upon completion of uploading your customer data, Evocalize will automatically begin creating
-audiences on behalf of your organization. Audiences created by this process will be associated with the Audience
-Placeholder created by this API. Audience creation can take up to 24 hours to complete.
+The creation process for an Audience Placeholder and associated audiences is:
 
-> Audience Data CSV Example
-
-```text
-email
-emailAddress01@example.com
-emailAddress02@example.com
-emailAddress03@example.com
-``` 
-
-Audience data needs to be uploaded in the form of a CSV so Evocalize can assign users to the newly created audiences.
-Moreover, the CSV must be in plain text and the first row must contain the data identifier name of each column. Ideally,
-the CSV must have at least 300 data identifiers to ensure a minimum of 100 matches. Below is a list of the supported
-data identifiers.
-
-| Data Identifier | Header | Description                    |
-|-----------------|--------|--------------------------------|
-| Email Address   | email  | The email address of the user. |
+1. Create an Audience Placeholder using the `Create Audience Placeholder API`. A successful response should include the
+   newly created Audience Placeholder with a `pending` status. No audiences are associated with it.
+2. Upload your customer data using the `Upload Audience CSV Data API`. Upon completion of uploading your customer data,
+   Evocalize will automatically begin creating audiences on behalf of your organization. A successful response should
+   include the Audience Placeholder updated to a `processing` status.
+3. Audience creation can take up to 24 hours to complete. Channel-specific audiences created by this process will be
+   associated with the Audience Placeholder. Once audience creation is complete, the Audience Placeholder will be
+   updated to a `completed` status. Moreover, Audience Placeholder and associated audiences can be used in blueprints
+   supporting audience targeting. You can check the status of the Audience Placeholder and associated audiences using
+   the `Get Audience Placeholder By ID API`.
 
 ### Partner-Provided Audiences
 
 Audience Placeholders can be associated with active, existing channel-specific audiences provided by your organization.
-See `Add Existing Channel Audience API` for more information.
+See `Add Existing Channel Audience API` for more information. Audience Placeholders that are created from a
+partner-provided audience can immediately be used in blueprints supporting audience targeting.
 
 ## Create Audience Placeholder
 
@@ -68,13 +58,13 @@ See `Add Existing Channel Audience API` for more information.
     "placeholderId": "1234",
     "name": "Audience Placeholder Name",
     "description": "Audience Placeholder Description",
-    "url": "https://api.example.com/uploadCsvToDestination"
+    "status": "pending"
   }
 }
 ```
 
-This endpoint allows you to create an Audience Placeholder and generate a URL for uploading your customer data. The
-generated URL will expire after 24 hours. See `Generate Audience Placeholder URL` for generating new URLs.
+This endpoint allows you to create an Audience Placeholder which will be used to associate associate audiences created
+by Evocalize. Successfully created Audience Placeholders will have a `pending` status.
 
 Audience Placeholders and associated audiences can be scoped to users, groups, or all users in the organization. Specify
 one of the following in your request to limit the scope:
@@ -97,18 +87,47 @@ one of the following in your request to limit the scope:
 |-------------|----------|--------|----------------------------------------------------------------------------------------------------------------------------------------|
 | name        | true     | String | The name of the Audience Placeholder.                                                                                                  |
 | description | false    | String | The description of the Audience Placeholder. Visible to users in the CMP. Fallbacks to the Audience Placeholder's name if not present. |
-| userId      | false    | String | The ID of the user that would own this Audience Placeholder and associated channel audiences.                                          |
-| groupId     | false    | String | The ID of the group that would own this Audience Placeholder and associated channel audiences.                                         |
+| userId      | false    | String | The ID of the user that would own this Audience Placeholder and associated audiences.                                                  |
+| groupId     | false    | String | The ID of the group that would own this Audience Placeholder and associated audiences.                                                 |
 | groupRole   | false    | String | The role of the user within the group.                                                                                                 |
 
 **Response Codes**:
 
-- `200 OK` - Returning the newly created Audience Placeholder's ID and generated URL.
+- `200 OK` - Returning the newly created Audience Placeholder details including the ID.
 - `400 BAD REQUEST` - When the request is malformed, or you attempt to associate to a non-existent user or group.
 
-## Generate Audience Placeholder URL
+## Upload Audience Data CSV
 
-> Generate Audience Placeholder URL Response
+After Evocalize creates audiences on behalf of your organization, these audiences will need to be assigned users using
+customer data collected by your organization. This customer data can be provided to Evocalize in the form of a CSV and
+uploaded via this endpoint.
+
+Th CSV must contain a header row which is the first row containing the data identifier name of each column. Moreover,
+every value in the CSV must be hashed as SHA-256. Ideally, the CSV must have at least 300 data identifiers to ensure
+a minimum of 100 matches. Below is a list of the supported data identifiers.
+
+> Audience Data CSV Example (Plain Text)
+
+```text
+email,phone,firstname,lastname
+emailaddress@example.com,15129876543,test,user
+``` 
+
+> Audience Data CSV Example (SHA-256)
+
+```text
+email,phone,firstname,lastname
+d42d751294f09be1b195bdea0f5049af7c7da93a99f4c688705ddcacdd16b4c1,88fb2986c52c22fbc4038a49ddd37b3650d0c52806fe520b288672770dc14730,9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08,04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb
+```
+
+| Data Identifier | Header    | Description                                                                                        |
+|-----------------|-----------|----------------------------------------------------------------------------------------------------|
+| Email Address   | email     | Email must be lowercase, and not have any white space characters.                                  |
+| Phone           | phone     | Phone must contain only digits, not have any leading zeros, and be prefixed with the country code. |
+| First Name      | firstname | First name must be lowercase, have no punctuations, and be UTF-8 formatted.                        |
+| Last Name       | lastname  | Last name must be lowercase, have no punctuations, and be UTF-8 formatted.                         |
+
+> Upload Audience Data CSV Response
 
 ```json
 {
@@ -116,28 +135,36 @@ one of the following in your request to limit the scope:
     "placeholderId": "1234",
     "name": "Audience Placeholder Name",
     "description": "Audience Placeholder Description",
-    "url": "https://api.example.com/uploadCsvToNewDestination"
+    "status": "processing"
   }
 }
 ```
 
-This endpoint generates a new Audience Placeholder URL for uploading your customer data. The generated URL will expire
-after 24 hours.
+This multipart form endpoint can be used to upload your audience data in the form of a CSV. The data must be hashed as
+SHA-256. When uploading your CSV via this multipart endpoint, specify the CSV under the `file` key in the multipart
+form.
+
+### HTTP Request (Multipart Form)
+
+`POST management/v1/audience/{placeholderId}/csv/upload`
+
+### URL Params
+
+| URL Param     | Required | Type   | Description                         |
+|---------------|----------|--------|-------------------------------------|
+| placeholderId | true     | String | The ID of the Audience Placeholder. |
+
+### Upload Audience Data CSV Multipart Form Request
+
+| Field     | Required | Type | Description                                             |
+|-----------|----------|------|---------------------------------------------------------|
+| file      | true     | CSV  | A CSV file containing the SHA-256 hashed audience data. |
 
 **Response Codes**:
 
 - `200 OK` - Returning the Audience Placeholder's ID and a URL for uploading your customer data.
-- `403 Forbidden` - User has insufficient privileges or Audience Placeholder does not exist.
-
-### HTTP Request
-
-`POST management/v1/audience/{placeholderId}/url`
-
-### URL Params
-
-| URL Param     | Required | Type   | Description                                                           |
-|---------------|----------|--------|-----------------------------------------------------------------------|
-| placeholderId | true     | String | The ID of the Audience Placeholder that would generate a new URL for. |
+- `400 BAD REQUEST` - When the request is malformed, the audience is already processing changes, or the CSV is invalid.
+- `403 FORBIDDEN` - User has insufficient privileges or Audience Placeholder does not exist.
 
 ## Add Existing Channel Audience
 
@@ -163,7 +190,8 @@ after 24 hours.
     "placeholderId": "1234",
     "name": "Audience Placeholder Name",
     "description": "Audience Placeholder Description",
-    "channelAudiences": [
+    "status": "completed",
+    "audiences": [
       {
         "channel": "Facebook",
         "channelAudienceId": "test_audience_id",
@@ -205,8 +233,8 @@ your request to limit the scope to the imported audience and associated Audience
 | channelAudienceId | true     | String | The ID of the channel-specific audience to be imported.                                                                      |
 | name              | false    | String | The name of the Audience Placeholder you are creating. Fallbacks to the channel audience's name if not present               |
 | description       | false    | String | The description of the Audience Placeholder you are creating. Fallbacks to the channel audience's description if not present |
-| userId            | false    | String | The ID of the user that would own this Audience Placeholder and associated channel audience.                                 |
-| groupId           | false    | String | The ID of the group that would own this Audience Placeholder and associated channel audience.                                |
+| userId            | false    | String | The ID of the user that would own this Audience Placeholder and associated audience.                                         |
+| groupId           | false    | String | The ID of the group that would own this Audience Placeholder and associated audience.                                        |
 | groupRole         | false    | String | The role of the user within the group.                                                                                       |
 
 **Response Codes**:
@@ -214,7 +242,7 @@ your request to limit the scope to the imported audience and associated Audience
 - `200 OK` - Returning the newly created Audience Placeholder ID associated with the imported channel audience.
 - `400 BAD REQUEST` - When the request is malformed, the audience is not active or accessible to Evocalize, or you
   attempt to associate to a non-existent user or group.
-- `403 Forbidden` - User has insufficient privileges.
+- `403 FORBIDDEN` - User has insufficient privileges or Audience Placeholder does not exist.
 
 **Valid channel types**:
 
@@ -246,7 +274,8 @@ your request to limit the scope to the imported audience and associated Audience
   "data": {
     "placeholderId": "1234",
     "name": "Audience Placeholder Name",
-    "description": "Audience Placeholder Description"
+    "description": "Audience Placeholder Description",
+    "status": "completed"
   }
 }
 ```
@@ -265,24 +294,109 @@ to the associated Audience Placeholder
 
 ### HTTP Request
 
-`POST management/v1/audience/{placeholderId}/url`
+`POST management/v1/audience/{placeholderId}/permissions`
 
 ### Add Audience Placeholder Permissions Request Properties
 
-| Field             | Required | Type   | Description                                                                                   |
-|-------------------|----------|--------|-----------------------------------------------------------------------------------------------|
-| userId            | false    | String | The ID of the user that would own this Audience Placeholder and associated channel audience.  |
-| groupId           | false    | String | The ID of the group that would own this Audience Placeholder and associated channel audience. |
-| groupRole         | false    | String | The role of the user within the group.                                                        |
+| Field     | Required | Type   | Description                                                                           |
+|-----------|----------|--------|---------------------------------------------------------------------------------------|
+| userId    | false    | String | The ID of the user that would own this Audience Placeholder and associated audience.  |
+| groupId   | false    | String | The ID of the group that would own this Audience Placeholder and associated audience. |
+| groupRole | false    | String | The role of the user within the group.                                                |
 
 **Response Codes**:
 
 - `200 OK` - Returning the Audience Placeholder ID associated.
-- `403 Forbidden` - User has insufficient privileges or Audience Placeholder does not exist.
+- `403 FORBIDDEN` - User has insufficient privileges or Audience Placeholder does not exist.
+
+## Get Audience Placeholder By ID
+
+Returns the Audience Placeholder and associated audiences.
+
+> Get Audience Placeholder By ID Response
+
+```json
+{
+  "data": [
+    {
+      "placeholderId": "1234",
+      "name": "Audience Placeholder Name",
+      "description": "Audience Placeholder Description",
+      "status": "completed",
+      "audiences": [
+        {
+          "channel": "Facebook",
+          "channelAudienceId": "test_audience_id",
+          "name": "Facebook Audience Name",
+          "description": "Facebook Audience Description",
+          "type": "custom",
+          "potentialSize": "2700000",
+          "status": "active"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### HTTP Request
+
+`GET management/v1/audiences/{placeholderId}`
+
+### URL Params
+
+| URL Param     | Required | type   | Description                                                     |
+|---------------|----------|--------|-----------------------------------------------------------------|
+| placeholderId | true     | String | The ID of the Audience Placeholder you are wanting to retrieve. |
+
+### Get Audience Placeholder By ID Response Properties
+
+| Field         | Nullable | Type       | Description                                                                 |
+|---------------|----------|------------|-----------------------------------------------------------------------------|
+| placeholderId | false    | String     | The ID of the Audience Placeholder.                                         |
+| name          | false    | String     | The name of the Audience Placeholder.                                       |
+| description   | false    | String     | The description of the Audience Placeholder.                                |
+| status        | false    | String     | The status of the Audience Placeholder.                                     |
+| audiences     | false    | JSON ARRAY | JSON Array of Audience objects. List includes created and active audiences. |
+
+**Placeholder Statuses**:
+
+- `pending` - Audience Placeholder has no associated audiences and requires a CSV upload to begin creating audiences.
+- `processing` - Audience Placeholder is processing changes from the most recent successfully uploaded audience data
+  CSV.
+- `completed` - Audience Placeholder has completed processing changes from the most recent successfully uploaded
+  audience data CSV.
+
+### Audience Response Properties
+
+| Field             | Nullable | Type   | Description                                                                                                                                |
+|-------------------|----------|--------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| channel           | false    | String | The name of the channel that audience is created under.                                                                                    |
+| channelAudienceId | false    | String | The ID of the channel-specific audience.                                                                                                   |
+| name              | false    | String | The name of the channel-specific audience.                                                                                                 |
+| description       | false    | String | The description of the channel-specific audience.                                                                                          |
+| type              | false    | String | The type of the channel-specific audience.                                                                                                 |
+| potentialSize     | false    | String | The approximate size of the channel-specific audience. Returns `-1` for inactive lookalike audiences and `< 1000` when size is below 1000. |
+| status            | false    | String | The status of the channel-specific audience.                                                                                               |
+
+**Audience Statuses**:
+
+- `active` - Audience is active and ready to be used in marketing campaigns.
+- `inactive` - Audience is inactive and cannot be used in marketing campaigns. Updates can be applied to activate
+  audience.
+- `pending` - Audience is processing creation or updates. Audiences can be used in marketing campaigns but will not be
+  applied until processing is finished.
+- `deleted` - Audience is deleted and cannot be used in marketing campaigns. Updates cannot be applied to activate
+  audience.
+
+**Response Codes**:
+
+- `200 OK` - Returning the available Audience Placeholders and associated audiences for a user.
+- `404 NOT FOUND` - When the request is malformed.
 
 ## Get Audiences Placeholders For User
 
-Returns a list of Audience Placeholders and associated channel audiences available to the user.
+Returns a list of Audience Placeholders and associated audiences available to the user.
 
 > Get Audience Placeholders For User Response
 
@@ -293,7 +407,8 @@ Returns a list of Audience Placeholders and associated channel audiences availab
       "placeholderId": "1234",
       "name": "Audience Placeholder Name",
       "description": "Audience Placeholder Description",
-      "channelAudiences": [
+      "status": "completed",
+      "audiences": [
         {
           "channel": "Facebook",
           "channelAudienceId": "test_audience_id",
@@ -321,14 +436,15 @@ Returns a list of Audience Placeholders and associated channel audiences availab
 
 ### Get Audience Placeholders For User Response Properties
 
-| Field            | Nullable | Type       | Description                                                                        |
-|------------------|----------|------------|------------------------------------------------------------------------------------|
-| placeholderId    | false    | String     | The ID of the Audience Placeholder that is user-accessible.                        |
-| name             | false    | String     | The name of the Audience Placeholder.                                              |
-| description      | false    | String     | The description of the Audience Placeholder.                                       |
-| channelAudiences | false    | JSON ARRAY | JSON Array of ChannelAudience objects. List includes created and active audiences. |
+| Field         | Nullable | Type       | Description                                                                 |
+|---------------|----------|------------|-----------------------------------------------------------------------------|
+| placeholderId | false    | String     | The ID of the Audience Placeholder that is user-accessible.                 |
+| name          | false    | String     | The name of the Audience Placeholder.                                       |
+| description   | false    | String     | The description of the Audience Placeholder.                                |
+| status        | false    | String     | The status of the Audience Placeholder.                                     |
+| audiences     | false    | JSON ARRAY | JSON Array of Audience objects. List includes created and active audiences. |
 
-### Channel Audience Properties
+### Audience Response Properties
 
 | Field             | Nullable | Type   | Description                                                                                                                                |
 |-------------------|----------|--------|--------------------------------------------------------------------------------------------------------------------------------------------|
@@ -352,5 +468,5 @@ Returns a list of Audience Placeholders and associated channel audiences availab
 
 **Response Codes**:
 
-- `200 OK` - Returning the available Audience Placeholders and associated channel audiences for a user.
+- `200 OK` - Returning the available Audience Placeholders and associated audiences for a user.
 - `404 NOT FOUND` - When the request is malformed or the user does not exist.
