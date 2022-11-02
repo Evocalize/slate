@@ -301,16 +301,16 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
-            <a href="#request-and-response-info" class="toc-h1 toc-link" data-title="Request And Response Info">Request And Response Info</a>
+            <a href="#request-and-response" class="toc-h1 toc-link" data-title="Request And Response">Request And Response</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#api-endpoint" class="toc-h2 toc-link" data-title="API Endpoint">API Endpoint</a>
                   </li>
                   <li>
-                    <a href="#required-headers" class="toc-h2 toc-link" data-title="Required Headers">Required Headers</a>
+                    <a href="#requests" class="toc-h2 toc-link" data-title="Requests">Requests</a>
                   </li>
                   <li>
-                    <a href="#response-format" class="toc-h2 toc-link" data-title="Response Format">Response Format</a>
+                    <a href="#responses" class="toc-h2 toc-link" data-title="Responses">Responses</a>
                   </li>
               </ul>
           </li>
@@ -517,16 +517,99 @@
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to the Evocalize management API.</p>
-<h1 id='request-and-response-info'>Request And Response Info</h1><h2 id='api-endpoint'>API Endpoint</h2>
+<h1 id='request-and-response'>Request And Response</h1><h2 id='api-endpoint'>API Endpoint</h2>
 <p><code>https://office-api.evocalize.com/</code></p>
-<h2 id='required-headers'>Required Headers</h2>
+<h2 id='requests'>Requests</h2>
+<p>Evocalize has a majority of endpoints where the request and response is JSON formatted. At the same time, there are
+Multipart-Form endpoints for uploading content for an entity. Specify <code>Content-Type</code> accordingly.</p>
+
+<table><thead>
+<tr>
+<th>Header</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Content-Type</td>
+<td>true</td>
+<td>For JSON endpoints, <code>application/json</code>. For Multipart-Form endpoints, <code>multipart/form-data</code>.</td>
+</tr>
+</tbody></table>
+
+<p>For security and identity purposes, we require partners to provide authentication headers on all API requests. The
+required authentication request headers depend on your request&#39;s authentication type. Evocalize supports the following
+authentication types:</p>
+
+<ol>
+<li>Shared Secret</li>
+<li>Signature</li>
+</ol>
+
+<p>If both authentication types are present in the request, <code>Shared Secret</code> takes precedence.</p>
+<h3 id='shared-secret-authentication'>Shared Secret Authentication</h3>
 <blockquote>
-<p>Example Headers</p>
+<p>Request Headers Example (Shared Secret)</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>X-Evocalize-Client-Key: 690a0ac5a5a219bb4a773f5bc116a325
+X-Evocalize-Client-Key-Id: a5646c38-fc29-11e9-8f0b-362b9e155667
+</code></pre></div>
+<p>Pass in the client key and ID of the client key in your request. Evocalize should provide you with this information.</p>
+
+<table><thead>
+<tr>
+<th>Header</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>X-Evocalize-Client-Key</td>
+<td>true</td>
+<td>Client Key provided by Evocalize.</td>
+</tr>
+<tr>
+<td>X-Evocalize-Client-Key-Id</td>
+<td>true</td>
+<td>ID of the Client Key provided by Evocalize.</td>
+</tr>
+</tbody></table>
+<h3 id='signature-authentication'>Signature Authentication:</h3>
+<blockquote>
+<p>Request Headers Example (Signature)</p>
 </blockquote>
 <div class="highlight"><pre class="highlight plaintext"><code>X-Evocalize-Client-Key-Id: a5646c38-fc29-11e9-8f0b-362b9e155667
-X-Evocalize-Client-Key: 690a0ac5a5a219bb4a773f5bc116a325 
-Content-Type: application/json
+X-Evocalize-Timestamp: 1667231735360
+X-Evocalize-Signature: ba60ba1619762b3a06c88c4ed4e700c8a02aa1bf4a2eead8b41f8015c7902034
 </code></pre></div>
+<blockquote>
+<p>Request Signing Example</p>
+</blockquote>
+<div class="highlight"><pre class="highlight kotlin tab-kotlin"><code><span class="c1">// Concatenate all the parts</span>
+<span class="kd">val</span> <span class="py">signatureParts</span> <span class="p">=</span> <span class="nc">StringBuilder</span><span class="p">()</span>
+  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">servletPath</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
+  <span class="c1">// Omit this block if the request does not have a body</span>
+  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="nf">body</span><span class="p">())</span>
+  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s">"X-Evocalize-Timestamp"</span><span class="p">])</span>
+  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">"\n"</span><span class="p">)</span>
+  <span class="c1">// append the client key secret</span>
+  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">myClientKeySecret</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">toString</span><span class="p">()</span>
+
+<span class="c1">// Take this value and pass it as the value for the header key "X-Evocalize-Signature"</span>
+<span class="kd">val</span> <span class="py">signature</span> <span class="p">=</span> <span class="nc">Hashing</span><span class="p">.</span><span class="nf">sha256</span><span class="p">().</span><span class="nf">hashString</span><span class="p">(</span><span class="n">signatureParts</span><span class="p">,</span> <span class="nc">Charsets</span><span class="p">.</span><span class="nc">UTF_8</span><span class="p">)</span>
+</code></pre></div>
+<p>Join the following values with a new line character between each item</p>
+
+<ul>
+<li>UrlPath (including path params if present)</li>
+<li>The body of the request (omit if your request does not contain a body, e.g. a GET request)</li>
+<li>Value of the timestamp used in the X-Evocalize-Timestamp Header</li>
+<li>Client Key Secret (this is a secret that will be provided by Evocalize)</li>
+</ul>
+
 <table><thead>
 <tr>
 <th>Header</th>
@@ -540,17 +623,19 @@ Content-Type: application/json
 <td>ID of the Client Key provided by Evocalize.</td>
 </tr>
 <tr>
-<td>X-Evocalize-Client-Key</td>
+<td>X-Evocalize-Timestamp</td>
 <td>true</td>
-<td>The Secret Key Provided to you by Evocalize</td>
+<td>Unix time since epoch in seconds, e.g. October 30, 2020 @ 9:44pm (UTC) =&gt; 1604094273. Requests with a timestamp over a minute old will not be accepted.</td>
 </tr>
 <tr>
-<td>Content-Type</td>
+<td>X-Evocalize-Signature</td>
 <td>true</td>
-<td><code>application/json</code></td>
+<td>Signature of the payload. See Signing Requests below.</td>
 </tr>
 </tbody></table>
-<h2 id='response-format'>Response Format</h2>
+
+<aside class="notice">All code examples below assume that you are passing the required headers described in this section</aside>
+<h2 id='responses'>Responses</h2>
 <blockquote>
 <p>JSON Response Schema</p>
 </blockquote>
@@ -562,8 +647,10 @@ Content-Type: application/json
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"field"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Omitted</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="kc">null</span><span class="w">
-      </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">        </span><span class="err">//</span><span class="w"> </span><span class="err">Omitted</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
+      </span><span class="err">//</span><span class="w"> </span><span class="err">Omitted</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="err">//</span><span class="w"> </span><span class="err">Omitted</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="kc">null</span><span class="w">
         </span><span class="err">//</span><span class="w"> </span><span class="err">JSON</span><span class="w"> </span><span class="err">object</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
@@ -572,10 +659,11 @@ Content-Type: application/json
   </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="err">//</span><span class="w"> </span><span class="err">JSON</span><span class="w"> </span><span class="err">object</span><span class="w">
-  </span><span class="p">},</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Example Success Response:</p>
+<p>Success Response Example:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -584,7 +672,7 @@ Content-Type: application/json
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Example Error Response:</p>
+<p>Error Response Example:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -595,7 +683,9 @@ Content-Type: application/json
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>All requests are returned as JSON wrapped in a standard response format. The Schema section shows all the potential fields that we could return. Do note that we do not include null values. The most common responses will look like the examples provided.</p>
+<p>All requests are returned as JSON wrapped in a standard response format. The Schema section shows all the potential
+fields that we could return. Do note that we do not include null values. The most common responses will look like the
+examples provided.</p>
 
 <table><thead>
 <tr>
@@ -3272,7 +3362,7 @@ Placeholder and associated audiences.</li>
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request-4'>HTTP Request</h3>
-<p><code>GET management/v1/audiences/{placeholderId}</code></p>
+<p><code>GET management/v1/audience/{placeholderId}</code></p>
 <h3 id='url-params-2'>URL Params</h3>
 <table><thead>
 <tr>
@@ -3380,9 +3470,9 @@ audience data CSV.</li>
 </tr>
 <tr>
 <td>potentialSize</td>
-<td>false</td>
+<td>true</td>
 <td>String</td>
-<td>The approximate size of the channel-specific audience. Returns <code>-1</code> for inactive lookalike audiences and <code>&lt; 1000</code> when size is below 1000.</td>
+<td>The approximate size of the channel-specific audience. Returns <code>null</code> if audience is being created, <code>-1</code> for inactive lookalike audiences and <code>&lt; 1000</code> when size is below 1000.</td>
 </tr>
 <tr>
 <td>status</td>
@@ -3536,9 +3626,9 @@ audience.</li>
 </tr>
 <tr>
 <td>potentialSize</td>
-<td>false</td>
+<td>true</td>
 <td>String</td>
-<td>The approximate size of the channel-specific audience. Returns <code>-1</code> for inactive lookalike audiences and <code>&lt; 1000</code> when size is below 1000.</td>
+<td>The approximate size of the channel-specific audience. Returns <code>null</code> if audience is being created, <code>-1</code> for inactive lookalike audiences and <code>&lt; 1000</code> when size is below 1000.</td>
 </tr>
 <tr>
 <td>status</td>
@@ -3730,6 +3820,11 @@ Users owning the media cannot delete the media from their Media Library via the 
 <td>EV_UNAUTHORIZED_INVALID_SIGNATURE</td>
 <td>401</td>
 <td>Signature provided in <code>X-Evocalize-Signature</code> is not valid.</td>
+</tr>
+<tr>
+<td>EV_UNAUTHORIZED_INVALID_SECRET</td>
+<td>401</td>
+<td>Secret provided in <code>X-Evocalize-Client-Key</code> is not valid.</td>
 </tr>
 <tr>
 <td>EV_UNAUTHORIZED_EXPIRED_REQUEST</td>
