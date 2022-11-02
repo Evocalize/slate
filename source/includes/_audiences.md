@@ -369,15 +369,15 @@ Returns the Audience Placeholder and associated audiences.
 
 ### Audience Response Properties
 
-| Field             | Nullable | Type   | Description                                                                                                                                |
-|-------------------|----------|--------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| channel           | false    | String | The name of the channel that audience is created under.                                                                                    |
-| channelAudienceId | false    | String | The ID of the channel-specific audience.                                                                                                   |
-| name              | false    | String | The name of the channel-specific audience.                                                                                                 |
-| description       | false    | String | The description of the channel-specific audience.                                                                                          |
-| type              | false    | String | The type of the channel-specific audience.                                                                                                 |
-| potentialSize     | false    | String | The approximate size of the channel-specific audience. Returns `-1` for inactive lookalike audiences and `< 1000` when size is below 1000. |
-| status            | false    | String | The status of the channel-specific audience.                                                                                               |
+| Field             | Nullable | Type   | Description                                                                                                                                                                     |
+|-------------------|----------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| channel           | false    | String | The name of the channel that audience is created under.                                                                                                                         |
+| channelAudienceId | false    | String | The ID of the channel-specific audience.                                                                                                                                        |
+| name              | false    | String | The name of the channel-specific audience.                                                                                                                                      |
+| description       | false    | String | The description of the channel-specific audience.                                                                                                                               |
+| type              | false    | String | The type of the channel-specific audience.                                                                                                                                      |
+| potentialSize     | true     | String | The approximate size of the channel-specific audience. Returns `null` if audience is being created, `-1` for inactive lookalike audiences and `< 1000` when size is below 1000. |
+| status            | false    | String | The status of the channel-specific audience.                                                                                                                                    |
 
 **Audience Statuses**:
 
@@ -446,15 +446,15 @@ Returns a list of Audience Placeholders and associated audiences available to th
 
 ### Audience Response Properties
 
-| Field             | Nullable | Type   | Description                                                                                                                                |
-|-------------------|----------|--------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| channel           | false    | String | The name of the channel that audience is created under.                                                                                    |
-| channelAudienceId | false    | String | The ID of the channel-specific audience.                                                                                                   |
-| name              | false    | String | The name of the channel-specific audience.                                                                                                 |
-| description       | false    | String | The description of the channel-specific audience.                                                                                          |
-| type              | false    | String | The type of the channel-specific audience.                                                                                                 |
-| potentialSize     | false    | String | The approximate size of the channel-specific audience. Returns `-1` for inactive lookalike audiences and `< 1000` when size is below 1000. |
-| status            | false    | String | The status of the channel-specific audience.                                                                                               |
+| Field             | Nullable | Type   | Description                                                                                                                                                                     |
+|-------------------|----------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| channel           | false    | String | The name of the channel that audience is created under.                                                                                                                         |
+| channelAudienceId | false    | String | The ID of the channel-specific audience.                                                                                                                                        |
+| name              | false    | String | The name of the channel-specific audience.                                                                                                                                      |
+| description       | false    | String | The description of the channel-specific audience.                                                                                                                               |
+| type              | false    | String | The type of the channel-specific audience.                                                                                                                                      |
+| potentialSize     | true     | String | The approximate size of the channel-specific audience. Returns `null` if audience is being created, `-1` for inactive lookalike audiences and `< 1000` when size is below 1000. |
+| status            | false    | String | The status of the channel-specific audience.                                                                                                                                    |
 
 **Audience Statuses**:
 
