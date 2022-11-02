@@ -96,10 +96,8 @@ Join the following values with a new line character between each item
     {
       "message": "String",
       "code": "String",
-      "field": "String",
-      // Omitted if null
-      "details": {
-        // Omitted if null
+      "field": "String", // Omitted if null
+      "details": {       // Omitted if null
         // JSON object
       }
     }
