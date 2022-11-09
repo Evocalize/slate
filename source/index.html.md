@@ -8,6 +8,7 @@ includes:
 - _user_and_group_management_api
 - _access_control
 - _content_management_api
+- _content_access_v2
 - _content_access_management
 - _batch_report_api
 - _webhook_integration
