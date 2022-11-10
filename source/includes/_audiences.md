@@ -43,9 +43,15 @@ partner-provided audience can immediately be used in blueprints supporting audie
 {
   "name": "Audience Placeholder Name",
   "description": "Audience Placeholder Description",
-  "userId": "test_user_id",
-  "groupId": "seattle_office",
-  "groupRole": "group_admin"
+  "grants": [
+    {
+      "grantee": {
+        "type": "USER",
+        "userId": "exampleUserId"
+      },
+      "permissions": ["READ"]
+    }
+  ]
 }
 
 ```
@@ -63,19 +69,12 @@ partner-provided audience can immediately be used in blueprints supporting audie
 }
 ```
 
-This endpoint allows you to create an Audience Placeholder which will be used to associate associate audiences created
+This endpoint allows you to create an Audience Placeholder which will be used to associate audiences created
 by Evocalize. Successfully created Audience Placeholders will have a `pending` status.
 
-Audience Placeholders and associated audiences can be scoped to users, groups, or all users in the organization. Specify
-one of the following in your request to limit the scope:
-
-1. If `userId` is present, the user can view and use the Audience Placeholder and associated audiences
-2. If `groupId` is present, all users in the group can view and use the Audience Placeholder and associated audiences
-3. If `groupId` and `groupRole` are present, the users in the group and with role can view and use the Audience
-   Placeholder and
-   associated audiences.
-4. If neither `userId` nor `groupId` are present, all users in the organization can view and use the Audience
-   Placeholder and associated audiences.
+You can control who can use audience placeholders by leveraging our standard access control system.
+`READ` is currently the only valid permission for audience placeholders. See the [Access Control](#access-control)
+section for more details.
 
 ### HTTP Request
 
@@ -83,13 +82,11 @@ one of the following in your request to limit the scope:
 
 ### Create Audience Placeholder Request Properties
 
-| Field       | Required | Type   | Description                                                                                                                            |
-|-------------|----------|--------|----------------------------------------------------------------------------------------------------------------------------------------|
-| name        | true     | String | The name of the Audience Placeholder.                                                                                                  |
-| description | false    | String | The description of the Audience Placeholder. Visible to users in the CMP. Fallbacks to the Audience Placeholder's name if not present. |
-| userId      | false    | String | The ID of the user that would own this Audience Placeholder and associated audiences.                                                  |
-| groupId     | false    | String | The ID of the group that would own this Audience Placeholder and associated audiences.                                                 |
-| groupRole   | false    | String | The role of the user within the group.                                                                                                 |
+| Field       | Required | Type       | Description                                                                                                                            |
+|-------------|----------|------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| name        | true     | String     | The name of the Audience Placeholder.                                                                                                  |
+| description | false    | String     | The description of the Audience Placeholder. Visible to users in the CMP. Fallbacks to the Audience Placeholder's name if not present. |
+| grants      | false    | Grant List | A list of grants that define access to the audience placeholder.                                                                       |                                                                                          |
 
 **Response Codes**:
 
@@ -176,9 +173,15 @@ form.
   "channelAudienceId": "test_facebook_audience_id",
   "name": "Audience Placeholder Name",
   "description": "Audience Placeholder Description",
-  "userId": "test_user_id",
-  "groupId": "seattle_office",
-  "groupRole": "group_admin"
+  "grants": [
+    {
+      "grantee": {
+        "type": "USER",
+        "userId": "exampleUserId"
+      },
+      "permissions": ["READ"]
+    }
+  ]
 }
 ```
 
@@ -210,16 +213,9 @@ This endpoint allows importing existing active channel audiences for use in mark
 the audience to be imported is accessible and ready to be used in marketing campaigns. An Audience Placeholder will be
 created and associated with this existing channel audience Currently, Evocalize supports importing Meta audiences.
 
-The imported audience can be scoped to users, groups, or all users in the organization. Specify one of the following in
-your request to limit the scope to the imported audience and associated Audience Placeholder:
-
-1. If `userId` is present, the user can view and use the Audience Placeholder and associated audiences
-2. If `groupId` is present, all users in the group can view and use the Audience Placeholder and associated audiences
-3. If `groupId` and `groupRole` are present, the users in the group and with role can view and use the Audience
-   Placeholder and
-   associated audiences.
-4. If neither `userId` nor `groupId` are present, all users in the organization can view and use the Audience
-   Placeholder and associated audiences.
+You can control access to the imported audience by leveraging our standard access control system.
+`READ` is currently the only valid permission for imported audiences. See the [Access Control](#access-control)
+section for more details.
 
 ### HTTP Request
 
@@ -227,15 +223,13 @@ your request to limit the scope to the imported audience and associated Audience
 
 ### Add Existing Channel Audience Request Properties
 
-| Field             | Required | Type   | Description                                                                                                                  |
-|-------------------|----------|--------|------------------------------------------------------------------------------------------------------------------------------|
-| channel           | true     | String | The name of the channel the audience was created under.                                                                      |
-| channelAudienceId | true     | String | The ID of the channel-specific audience to be imported.                                                                      |
-| name              | false    | String | The name of the Audience Placeholder you are creating. Fallbacks to the channel audience's name if not present               |
-| description       | false    | String | The description of the Audience Placeholder you are creating. Fallbacks to the channel audience's description if not present |
-| userId            | false    | String | The ID of the user that would own this Audience Placeholder and associated audience.                                         |
-| groupId           | false    | String | The ID of the group that would own this Audience Placeholder and associated audience.                                        |
-| groupRole         | false    | String | The role of the user within the group.                                                                                       |
+| Field             | Required | Type       | Description                                                                                                                  |
+|-------------------|----------|------------|------------------------------------------------------------------------------------------------------------------------------|
+| channel           | true     | String     | The name of the channel the audience was created under.                                                                      |
+| channelAudienceId | true     | String     | The ID of the channel-specific audience to be imported.                                                                      |
+| name              | false    | String     | The name of the Audience Placeholder you are creating. Fallbacks to the channel audience's name if not present               |
+| description       | false    | String     | The description of the Audience Placeholder you are creating. Fallbacks to the channel audience's description if not present |
+| grants            | false    | Grant List | A list of grants that define access to the audience placeholder.                                                             |
 
 **Response Codes**:
 
@@ -248,26 +242,32 @@ your request to limit the scope to the imported audience and associated Audience
 
 - Facebook
 
-## Add Audience Placeholder Permissions
+## Update Permissions
 
-> Add Audience Placeholder Permissions Request Example (User)
-
-```json
-{
-  "userId": "test_user_id"
-}
-```
-
-> Add Audience Placeholder Permissions Request Example (Group)
+> Update Audience Placeholder Permissions Request Example (A group with an additional user)
 
 ```json
 {
-  "group": "test_group_id",
-  "groupRole": "group_admin"
+  "grants": [
+    {
+      "grantee": {
+        "type": "GROUP",
+        "userId": "exampleGroupId"
+      },
+      "permissions": ["READ"]
+    },
+    {
+      "grantee": {
+        "type": "USER",
+        "userId": "exampleUserId"
+      },
+      "permissions": ["READ"]
+    }
+  ]
 }
 ```
 
-> Add Audience Placeholder Permissions Response
+> Update Audience Placeholder Permissions Response
 
 ```json
 {
@@ -280,34 +280,69 @@ your request to limit the scope to the imported audience and associated Audience
 }
 ```
 
-This endpoint allows adding permissions to an Audience Placeholder so that users who have access can view associated
-audiences in the CMP and create ad campaigns using them. Specify one of the following in your request to limit the scope
-to the associated Audience Placeholder
-
-1. If `userId` is present, the user can view and use the Audience Placeholder and associated audiences
-2. If `groupId` is present, all users in the group can view and use the Audience Placeholder and associated audiences
-3. If `groupId` and `groupRole` are present, the users in the group and with role can view and use the Audience
-   Placeholder and
-   associated audiences.
-4. If neither `userId` nor `groupId` are present, all users in the organization can view and use the Audience
-   Placeholder and associated audiences.
+You can control who can use audience placeholders by leveraging our standard access control system.
+This endpoint allows for creating/updating grants on the audience placeholder. Grants are upserted
+based off of the grantee, so only grants for the given grantees in the request will be touched. Any
+grantees not included in your request will remain untouched.
+`READ` is currently the only valid permission for audience placeholders. You can also provide an empty
+permissions list in a grant to remove access to the audience placeholder. See the [Access Control](#access-control)
+section for more details.
 
 ### HTTP Request
 
-`POST management/v1/audience/{placeholderId}/permissions`
+`POST management/v1/audience/{placeholderId}/grants`
 
 ### Add Audience Placeholder Permissions Request Properties
 
-| Field     | Required | Type   | Description                                                                           |
-|-----------|----------|--------|---------------------------------------------------------------------------------------|
-| userId    | false    | String | The ID of the user that would own this Audience Placeholder and associated audience.  |
-| groupId   | false    | String | The ID of the group that would own this Audience Placeholder and associated audience. |
-| groupRole | false    | String | The role of the user within the group.                                                |
+| Field  | Required | Type       | Description                                                      |
+|--------|----------|------------|------------------------------------------------------------------|
+| grants | false    | Grant List | A list of grants that define access to the audience placeholder. |
+
 
 **Response Codes**:
 
 - `200 OK` - Returning the Audience Placeholder ID associated.
 - `403 FORBIDDEN` - User has insufficient privileges or Audience Placeholder does not exist.
+
+## Get Permissions
+
+> Get Audience Placeholder Permissions Response
+
+```json
+{
+  "data": {
+    "grants": [
+      {
+        "grantee": {
+          "type": "GROUP",
+          "userId": "exampleGroupId"
+        },
+        "permissions": ["READ"]
+      },
+      {
+        "grantee": {
+          "type": "USER",
+          "userId": "exampleUserId"
+        },
+        "permissions": ["READ"]
+      }
+    ]
+  }
+}
+```
+
+This endpoint returns all grants that exist on the placeholder, specified by `placeholderId`
+in the request path.
+
+### HTTP Request
+
+`POST management/v1/audience/{placeholderId}/grants`
+
+**Response Codes**:
+
+- `200 OK` - Returning the Audience Placeholder ID associated.
+- `403 FORBIDDEN` - User has insufficient privileges or Audience Placeholder does not exist.
+
 
 ## Get Audience Placeholder By ID
 
