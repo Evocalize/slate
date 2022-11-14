@@ -1,4 +1,4 @@
-# Facebook Audiences API
+# Facebook Audiences API (Deprecated)
 
 **[DEPRECATED] Replaced by the Audience Manager API.**
 

@@ -49,7 +49,9 @@ partner-provided audience can immediately be used in blueprints supporting audie
         "type": "USER",
         "userId": "exampleUserId"
       },
-      "permissions": ["READ"]
+      "permissions": [
+        "READ"
+      ]
     }
   ]
 }
@@ -179,7 +181,9 @@ form.
         "type": "USER",
         "userId": "exampleUserId"
       },
-      "permissions": ["READ"]
+      "permissions": [
+        "READ"
+      ]
     }
   ]
 }
@@ -242,7 +246,7 @@ section for more details.
 
 - Facebook
 
-## Update Permissions
+## Update Audience Placeholder Permissions
 
 > Update Audience Placeholder Permissions Request Example (A group with an additional user)
 
@@ -254,14 +258,18 @@ section for more details.
         "type": "GROUP",
         "userId": "exampleGroupId"
       },
-      "permissions": ["READ"]
+      "permissions": [
+        "READ"
+      ]
     },
     {
       "grantee": {
         "type": "USER",
         "userId": "exampleUserId"
       },
-      "permissions": ["READ"]
+      "permissions": [
+        "READ"
+      ]
     }
   ]
 }
@@ -298,13 +306,12 @@ section for more details.
 |--------|----------|------------|------------------------------------------------------------------|
 | grants | false    | Grant List | A list of grants that define access to the audience placeholder. |
 
-
 **Response Codes**:
 
-- `200 OK` - Returning the Audience Placeholder ID associated.
+- `200 OK` - Returning the Audience Placeholder details.
 - `403 FORBIDDEN` - User has insufficient privileges or Audience Placeholder does not exist.
 
-## Get Permissions
+## Get Audience Placeholder Permissions
 
 > Get Audience Placeholder Permissions Response
 
@@ -317,14 +324,18 @@ section for more details.
           "type": "GROUP",
           "userId": "exampleGroupId"
         },
-        "permissions": ["READ"]
+        "permissions": [
+          "READ"
+        ]
       },
       {
         "grantee": {
           "type": "USER",
           "userId": "exampleUserId"
         },
-        "permissions": ["READ"]
+        "permissions": [
+          "READ"
+        ]
       }
     ]
   }
@@ -336,13 +347,12 @@ in the request path.
 
 ### HTTP Request
 
-`POST management/v1/audience/{placeholderId}/grants`
+`GET management/v1/audience/{placeholderId}/grants`
 
 **Response Codes**:
 
-- `200 OK` - Returning the Audience Placeholder ID associated.
+- `200 OK` - Returning the grants associated with the Audience Placeholder ID.
 - `403 FORBIDDEN` - User has insufficient privileges or Audience Placeholder does not exist.
-
 
 ## Get Audience Placeholder By ID
 
