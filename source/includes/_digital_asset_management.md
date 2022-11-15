@@ -142,7 +142,7 @@ Users owning the media cannot delete the media from their Media Library via the 
     {
       "grantee": {
         "type": "GROUP",
-        "userId": "exampleGroupId"
+        "groupId": "exampleGroupId"
       },
       "permissions": [
         "READ"
@@ -208,7 +208,7 @@ section for more details.
       {
         "grantee": {
           "type": "GROUP",
-          "userId": "exampleGroupId"
+          "groupId": "exampleGroupId"
         },
         "permissions": [
           "READ"

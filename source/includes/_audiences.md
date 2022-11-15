@@ -256,7 +256,7 @@ section for more details.
     {
       "grantee": {
         "type": "GROUP",
-        "userId": "exampleGroupId"
+        "groupId": "exampleGroupId"
       },
       "permissions": [
         "READ"
@@ -322,7 +322,7 @@ section for more details.
       {
         "grantee": {
           "type": "GROUP",
-          "userId": "exampleGroupId"
+          "groupId": "exampleGroupId"
         },
         "permissions": [
           "READ"
