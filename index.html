@@ -471,7 +471,7 @@
               </ul>
           </li>
           <li>
-            <a href="#facebook-audiences-api" class="toc-h1 toc-link" data-title="Facebook Audiences API">Facebook Audiences API</a>
+            <a href="#facebook-audiences-api-deprecated" class="toc-h1 toc-link" data-title="Facebook Audiences API (Deprecated)">Facebook Audiences API (Deprecated)</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-facebook-audiences" class="toc-h2 toc-link" data-title="Get Facebook Audiences">Get Facebook Audiences</a>
@@ -503,10 +503,10 @@
                     <a href="#add-existing-channel-audience" class="toc-h2 toc-link" data-title="Add Existing Channel Audience">Add Existing Channel Audience</a>
                   </li>
                   <li>
-                    <a href="#update-permissions" class="toc-h2 toc-link" data-title="Update Permissions">Update Permissions</a>
+                    <a href="#update-audience-placeholder-permissions" class="toc-h2 toc-link" data-title="Update Audience Placeholder Permissions">Update Audience Placeholder Permissions</a>
                   </li>
                   <li>
-                    <a href="#get-permissions" class="toc-h2 toc-link" data-title="Get Permissions">Get Permissions</a>
+                    <a href="#get-audience-placeholder-permissions" class="toc-h2 toc-link" data-title="Get Audience Placeholder Permissions">Get Audience Placeholder Permissions</a>
                   </li>
                   <li>
                     <a href="#get-audience-placeholder-by-id" class="toc-h2 toc-link" data-title="Get Audience Placeholder By ID">Get Audience Placeholder By ID</a>
@@ -517,13 +517,22 @@
               </ul>
           </li>
           <li>
-            <a href="#media-library-api" class="toc-h1 toc-link" data-title="Media Library API">Media Library API</a>
+            <a href="#digital-asset-management-api" class="toc-h1 toc-link" data-title="Digital Asset Management API">Digital Asset Management API</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#create-or-update-media" class="toc-h2 toc-link" data-title="Create Or Update Media">Create Or Update Media</a>
                   </li>
                   <li>
+                    <a href="#get-media" class="toc-h2 toc-link" data-title="Get Media">Get Media</a>
+                  </li>
+                  <li>
                     <a href="#delete-media" class="toc-h2 toc-link" data-title="Delete Media">Delete Media</a>
+                  </li>
+                  <li>
+                    <a href="#update-media-permissions" class="toc-h2 toc-link" data-title="Update Media Permissions">Update Media Permissions</a>
+                  </li>
+                  <li>
+                    <a href="#get-media-permissions" class="toc-h2 toc-link" data-title="Get Media Permissions">Get Media Permissions</a>
                   </li>
               </ul>
           </li>
@@ -3006,7 +3015,7 @@ this endpoint. Use the DELETE endpoint instead.</strong></p>
 <td>Each element is a value that the end user selected or entered. In most cases there is only one element.</td>
 </tr>
 </tbody></table>
-<h1 id='facebook-audiences-api'>Facebook Audiences API</h1>
+<h1 id='facebook-audiences-api-deprecated'>Facebook Audiences API (Deprecated)</h1>
 <p><strong>[DEPRECATED] Replaced by the Audience Manager API.</strong></p>
 
 <p>Facebook Audiences API will continue to work until Evocalize has determined a date to sunset these endpoints. Audiences
@@ -3216,7 +3225,9 @@ partner-provided audience can immediately be used in blueprints supporting audie
         </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId"</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"READ"</span><span class="p">]</span><span class="w">
+      </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"READ"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -3399,7 +3410,9 @@ form.</p>
         </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId"</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"READ"</span><span class="p">]</span><span class="w">
+      </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"READ"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -3491,7 +3504,7 @@ attempt to associate to a non-existent user or group.</li>
 <ul>
 <li>Facebook</li>
 </ul>
-<h2 id='update-permissions'>Update Permissions</h2>
+<h2 id='update-audience-placeholder-permissions'>Update Audience Placeholder Permissions</h2>
 <blockquote>
 <p>Update Audience Placeholder Permissions Request Example (A group with an additional user)</p>
 </blockquote>
@@ -3500,16 +3513,20 @@ attempt to associate to a non-existent user or group.</li>
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GROUP"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
+        </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"READ"</span><span class="p">]</span><span class="w">
+      </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"READ"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId"</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"READ"</span><span class="p">]</span><span class="w">
+      </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"READ"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -3555,10 +3572,10 @@ section for more details.</p>
 <p><strong>Response Codes</strong>:</p>
 
 <ul>
-<li><code>200 OK</code> - Returning the Audience Placeholder ID associated.</li>
+<li><code>200 OK</code> - Returning the Audience Placeholder details.</li>
 <li><code>403 FORBIDDEN</code> - User has insufficient privileges or Audience Placeholder does not exist.</li>
 </ul>
-<h2 id='get-permissions'>Get Permissions</h2>
+<h2 id='get-audience-placeholder-permissions'>Get Audience Placeholder Permissions</h2>
 <blockquote>
 <p>Get Audience Placeholder Permissions Response</p>
 </blockquote>
@@ -3568,16 +3585,20 @@ section for more details.</p>
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GROUP"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
+          </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
         </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"READ"</span><span class="p">]</span><span class="w">
+        </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"READ"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId"</span><span class="w">
         </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"READ"</span><span class="p">]</span><span class="w">
+        </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"READ"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -3586,12 +3607,12 @@ section for more details.</p>
 <p>This endpoint returns all grants that exist on the placeholder, specified by <code>placeholderId</code>
 in the request path.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
-<p><code>POST management/v1/audience/{placeholderId}/grants</code></p>
+<p><code>GET management/v1/audience/{placeholderId}/grants</code></p>
 
 <p><strong>Response Codes</strong>:</p>
 
 <ul>
-<li><code>200 OK</code> - Returning the Audience Placeholder ID associated.</li>
+<li><code>200 OK</code> - Returning the grants associated with the Audience Placeholder ID.</li>
 <li><code>403 FORBIDDEN</code> - User has insufficient privileges or Audience Placeholder does not exist.</li>
 </ul>
 <h2 id='get-audience-placeholder-by-id'>Get Audience Placeholder By ID</h2>
@@ -3916,12 +3937,14 @@ audience.</li>
 <li><code>200 OK</code> - Returning the available Audience Placeholders and associated audiences for a user.</li>
 <li><code>404 NOT FOUND</code> - When the request is malformed or the user does not exist.</li>
 </ul>
-<h1 id='media-library-api'>Media Library API</h1>
-<p>The Evocalize CMP Media Library allows for the storage and permissions of various media assets. Media assets are
+<h1 id='digital-asset-management-api'>Digital Asset Management API</h1>
+<p>The Digital Asset Management API allows for the storage and permissions of various media assets. Media assets are
 references to media files that are suitable for being used in an advertising creative in at least one of the marking
 channels supported by the Evocalize platform. Currently, we support image and video assets.</p>
 
-<p>This API can be used to import partner-owned advertising media into their Media Library.</p>
+<p>This API can be used to import partner-owned advertising media into their Media Library. You can control who can use
+media assets by leveraging our standard access control system. <code>READ</code> is currently the only valid permission for media
+assets. See the <a href="#access-control">Access Control</a> section for more details.</p>
 <h2 id='create-or-update-media'>Create Or Update Media</h2>
 <blockquote>
 <p>Create Or Update Request Example</p>
@@ -3931,7 +3954,17 @@ channels supported by the Evocalize platform. Currently, we support image and vi
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Image Name"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.example.com/image.png"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">on</span><span class="w"> </span><span class="err">create</span><span class="w">
+  </span><span class="nl">"grants"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"READ"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -3943,17 +3976,15 @@ channels supported by the Evocalize platform. Currently, we support image and vi
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Image Name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.example.com/image.png"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">on</span><span class="w"> </span><span class="err">create</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.example.com/image.png"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows you to create or update media within your organization.</p>
 
-<p>On create, this API allows assigning user ownership to a media. Users owning the media will be able to see it in their
-Media Library via the CMP and create/edit ad campaigns with it. Media cannot change user ownership once it is created.</p>
-
-<p>On update, the URL and name can change but not the media type.</p>
+<p>Users having the ability to read the media will be able to see it in their Media Library via the CMP and create/edit ad
+campaigns with it. After creation of media, the media type is immutable. On update, the URL and name can change but not
+the media type.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST management/v1/media</code></p>
 <h3 id='create-or-update-media-request-properties'>Create or Update Media Request Properties</h3>
@@ -3990,10 +4021,10 @@ Media Library via the CMP and create/edit ad campaigns with it. Media cannot cha
 <td>A public URL to the media you would like to import.</td>
 </tr>
 <tr>
-<td>userId</td>
-<td>true</td>
-<td>String</td>
-<td>The ID of the user that would own this media. Ignored on updates.</td>
+<td>grants</td>
+<td>false</td>
+<td>Grant List</td>
+<td>A list of grants that define access to the media asset.</td>
 </tr>
 </tbody></table>
 
@@ -4010,6 +4041,45 @@ Media Library via the CMP and create/edit ad campaigns with it. Media cannot cha
 <li><code>200 OK</code> - Returning the newly created or updated media.</li>
 <li><code>400 BAD REQUEST</code> - When the request is malformed, or you attempt to associate to a non-existent user.</li>
 </ul>
+<h2 id='get-media'>Get Media</h2>
+<blockquote>
+<p>Get Media Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Image Name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.example.com/image.png"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint returns the media details, specified by <code>id</code> in the request path.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET management/v1/media/{id}</code></p>
+<h3 id='url-params'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the media asset you are wanting to retrieve.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Returning the media details.</li>
+<li><code>403 FORBIDDEN</code> - User has insufficient privileges or media asset does not exist.</li>
+</ul>
 <h2 id='delete-media'>Delete Media</h2>
 <blockquote>
 <p>Delete Media response</p>
@@ -4018,18 +4088,145 @@ Media Library via the CMP and create/edit ad campaigns with it. Media cannot cha
 </code></pre></div>
 <p>This allows deleting media from your organization.</p>
 
-<p>Once media is deleted, users will not be able use it in new ad campaigns.
+<p>Once media is deleted, users will not be able to use it in new ad campaigns.
 However, active ad campaigns referencing deleted media will continue using the media until completion.</p>
 
 <p>Media created via the Create Or Update Media API can only be deleted via this API.
 Users owning the media cannot delete the media from their Media Library via the CMP.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request-3'>HTTP Request</h3>
 <p><code>DELETE management/v1/media/{id}</code></p>
 
 <p><strong>Response Codes</strong>:</p>
 
 <ul>
-<li><code>202 ACCEPTED</code></li>
+<li><code>200 OK</code></li>
+</ul>
+<h2 id='update-media-permissions'>Update Media Permissions</h2>
+<blockquote>
+<p>Update Media Permissions Request Example (A group with an additional user)</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"grants"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GROUP"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"READ"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"READ"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Update Media Permissions Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Image Name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.example.com/image.png"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>You can control who can use media assets by leveraging our standard access control system.
+This endpoint allows for creating/updating grants on the media asset. Grants are upserted
+based off of the grantee, so only grants for the given grantees in the request will be touched. Any
+grantees not included in your request will remain untouched.
+<code>READ</code> is currently the only valid permission for media assets. You can also provide an empty
+permissions list in a grant to remove access to the media asset. See the <a href="#access-control">Access Control</a>
+section for more details.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>POST management/v1/media/{id}/grants</code></p>
+<h3 id='add-media-permissions-request-properties'>Add Media Permissions Request Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>grants</td>
+<td>false</td>
+<td>Grant List</td>
+<td>A list of grants that define access to the media asset.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Returning the media asset details.</li>
+<li><code>403 FORBIDDEN</code> - User has insufficient privileges or media asset does not exist.</li>
+</ul>
+<h2 id='get-media-permissions'>Get Media Permissions</h2>
+<blockquote>
+<p>Get Media Permissions Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"grants"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GROUP"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"READ"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"READ"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint returns all grants that exist on the media, specified by <code>id</code>
+in the request path.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>GET management/v1/media/{id}/grants</code></p>
+<h3 id='url-params-2'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the media asset you are wanting to retrieve grants for.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Returning the grants associated with the media asset.</li>
+<li><code>403 FORBIDDEN</code> - User has insufficient privileges or media asset does not exist.</li>
 </ul>
 <h1 id='errors'>Errors</h1>
 <p>We return the appropriate HTTP Status code when we return an error. Additionally we do our best to provide a human readable error message to help you figure out what went wrong.</p>
