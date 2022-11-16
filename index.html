@@ -372,10 +372,16 @@
             <a href="#access-control" class="toc-h1 toc-link" data-title="Access Control">Access Control</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#grantee" class="toc-h2 toc-link" data-title="Grantee">Grantee</a>
+                  </li>
+                  <li>
                     <a href="#grantees" class="toc-h2 toc-link" data-title="Grantees">Grantees</a>
                   </li>
                   <li>
                     <a href="#permissions" class="toc-h2 toc-link" data-title="Permissions">Permissions</a>
+                  </li>
+                  <li>
+                    <a href="#grant" class="toc-h2 toc-link" data-title="Grant">Grant</a>
                   </li>
                   <li>
                     <a href="#grants" class="toc-h2 toc-link" data-title="Grants">Grants</a>
@@ -411,9 +417,6 @@
           <li>
             <a href="#content-access-api-v2" class="toc-h1 toc-link" data-title="Content Access API V2">Content Access API V2</a>
               <ul class="toc-list-h2">
-                  <li>
-                    <a href="#get-grant" class="toc-h2 toc-link" data-title="Get grant">Get grant</a>
-                  </li>
                   <li>
                     <a href="#get-grants" class="toc-h2 toc-link" data-title="Get grants">Get grants</a>
                   </li>
@@ -1352,7 +1355,7 @@ for 30 days.</p>
 <p>Many portions of our API use common access control models
 to control which users can access various objects (ex audiences or content items). The
 system works by defining grantees, permissions, and grants.</p>
-<h2 id='grantees'>Grantees</h2>
+<h2 id='grantee'>Grantee</h2>
 <p>A grantee represents something that is being granted permissions
 on an object. The types of grantees that currently exist are defined
 by the <code>RestGranteeType</code> enum:</p>
@@ -1403,13 +1406,32 @@ a specific group selected.</li>
 </tbody></table>
 
 <p>Note that the only required property for ORGANIZATION grantees is the <code>type</code> property.</p>
+<h2 id='grantees'>Grantees</h2>
+<p>Portions of our API allow you to specify multiple <a href="#grantee">Grantees</a>.
+When this is the case, we utilize an object with a single <code>grantees</code> property.</p>
+
+<table><thead>
+<tr>
+<th>Property Name</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>grantees</td>
+<td>true</td>
+<td>List of <a href="#grantee">Grantee</a> objects</td>
+<td>A list of grantees.</td>
+</tr>
+</tbody></table>
 <h2 id='permissions'>Permissions</h2>
 <p>What permissions are available depends on which portion
 of the API you are using. For example, our audiences API
 currently only supports <code>READ</code> permissions. See the
 docs for the specific resources you are accessing to
 see what permissions are available.</p>
-<h2 id='grants'>Grants</h2>
+<h2 id='grant'>Grant</h2>
 <p>A grant is used to assign permissions to a grantee on a specific object.
 You&#39;ll notice after reading the Grantee documentation (located above) that a user
 can actually match multiple grantees. For example, a user would match
@@ -1445,6 +1467,25 @@ The model used for a grant has the following properties</p>
 <td>false</td>
 <td>String</td>
 <td>The ID of the target object (the object that the grantee is receiving permissions on). This property usually only has a value if the grant is part of a response (instead of a request) or if the endpoint is a bulk endpoint. Otherwise, the resource in the endpoint&#39;s path is implicitly the target object.</td>
+</tr>
+</tbody></table>
+<h2 id='grants'>Grants</h2>
+<p>Portions of our API allow you to specify multiple <a href="#grant">Grants</a>.
+When this is the case, we utilize an object with a single <code>grants</code> property.</p>
+
+<table><thead>
+<tr>
+<th>Property Name</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>grants</td>
+<td>true</td>
+<td>List of <a href="#grant">Grant</a> objects</td>
+<td>A list of grants.</td>
 </tr>
 </tbody></table>
 <h1 id='content-management-api'>Content Management API</h1><h2 id='get-repository'>Get Repository</h2>
@@ -1757,10 +1798,166 @@ The model used for a grant has the following properties</p>
 <p>You can use our standard access control system to control access
 to content items. See the <a href="#access-control">Access Control</a> section for more
 details.</p>
-<h2 id='get-grant'>Get grant</h2>
-<p>Coming soon</p>
 <h2 id='get-grants'>Get grants</h2>
-<p>Coming soon</p>
+<blockquote>
+<p>Example grantee filter object</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"grantees"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER_IN_GROUP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER_IN_GROUP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER_IN_GROUP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ORGANIZATION"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId3"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GROUP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId3"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GROUP_ROLE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupRole"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_user"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Get all grants for the content repository</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>GET management/v1/repository/{repositoryId}/grants
+</code></pre></div>
+<blockquote>
+<p>Get grants for the content repository, filtered by the example grantee filter object</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>// Note: If you percent decode the value for the filterByGrantee query parameter,
+// you'll see that it decodes to the example grantee filter object.
+GET management/v1/repository/{repositoryId}/grants?filterByGrantee=%7B%0D%0A++%22grantees%22%3A+%5B%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22USER_IN_GROUP%22%2C%0D%0A++++++%22userId%22%3A+%22exampleUserId%22%2C%0D%0A++++++%22groupId%22%3A+%22exampleGroupId%22%0D%0A++++%7D%2C%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22USER_IN_GROUP%22%2C%0D%0A++++++%22userId%22%3A+%22exampleUserId%22%2C%0D%0A++++++%22groupId%22%3A+%22exampleGroupId%22%0D%0A++++%7D%2C%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22USER_IN_GROUP%22%2C%0D%0A++++++%22userId%22%3A+%22exampleUserId2%22%2C%0D%0A++++++%22groupId%22%3A+%22exampleGroupId%22%0D%0A++++%7D%2C%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22ORGANIZATION%22%0D%0A++++%7D%2C%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22USER%22%2C%0D%0A++++++%22userId%22%3A+%22exampleUserId3%22%0D%0A++++%7D%2C%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22GROUP%22%2C%0D%0A++++++%22groupId%22%3A+%22exampleGroupId3%22%0D%0A++++%7D%2C%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22GROUP_ROLE%22%2C%0D%0A++++++%22groupId%22%3A+%22exampleGroupId%22%2C%0D%0A++++++%22groupRole%22%3A+%22group_user%22%0D%0A++++%7D%0D%0A++%5D%0D%0A%7D
+</code></pre></div>
+<blockquote>
+<p>Get grants for a specific content item</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>GET management/v1/repository/{repositoryId}/items/{itemId}/grants
+</code></pre></div>
+<blockquote>
+<p>Get grants for a specific content item, filtered by the example grantee filter object</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>// Note: If you percent decode the value for the filterByGrantee query parameter,
+// you'll see that it decodes to the example grantee filter object.
+GET management/v1/repository/{repositoryId}/items/{itemId}/grants?filterByGrantee=%7B%0D%0A++%22grantees%22%3A+%5B%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22USER_IN_GROUP%22%2C%0D%0A++++++%22userId%22%3A+%22exampleUserId%22%2C%0D%0A++++++%22groupId%22%3A+%22exampleGroupId%22%0D%0A++++%7D%2C%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22USER_IN_GROUP%22%2C%0D%0A++++++%22userId%22%3A+%22exampleUserId%22%2C%0D%0A++++++%22groupId%22%3A+%22exampleGroupId%22%0D%0A++++%7D%2C%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22USER_IN_GROUP%22%2C%0D%0A++++++%22userId%22%3A+%22exampleUserId2%22%2C%0D%0A++++++%22groupId%22%3A+%22exampleGroupId%22%0D%0A++++%7D%2C%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22ORGANIZATION%22%0D%0A++++%7D%2C%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22USER%22%2C%0D%0A++++++%22userId%22%3A+%22exampleUserId3%22%0D%0A++++%7D%2C%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22GROUP%22%2C%0D%0A++++++%22groupId%22%3A+%22exampleGroupId3%22%0D%0A++++%7D%2C%0D%0A++++%7B%0D%0A++++++%22type%22%3A+%22GROUP_ROLE%22%2C%0D%0A++++++%22groupId%22%3A+%22exampleGroupId%22%2C%0D%0A++++++%22groupRole%22%3A+%22group_user%22%0D%0A++++%7D%0D%0A++%5D%0D%0A%7D
+</code></pre></div>
+<blockquote>
+<p>Get grants response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"grants"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GROUP"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"READ"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"objectId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleItemId"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"READ"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"objectId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleItemId2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"next_page_token"</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">another</span><span class="w"> </span><span class="err">page</span><span class="w">
+  </span><span class="nl">"previousPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"previous_page_token"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">only</span><span class="w"> </span><span class="err">present</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">there</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">previous</span><span class="w"> </span><span class="err">page</span><span class="w">
+</span><span class="p">}</span><span class="w">   
+</span></code></pre></div>
+<p>You can retrieve existing grants for a specific content item,
+or across the entire content repository. You can also filter
+those grants by grantee.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p>Across the entire repository: <code>GET management/v1/repository/{repositoryId}/grants</code></p>
+
+<p>For a specific item: <code>GET management/v1/repository/{repositoryId}/items/{itemId}/grants</code></p>
+<h3 id='url-params'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repositoryId</td>
+<td>String</td>
+<td>true</td>
+<td>The ID of the content repository whose grants you wish to view.</td>
+</tr>
+<tr>
+<td>itemId</td>
+<td>String</td>
+<td>true (if using the item specific url)</td>
+<td>The ID of the content item that you would like to retrieve grants for.</td>
+</tr>
+</tbody></table>
+<h3 id='request-query-params'>Request Query Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>filterByGrantee</td>
+<td><a href="#grantees">Grantees</a></td>
+<td>false</td>
+<td>A percent-encoded (as all query parameters should be) json object that specifies the grantees you would like to filter on. This object has a single <code>grantees</code> field that is a list of <a href="#grantee">Grantee</a> objects</td>
+</tr>
+</tbody></table>
+<h3 id='response-properties'>Response properties</h3>
+<p>An example is shown to the right. The <code>data</code> property contains a json object holding all the grants you retrieved.
+See <a href="#access-control">Access Control</a> for full details. <code>READ</code> is the only valid permission for content access.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Nullable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>grants</td>
+<td>false</td>
+<td>List of <a href="#grant">Grant</a> objects</td>
+<td>A list of the grants retrieved.</td>
+</tr>
+</tbody></table>
 <h2 id='grant-upsert'>Grant Upsert</h2>
 <blockquote>
 <p>Grant upsert request</p>
@@ -1794,9 +1991,9 @@ your request.</p>
 
 <p><strong>Note: Empty permissions lists are currently not supported by
 this endpoint. Use the DELETE endpoint instead.</strong></p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='http-request-2'>HTTP Request</h3>
 <p><code>POST management/v1/repository/{repositoryId}/items/{itemId}/grant</code></p>
-<h3 id='url-params'>URL Params</h3>
+<h3 id='url-params-2'>URL Params</h3>
 <table><thead>
 <tr>
 <th>URL Param</th>
@@ -1818,9 +2015,12 @@ this endpoint. Use the DELETE endpoint instead.</strong></p>
 <td>The ID of the content item that you&#39;d like to grant access to.</td>
 </tr>
 </tbody></table>
-<h3 id='request-response'>Request/Response</h3>
-<p>See <a href="#access-control">Access Control</a> for full details. <code>READ</code> is the only
-valid permission for content access.</p>
+<h3 id='request'>Request</h3>
+<p>The request body is a single Grant object. An example is shown to the right. See <a href="#grant">Grant</a> for full
+details. <code>READ</code> is the only valid permission for content access.</p>
+<h3 id='response'>Response</h3>
+<p>The <code>data</code> property contains the Grant object that you upserted.
+See <a href="#grant">Grant</a> for full details. <code>READ</code> is the only valid permission for content access.</p>
 <h2 id='batch-grant-upsert'>Batch Grant Upsert</h2>
 <blockquote>
 <p>Batch grant upsert request</p>
@@ -1855,16 +2055,17 @@ valid permission for content access.</p>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows you to pass a JSON object holding multiple grants for upserting.
+<p>This endpoint allows you to pass a <a href="#grants">Grants</a> object holding multiple grants for upserting.
 Batches are limited to 1000 grants at a time. The creation option is asynchronous - rather
 than returning the newly created grants, you will receive a <code>report_id</code> which can be used
-to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
+to track status of the requests as they are processed in our system. Reports are stored for 30 days.
+See the <a href="#batch-report-api">Batch Report API</a> docs for more details.</p>
 
 <p><strong>Note: Empty permissions lists are currently not supported by
 this endpoint. Use the DELETE endpoint instead.</strong></p>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request-3'>HTTP Request</h3>
 <p><code>POST management/v1/repository/{repositoryId}/grants</code></p>
-<h3 id='url-params-2'>URL Params</h3>
+<h3 id='url-params-3'>URL Params</h3>
 <table><thead>
 <tr>
 <th>URL Param</th>
@@ -1880,8 +2081,112 @@ this endpoint. Use the DELETE endpoint instead.</strong></p>
 <td>The ID of the content repository whose grants you would like to update.</td>
 </tr>
 </tbody></table>
+<h3 id='request-2'>Request</h3>
+<p>The request body is our standard Grants object. See <a href="#grants">the access control docs</a> for more details.</p>
 <h2 id='delete-grants'>Delete grants</h2>
-<p>Coming soon</p>
+<blockquote>
+<p>Optional request body to delete grants for specific grantees</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="err">//</span><span class="w"> </span><span class="err">This</span><span class="w"> </span><span class="err">request</span><span class="w"> </span><span class="err">body</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">same</span><span class="w"> </span><span class="err">whether</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="err">deleting</span><span class="w">
+</span><span class="err">//</span><span class="w"> </span><span class="err">grants</span><span class="w"> </span><span class="err">across</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">entire</span><span class="w"> </span><span class="err">repository</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">specific</span><span class="w">
+</span><span class="err">//</span><span class="w"> </span><span class="err">item.</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"grantees"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER_IN_GROUP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER_IN_GROUP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER_IN_GROUP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ORGANIZATION"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleUserId3"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GROUP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId3"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GROUP_ROLE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exampleGroupId"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupRole"</span><span class="p">:</span><span class="w"> </span><span class="s2">"group_user"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Delete grants response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"numberOfGrantsDeleted"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>You can delete grants for a specific content item,
+or across the entire content repository. You can also
+delete grants for specific grantees by providing a
+<a href="#grantees">Grantees object</a> as the request body.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p>Across the entire repository: <code>DELETE management/v1/repository/{repositoryId}/grants</code></p>
+
+<p>For a specific item: <code>DELETE management/v1/repository/{repositoryId}/items/{itemId}/grants</code></p>
+<h3 id='url-params-4'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repositoryId</td>
+<td>String</td>
+<td>true</td>
+<td>The ID of the content repository whose grants you want to delete.</td>
+</tr>
+<tr>
+<td>itemId</td>
+<td>String</td>
+<td>true (if using the item specific url)</td>
+<td>The ID of the content item that you would like to delete grants for.</td>
+</tr>
+</tbody></table>
+<h3 id='request-body'>Request Body</h3>
+<p>The request body is optional and is only needed if you want
+to limit the delete operation to specific grantees. The body
+is our standard <a href="#grantees">Grantees</a> object.</p>
+<h3 id='response-properties-2'>Response properties</h3>
+<p>An example is shown to the right. The <code>data</code> property contains a json object with a single property:</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Nullable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>numberOfGrantsDeleted</td>
+<td>false</td>
+<td>Int</td>
+<td>The number of grants that were deleted.</td>
+</tr>
+</tbody></table>
 <h1 id='content-access-api-v1-deprecated'>Content Access API V1 (Deprecated)</h1>
 <p>This API is now deprecated. Use <em>Content Access API V2</em> instead.</p>
 <h2 id='access-basics'>Access Basics</h2>
