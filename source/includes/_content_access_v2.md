@@ -251,7 +251,7 @@ this endpoint. Use the DELETE endpoint instead.**
 
 ### Request
 
-The request body is our standard Grants object. See [the access control docs](#grants) for more details.
+The request body is our standard Grants object. See [Access Control](#grants) for more details.
 
 ## Delete grants
 
