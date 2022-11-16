@@ -2082,7 +2082,7 @@ this endpoint. Use the DELETE endpoint instead.</strong></p>
 </tr>
 </tbody></table>
 <h3 id='request-2'>Request</h3>
-<p>The request body is our standard Grants object. See <a href="#grants">the access control docs</a> for more details.</p>
+<p>The request body is our standard Grants object. See <a href="#grants">Access Control</a> for more details.</p>
 <h2 id='delete-grants'>Delete grants</h2>
 <blockquote>
 <p>Optional request body to delete grants for specific grantees</p>
@@ -3790,7 +3790,7 @@ section for more details.</p>
 <tr>
 <td>grants</td>
 <td>false</td>
-<td>Grant List</td>
+<td><a href="#grant">Grant</a> List</td>
 <td>A list of grants that define access to the audience placeholder.</td>
 </tr>
 </tbody></table>
@@ -3869,7 +3869,7 @@ section for more details.</p>
 <tr>
 <td>grants</td>
 <td>false</td>
-<td>Grant List</td>
+<td><a href="#grant">Grant</a> List</td>
 <td>A list of grants that define access to the audience placeholder.</td>
 </tr>
 </tbody></table>
@@ -3920,6 +3920,25 @@ in the request path.</p>
 <li><code>200 OK</code> - Returning the grants associated with the Audience Placeholder ID.</li>
 <li><code>403 FORBIDDEN</code> - User has insufficient privileges or Audience Placeholder does not exist.</li>
 </ul>
+<h3 id='response-properties'>Response properties</h3>
+<p>An example is shown to the right. The <code>data</code> property contains a json object holding all the grants you retrieved.
+See <a href="#access-control">Access Control</a> for full details. <code>READ</code> is the only valid permission for audience access.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Nullable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>grants</td>
+<td>false</td>
+<td>List of <a href="#grant">Grant</a> objects</td>
+<td>A list of the grants retrieved.</td>
+</tr>
+</tbody></table>
 <h2 id='get-audience-placeholder-by-id'>Get Audience Placeholder By ID</h2>
 <p>Returns the Audience Placeholder and associated audiences.</p>
 
