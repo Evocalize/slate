@@ -3,7 +3,7 @@ Many portions of our API use common access control models
 to control which users can access various objects (ex audiences or content items). The
 system works by defining grantees, permissions, and grants.
 
-## Grantees
+## Grantee
 A grantee represents something that is being granted permissions
 on an object. The types of grantees that currently exist are defined
 by the `RestGranteeType` enum:
@@ -28,6 +28,14 @@ The model used for a grantee has the following properties
 
 Note that the only required property for ORGANIZATION grantees is the `type` property.
 
+## Grantees
+Portions of our API allow you to specify multiple [Grantees](#grantee).
+When this is the case, we utilize an object with a single `grantees` property.
+
+| Property Name | Required | Type                                | Description         |
+|---------------|----------|-------------------------------------|---------------------|
+| grantees      | true     | List of [Grantee](#grantee) objects | A list of grantees. |
+
 ## Permissions
 What permissions are available depends on which portion
 of the API you are using. For example, our audiences API
@@ -35,7 +43,7 @@ currently only supports `READ` permissions. See the
 docs for the specific resources you are accessing to
 see what permissions are available.
 
-## Grants
+## Grant
 A grant is used to assign permissions to a grantee on a specific object.
 You'll notice after reading the Grantee documentation (located above) that a user
 can actually match multiple grantees. For example, a user would match
@@ -51,3 +59,11 @@ The model used for a grant has the following properties
 | grantee       | true     | Grantee     | The grantee that is assigned permissions on the target object.                                                                                                                                                                                                                                                 |
 | permissions   | true     | String List | What permissions the grantee has on the target object.                                                                                                                                                                                                                                                         |
 | objectId      | false    | String      | The ID of the target object (the object that the grantee is receiving permissions on). This property usually only has a value if the grant is part of a response (instead of a request) or if the endpoint is a bulk endpoint. Otherwise, the resource in the endpoint's path is implicitly the target object. |
+
+## Grants
+Portions of our API allow you to specify multiple [Grants](#grant).
+When this is the case, we utilize an object with a single `grants` property.
+
+| Property Name | Required | Type                            | Description       |
+|---------------|----------|---------------------------------|-------------------|
+| grants        | true     | List of [Grant](#grant) objects | A list of grants. |
