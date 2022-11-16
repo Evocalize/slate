@@ -227,13 +227,13 @@ section for more details.
 
 ### Add Existing Channel Audience Request Properties
 
-| Field             | Required | Type       | Description                                                                                                                  |
-|-------------------|----------|------------|------------------------------------------------------------------------------------------------------------------------------|
-| channel           | true     | String     | The name of the channel the audience was created under.                                                                      |
-| channelAudienceId | true     | String     | The ID of the channel-specific audience to be imported.                                                                      |
-| name              | false    | String     | The name of the Audience Placeholder you are creating. Fallbacks to the channel audience's name if not present               |
-| description       | false    | String     | The description of the Audience Placeholder you are creating. Fallbacks to the channel audience's description if not present |
-| grants            | false    | Grant List | A list of grants that define access to the audience placeholder.                                                             |
+| Field             | Required | Type                 | Description                                                                                                                  |
+|-------------------|----------|----------------------|------------------------------------------------------------------------------------------------------------------------------|
+| channel           | true     | String               | The name of the channel the audience was created under.                                                                      |
+| channelAudienceId | true     | String               | The ID of the channel-specific audience to be imported.                                                                      |
+| name              | false    | String               | The name of the Audience Placeholder you are creating. Fallbacks to the channel audience's name if not present               |
+| description       | false    | String               | The description of the Audience Placeholder you are creating. Fallbacks to the channel audience's description if not present |
+| grants            | false    | [Grant](#grant) List | A list of grants that define access to the audience placeholder.                                                             |
 
 **Response Codes**:
 
@@ -302,9 +302,9 @@ section for more details.
 
 ### Add Audience Placeholder Permissions Request Properties
 
-| Field  | Required | Type       | Description                                                      |
-|--------|----------|------------|------------------------------------------------------------------|
-| grants | false    | Grant List | A list of grants that define access to the audience placeholder. |
+| Field  | Required | Type                 | Description                                                      |
+|--------|----------|----------------------|------------------------------------------------------------------|
+| grants | false    | [Grant](#grant) List | A list of grants that define access to the audience placeholder. |
 
 **Response Codes**:
 
@@ -353,6 +353,14 @@ in the request path.
 
 - `200 OK` - Returning the grants associated with the Audience Placeholder ID.
 - `403 FORBIDDEN` - User has insufficient privileges or Audience Placeholder does not exist.
+
+### Response properties
+An example is shown to the right. The `data` property contains a json object holding all the grants you retrieved.
+See [Access Control](#access-control) for full details. `READ` is the only valid permission for audience access.
+
+| Field  | Nullable | Type                            | Description                     |
+|--------|----------|---------------------------------|---------------------------------|
+| grants | false    | List of [Grant](#grant) objects | A list of the grants retrieved. |
 
 ## Get Audience Placeholder By ID
 
