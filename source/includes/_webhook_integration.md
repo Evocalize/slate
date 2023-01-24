@@ -67,6 +67,7 @@ Since we require the use of the https protocol for our webhooks, it is up to eac
           "leadFormId": "1584659102390",
           "adgroupId": "1584659102388",
           "adId": "1584659102388",
+          "retailerItemId": "1584659102388",
           "createdAtEpochSeconds": 1584659108
         },
         "leadForm": [
