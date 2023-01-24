@@ -96,6 +96,10 @@ Since we require the use of the https protocol for our webhooks, it is up to eac
         }
       },
       "order": {
+        "architectureName": "Example Architecture Name",
+        "architectureId": 643545620052781143,
+        "productName": "Single Image Ad",
+        "productId": 643545619583019092,
         "orderId": 643545620052781143,
         "userId": "email-1584659102362@example.com",
         "groupId": "3775e2cc-e8f0-4402-b947-e8f2112fc1b4",
@@ -146,6 +150,10 @@ Since we require the use of the https protocol for our webhooks, it is up to eac
         }
       },
       "order": {
+        "architectureName": "Example Architecture Name",
+        "architectureId": 643545620052781143,
+        "productName": "Single Image Ad",
+        "productId": 643545619583019092,
         "orderId": 643545620052781143,
         "userId": "email-1584659102362@example.com",
         "groupId": "3775e2cc-e8f0-4402-b947-e8f2112fc1b4",
@@ -195,6 +203,10 @@ Since we require the use of the https protocol for our webhooks, it is up to eac
         }
       },
       "order": {
+        "architectureName": "Example Architecture Name",
+        "architectureId": 643545620052781143,
+        "productName": "Single Image Ad",
+        "productId": 643545619583019092,
         "orderId": 643545620052781143,
         "userId": "email-1584659102362@example.com",
         "groupId": "3775e2cc-e8f0-4402-b947-e8f2112fc1b4",
@@ -232,6 +244,10 @@ The potential values of leadForm and content depends upon your imported data and
 | leads[].program.programDescription            | true     | string | The description of the program that published this ad.                     |
 | leads[].program.programVariables<sup>\*</sup> | true     | object | A key-value map containing values specific to your application.            |
 | leads[].order                                 | true     | object |                                                                            |
+| leads[].order.architectureId                  | false    | long   | The id of the architecture associated to the order.                        |
+| leads[].order.archietctureName                | false    | string | The name of the architecture associated to the order.                      |
+| leads[].order.productName                     | false    | string | The name of the product associated to the order.                           |
+| leads[].order.productId                       | false    | long   | The id of the product associated to the order.                             |
 | leads[].order.orderId                         | false    | long   | The order id associated with the program.                                  |
 | leads[].order.userId                          | false    | string | The user id associated with this order. This is the id in your system.     |
 | leads[].order.groupId                         | false    | string | The group id associated with this order. This is the id in your system.    |
@@ -250,6 +266,7 @@ The potential values of leadForm and content depends upon your imported data and
 | leads[].facebook.summary.leadFormId            | false    | string | The Facebook lead form id associated with this lead.                                                    |
 | leads[].facebook.summary.adgroupId             | false    | string | The Facebook adgroup id associated with this lead.                                                      |
 | leads[].facebook.summary.adId                  | false    | string | The Facebook ad id associated with this lead.                                                           |
+| leads[].facebook.summary.retailerItemId        | false    | string | (Dynamic Ads Only) Id of the content (in catalog) that the user clicked on before submitting their lead.|
 | leads[].facebook.summary.createdAtEpochSeconds | false    | long   | The time this lead was created, as a unix timestamp in seconds.                                         |
 | leads[].facebook.leadForm                      | false    | array  | Values that a person filled out on the lead form.                                                       |
 | leads[].facebook.leadForm[]                    | false    | object |                                                                                                         |
