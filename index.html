@@ -4736,16 +4736,12 @@ select both in the UI):</p>
 <blockquote>
 <p>Send a user to the place order page with a specific blueprint selected</p>
 </blockquote>
-<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">redirectUser</span><span class="p">(</span>
-  <span class="dl">"</span><span class="s2">https://your-white-label-domain.com/#/architecture/&lt;ARCHITECTURE_ID&gt;/programCreate?productIds=&lt;BLUEPRINT_ID&gt;</span><span class="dl">"</span>
-<span class="p">);</span>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">redirectUser</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://your-white-label-domain.com/#/architecture/&lt;ARCHITECTURE_ID&gt;/programCreate?productIds=&lt;BLUEPRINT_ID&gt;</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>Send a user to the place order page with a blueprint selected and one of their items selected</p>
 </blockquote>
-<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">redirectUser</span><span class="p">(</span>
-  <span class="dl">"</span><span class="s2">https://your-white-label-domain.com/#/architecture/&lt;ARCHITECTURE_ID&gt;/programCreate?productIds=&lt;BLUEPRINT_ID&gt;&amp;contentIds=&lt;CONTENT_ID_1&gt;</span><span class="dl">"</span>
-<span class="p">);</span>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">redirectUser</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://your-white-label-domain.com/#/architecture/&lt;ARCHITECTURE_ID&gt;/programCreate?productIds=&lt;BLUEPRINT_ID&gt;&amp;contentIds=&lt;CONTENT_ID_1&gt;</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div>
 <p>The following parameters can be used on their own or together to pre-select form field options for a user. These can
 help reduce steps for users to place an order by pre-selecting things like content or a Blueprint. Users can still
@@ -4783,12 +4779,6 @@ change these values once the page has loaded.</p>
 <td>String</td>
 <td>values: (spend, summary) Attempts to skip to a specific step of the program creation. Will not skip a step if there is a validation error.</td>
 </tr>
-<tr>
-<td>promoCodes</td>
-<td>false</td>
-<td>String</td>
-<td>pre populates the promo code component with the supplied promo code. This is a comma separated list, but only one promo is supported</td>
-</tr>
 </tbody></table>
 <h2 id='automated-program-creation'>Automated Program Creation</h2>
 <p>This URL will take a user to the automated program creation screen.</p>
@@ -4799,24 +4789,24 @@ change these values once the page has loaded.</p>
 <p>Filter JSON example</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"column"</span><span class="p">:</span><span class="w"> </span><span class="s2">"agent_name"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w"> </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eq"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jim FakeName"</span><span class="w"> </span><span class="p">},</span><span class="w">
-      </span><span class="p">{</span><span class="w"> </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eq"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane FakeName"</span><span class="w"> </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"column"</span><span class="p">:</span><span class="w"> </span><span class="s2">"price"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w"> </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"range"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"gt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w"> </span><span class="nl">"lt"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000000</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"column"</span><span class="p">:</span><span class="w"> </span><span class="s2">"agent_name"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w"> </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eq"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jim FakeName"</span><span class="w"> </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w"> </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eq"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane FakeName"</span><span class="w"> </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"column"</span><span class="p">:</span><span class="w"> </span><span class="s2">"price"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w"> </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"range"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"gt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w"> </span><span class="nl">"lt"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000000</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p>Remove unnecessary white space. As long as all the white space is url encoded this step
-is not required, but it results in a shorter url. Take care not to remove space in string
+is not required, but it results in a shorter url. Take care not to remove space in string 
 values e.g. &quot;New York&quot; vs &quot;NewYork&quot;</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[{</span><span class="nl">"column"</span><span class="p">:</span><span class="s2">"agent_name"</span><span class="p">,</span><span class="nl">"rules"</span><span class="p">:[{</span><span class="nl">"operator"</span><span class="p">:</span><span class="s2">"eq"</span><span class="p">,</span><span class="nl">"value"</span><span class="p">:</span><span class="s2">"Jim FakeName"</span><span class="p">},{</span><span class="nl">"operator"</span><span class="p">:</span><span class="s2">"eq"</span><span class="p">,</span><span class="nl">"value"</span><span class="p">:</span><span class="s2">"Jane FakeName"</span><span class="p">}]},{</span><span class="nl">"column"</span><span class="p">:</span><span class="s2">"price"</span><span class="p">,</span><span class="nl">"rules"</span><span class="p">:[{</span><span class="nl">"operator"</span><span class="p">:</span><span class="s2">"range"</span><span class="p">,</span><span class="nl">"value"</span><span class="p">:{</span><span class="nl">"gt"</span><span class="p">:</span><span class="mi">1000000</span><span class="p">,</span><span class="nl">"lt"</span><span class="p">:</span><span class="mi">2000000</span><span class="p">}}]}]</span><span class="w">
@@ -4824,7 +4814,7 @@ values e.g. &quot;New York&quot; vs &quot;NewYork&quot;</p>
 <blockquote>
 <p>Convert to url parameter</p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>filters=%5B%7B%22column%22%3A%22agent_name%22%2C%22rules%22%3A%5B%7B%22operator%22%3A%22eq%22%2C%22value%22%3A%22Jim%20FakeName%22%7D%2C%7B%22operator%22%3A%22eq%22%2C%22value%22%3A%22Jane%20FakeName%22%7D%5D%7D%2C%7B%22column%22%3A%22price%22%2C%22rules%22%3A%5B%7B%22operator%22%3A%22range%22%2C%22value%22%3A%7B%22gt%22%3A1000000%2C%22lt%22%3A2000000%7D%7D%5D%7D%5D
+<div class="highlight"><pre class="highlight plaintext"><code>filters=%5B%7B%22column%22%3A%22agent_name%22%2C%22rules%22%3A%5B%7B%22operator%22%3A%22eq%22%2C%22value%22%3A%22Jim%20FakeName%22%7D%2C%7B%22operator%22%3A%22eq%22%2C%22value%22%3A%22Jane%20FakeName%22%7D%5D%7D%2C%7B%22column%22%3A%22price%22%2C%22rules%22%3A%5B%7B%22operator%22%3A%22range%22%2C%22value%22%3A%7B%22gt%22%3A1000000%2C%22lt%22%3A2000000%7D%7D%5D%7D%5D 
 </code></pre></div>
 <table><thead>
 <tr>
@@ -4864,7 +4854,9 @@ with an array of rules with operator and value:</p>
 <li>&quot;rules&quot;: list of operator value pairs eg: rules: <code>[{&quot;operator&quot;:&quot;contains&quot;,&quot;value&quot;:&quot;Seattle&quot;}]</code>
 
 <ul>
-<li>&quot;operator&quot; (meaning - Column|Types):</li>
+<li>&quot;operator&quot; (meaning - Column|Types):
+
+<ul>
 <li>&quot;eq&quot; - (equals - String|Number|Date)</li>
 <li>&quot;contains&quot; - (contains - String)</li>
 <li>&quot;gt&quot; - (greater than - Number)</li>
@@ -4874,10 +4866,14 @@ with an array of rules with operator and value:</p>
 <li>&quot;before&quot; - (before - Date)</li>
 <li>&quot;is_true&quot; - true</li>
 <li>&quot;is_false&quot; - false</li>
-<li>value - the value e.g</li>
+</ul></li>
+<li>value - the value e.g
+
+<ul>
 <li>use empty string &quot;&quot; for Boolean (true false) types e.g. {&quot;operator&quot;:&quot;is_true&quot;,&quot;value&quot;:&quot;&quot;}</li>
 <li>use no &quot;&quot; for number types e.g. {&quot;operator&quot;:&quot;gt&quot;,&quot;value&quot;:100}</li>
 <li>range is a special case. eg. between 100-2,000: &quot;value&quot;:{&quot;gt&quot;:100,&quot;lt&quot;:2000}</li>
+</ul></li>
 </ul></li>
 </ul>
 
