@@ -809,8 +809,10 @@ their login expires. Typically, we recommend having both a staging and a product
 
 <span class="kd">const</span> <span class="nx">jwt</span> <span class="o">=</span> <span class="nx">generateJwt</span><span class="p">(</span><span class="nx">userJwtBlob</span><span class="p">,</span> <span class="nx">jwtSecret</span><span class="p">);</span>
 
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">encodedURIComponent</span><span class="p">(</span><span class="dl">"</span><span class="s2">/#/dashboard/gallery</span><span class="dl">"</span><span class="p">)</span> <span class="c1">// any URL-encoded path will do</span>
+
 <span class="c1">// 2. Redirect the user to a new Evocalize SSO endpoint with the JWT</span>
-<span class="nx">redirectUser</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://your-white-label-domain.com/#/sso?token=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">jwt</span><span class="p">);</span>
+<span class="nx">redirectUser</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://your-white-label-domain.com/#/sso?token=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">jwt</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&amp;path=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">path</span><span class="p">);</span>
 
 </code></pre></div>
 <p>You will need to create a new SSO endpoint (or update your current one) to generate a
