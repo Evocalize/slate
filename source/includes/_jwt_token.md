@@ -44,7 +44,7 @@ const userJwtBlob = {
 
 const jwt = generateJwt(userJwtBlob, jwtSecret);
 
-const path = encodedURIComponent("/#/dashboard/gallery") // any URL-encoded path will do
+const path = encodeURIComponent("/#/dashboard/gallery") // any URL-encoded path will do
 
 // 2. Redirect the user to a new Evocalize SSO endpoint with the JWT
 redirectUser('https://your-white-label-domain.com/#/sso?token=' + jwt + '&path=' + path);
