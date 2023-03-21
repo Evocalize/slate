@@ -110,8 +110,8 @@ Requirements:
    identifier. For example, if you only have a list of email addresses then include only the email address header and
    column data in your CSV.
 4. The CSV must have at least 300 data identifiers to ensure a minimum of 100 matches.
-5. Although any data identifiers can be present in your CSV, we encourage including a minimum of email or phone in your
-   CSV. Emails can drive stronger match rates compared to other supported data identifiers.
+5. Although any data identifiers can be present in your CSV, we encourage including a minimum of email or phone. Emails
+   can drive stronger match rates compared to other supported data identifiers.
 
 > Audience Data CSV Example (Plain Text)
 
