@@ -3646,9 +3646,17 @@ section for more details.</p>
 customer data collected by your organization. This customer data can be provided to Evocalize in the form of a CSV and
 uploaded via this endpoint.</p>
 
-<p>Th CSV must contain a header row which is the first row containing the data identifier name of each column. Moreover,
-every value in the CSV must be hashed as SHA-256. Ideally, the CSV must have at least 300 data identifiers to ensure
-a minimum of 100 matches. Below is a list of the supported data identifiers.</p>
+<p>Requirements:</p>
+
+<ol>
+<li>The CSV must contain a header row which is the first row containing the data identifier name of each column.</li>
+<li>Every data identifier in the CSV must be hashed as SHA-256 and comply with the requirements listed in the table
+below.</li>
+<li>In the case of incomplete data for a specific data identifier, omit the header and column data for that data
+identifier. For example, if you only have a list of email addresses then include only the email address header and
+column data in your CSV.</li>
+<li>The CSV must have at least 300 data identifiers to ensure a minimum of 100 matches.</li>
+</ol>
 
 <blockquote>
 <p>Audience Data CSV Example (Plain Text)</p>
@@ -3661,6 +3669,21 @@ emailaddress@example.com,15129876543,test,user
 </blockquote>
 <div class="highlight"><pre class="highlight plaintext"><code>email,phone,firstname,lastname
 d42d751294f09be1b195bdea0f5049af7c7da93a99f4c688705ddcacdd16b4c1,88fb2986c52c22fbc4038a49ddd37b3650d0c52806fe520b288672770dc14730,9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08,04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb
+</code></pre></div>
+<blockquote>
+<p>Multipart Form Request Example</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>POST management/v1/audience/{placeholderId}/csv/upload
+Content-Type: multipart/form-data; boundary=AUDIENCE-CSV-BOUNDARY
+# Authentication Headers
+
+--AUDIENCE-CSV-BOUNDARY
+Content-Disposition: form-data; name="file"; filename="hashed_audience_data.csv"
+Content-Type: text/csv
+
+email,phone,firstname,lastname
+d42d751294f09be1b195bdea0f5049af7c7da93a99f4c688705ddcacdd16b4c1,88fb2986c52c22fbc4038a49ddd37b3650d0c52806fe520b288672770dc14730,9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08,04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb
+--AUDIENCE-CSV-BOUNDARY--
 </code></pre></div>
 <table><thead>
 <tr>
@@ -3991,7 +4014,47 @@ See <a href="#access-control">Access Control</a> for full details. <code>READ</c
 <p>Returns the Audience Placeholder and associated audiences.</p>
 
 <blockquote>
-<p>Get Audience Placeholder By ID Response</p>
+<p>Get Audience Placeholder By ID Response (Audience Creation Pending, Requires CSV Upload)</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Get Audience Placeholder By ID Response (Audience Creation In Progress)</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"channelAudienceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_audience_id"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook Audience Name"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook Audience Description"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"potentialSize"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Get Audience Placeholder By ID Response (Audience Creation Completed)</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
