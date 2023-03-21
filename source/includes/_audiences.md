@@ -128,7 +128,7 @@ d42d751294f09be1b195bdea0f5049af7c7da93a99f4c688705ddcacdd16b4c1,88fb2986c52c22f
 > Multipart Form Request Example
 
 ```text
-POST https://office-api.evocalize.com/management/v1/audience/{placeholderId}/csv/upload
+POST management/v1/audience/{placeholderId}/csv/upload
 Content-Type: multipart/form-data; boundary=AUDIENCE-CSV-BOUNDARY
 # Authentication Headers
 
