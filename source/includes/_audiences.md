@@ -101,9 +101,15 @@ After Evocalize creates audiences on behalf of your organization, these audience
 customer data collected by your organization. This customer data can be provided to Evocalize in the form of a CSV and
 uploaded via this endpoint.
 
-Th CSV must contain a header row which is the first row containing the data identifier name of each column. Moreover,
-every value in the CSV must be hashed as SHA-256. Ideally, the CSV must have at least 300 data identifiers to ensure
-a minimum of 100 matches. Below is a list of the supported data identifiers.
+Requirements:
+
+1. The CSV must contain a header row which is the first row containing the data identifier name of each column.
+2. Every data identifier in the CSV must be hashed as SHA-256 and comply with the requirements listed in the table
+   below.
+3. In the case of incomplete data for a specific data identifier, omit the header and column data for that data
+   identifier. For example, if you only have a list of email addresses then include only the email address header and
+   column data in your CSV.
+4. The CSV must have at least 300 data identifiers to ensure a minimum of 100 matches.
 
 > Audience Data CSV Example (Plain Text)
 
@@ -117,6 +123,22 @@ emailaddress@example.com,15129876543,test,user
 ```text
 email,phone,firstname,lastname
 d42d751294f09be1b195bdea0f5049af7c7da93a99f4c688705ddcacdd16b4c1,88fb2986c52c22fbc4038a49ddd37b3650d0c52806fe520b288672770dc14730,9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08,04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb
+```
+
+> Multipart Form Request Example
+
+```text
+POST management/v1/audience/{placeholderId}/csv/upload
+Content-Type: multipart/form-data; boundary=AUDIENCE-CSV-BOUNDARY
+# Authentication Headers
+
+--AUDIENCE-CSV-BOUNDARY
+Content-Disposition: form-data; name="file"; filename="hashed_audience_data.csv"
+Content-Type: text/csv
+
+email,phone,firstname,lastname
+d42d751294f09be1b195bdea0f5049af7c7da93a99f4c688705ddcacdd16b4c1,88fb2986c52c22fbc4038a49ddd37b3650d0c52806fe520b288672770dc14730,9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08,04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb
+--AUDIENCE-CSV-BOUNDARY--
 ```
 
 | Data Identifier | Header    | Description                                                                                        |
@@ -155,9 +177,9 @@ form.
 
 ### Upload Audience Data CSV Multipart Form Request
 
-| Field     | Required | Type | Description                                             |
-|-----------|----------|------|---------------------------------------------------------|
-| file      | true     | CSV  | A CSV file containing the SHA-256 hashed audience data. |
+| Field | Required | Type | Description                                             |
+|-------|----------|------|---------------------------------------------------------|
+| file  | true     | CSV  | A CSV file containing the SHA-256 hashed audience data. |
 
 **Response Codes**:
 
@@ -355,6 +377,7 @@ in the request path.
 - `403 FORBIDDEN` - User has insufficient privileges or Audience Placeholder does not exist.
 
 ### Response properties
+
 An example is shown to the right. The `data` property contains a json object holding all the grants you retrieved.
 See [Access Control](#access-control) for full details. `READ` is the only valid permission for audience access.
 
@@ -366,7 +389,50 @@ See [Access Control](#access-control) for full details. `READ` is the only valid
 
 Returns the Audience Placeholder and associated audiences.
 
-> Get Audience Placeholder By ID Response
+
+> Get Audience Placeholder By ID Response (Audience Creation Pending, Requires CSV Upload)
+
+```json
+{
+  "data": [
+    {
+      "placeholderId": "1234",
+      "name": "Audience Placeholder Name",
+      "description": "Audience Placeholder Description",
+      "status": "pending",
+      "audiences": []
+    }
+  ]
+}
+```
+
+> Get Audience Placeholder By ID Response (Audience Creation In Progress)
+
+```json
+{
+  "data": [
+    {
+      "placeholderId": "1234",
+      "name": "Audience Placeholder Name",
+      "description": "Audience Placeholder Description",
+      "status": "processing",
+      "audiences": [
+        {
+          "channel": "Facebook",
+          "channelAudienceId": "test_audience_id",
+          "name": "Facebook Audience Name",
+          "description": "Facebook Audience Description",
+          "type": "custom",
+          "potentialSize": null,
+          "status": "pending"
+        }
+      ]
+    }
+  ]
+}
+```
+
+> Get Audience Placeholder By ID Response (Audience Creation Completed)
 
 ```json
 {
