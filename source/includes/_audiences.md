@@ -396,15 +396,13 @@ Returns the Audience Placeholder and associated audiences.
 
 ```json
 {
-  "data": [
-    {
-      "placeholderId": "1234",
-      "name": "Audience Placeholder Name",
-      "description": "Audience Placeholder Description",
-      "status": "pending",
-      "audiences": []
-    }
-  ]
+  "data": {
+    "placeholderId": "1234",
+    "name": "Audience Placeholder Name",
+    "description": "Audience Placeholder Description",
+    "status": "pending",
+    "audiences": []
+  }
 }
 ```
 
@@ -412,25 +410,23 @@ Returns the Audience Placeholder and associated audiences.
 
 ```json
 {
-  "data": [
-    {
-      "placeholderId": "1234",
-      "name": "Audience Placeholder Name",
-      "description": "Audience Placeholder Description",
-      "status": "processing",
-      "audiences": [
-        {
-          "channel": "Facebook",
-          "channelAudienceId": "test_audience_id",
-          "name": "Facebook Audience Name",
-          "description": "Facebook Audience Description",
-          "type": "custom",
-          "potentialSize": null,
-          "status": "pending"
-        }
-      ]
-    }
-  ]
+  "data": {
+    "placeholderId": "1234",
+    "name": "Audience Placeholder Name",
+    "description": "Audience Placeholder Description",
+    "status": "processing",
+    "audiences": [
+      {
+        "channel": "Facebook",
+        "channelAudienceId": "test_audience_id",
+        "name": "Facebook Audience Name",
+        "description": "Facebook Audience Description",
+        "type": "custom",
+        "potentialSize": null,
+        "status": "pending"
+      }
+    ]
+  }
 }
 ```
 
@@ -438,25 +434,23 @@ Returns the Audience Placeholder and associated audiences.
 
 ```json
 {
-  "data": [
-    {
-      "placeholderId": "1234",
-      "name": "Audience Placeholder Name",
-      "description": "Audience Placeholder Description",
-      "status": "completed",
-      "audiences": [
-        {
-          "channel": "Facebook",
-          "channelAudienceId": "test_audience_id",
-          "name": "Facebook Audience Name",
-          "description": "Facebook Audience Description",
-          "type": "custom",
-          "potentialSize": "2700000",
-          "status": "active"
-        }
-      ]
-    }
-  ]
+  "data": {
+    "placeholderId": "1234",
+    "name": "Audience Placeholder Name",
+    "description": "Audience Placeholder Description",
+    "status": "completed",
+    "audiences": [
+      {
+        "channel": "Facebook",
+        "channelAudienceId": "test_audience_id",
+        "name": "Facebook Audience Name",
+        "description": "Facebook Audience Description",
+        "type": "custom",
+        "potentialSize": "2700000",
+        "status": "active"
+      }
+    ]
+  }
 }
 ```
 
