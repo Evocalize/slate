@@ -105,11 +105,13 @@ Requirements:
 
 1. The CSV must contain a header row which is the first row containing the data identifier name of each column.
 2. Every data identifier in the CSV must be hashed as SHA-256 and comply with the requirements listed in the table
-   below.
+   below. Moreover, there must be at least one data identifier present in your CSV.
 3. In the case of incomplete data for a specific data identifier, omit the header and column data for that data
    identifier. For example, if you only have a list of email addresses then include only the email address header and
    column data in your CSV.
 4. The CSV must have at least 300 data identifiers to ensure a minimum of 100 matches.
+5. Although any data identifiers can be present in your CSV, we encourage including a minimum of email or phone. Emails
+   can drive stronger match rates compared to other supported data identifiers.
 
 > Audience Data CSV Example (Plain Text)
 
