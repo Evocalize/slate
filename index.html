@@ -4019,65 +4019,59 @@ See <a href="#access-control">Access Control</a> for full details. <code>READ</c
 <p>Get Audience Placeholder By ID Response (Audience Creation Pending, Requires CSV Upload)</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p>Get Audience Placeholder By ID Response (Audience Creation In Progress)</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"channelAudienceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_audience_id"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook Audience Name"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook Audience Description"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"potentialSize"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">]</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"channelAudienceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_audience_id"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook Audience Name"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook Audience Description"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"potentialSize"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p>Get Audience Placeholder By ID Response (Audience Creation Completed)</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"channelAudienceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_audience_id"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook Audience Name"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook Audience Description"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"potentialSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2700000"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">]</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"channelAudienceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_audience_id"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook Audience Name"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook Audience Description"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"potentialSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2700000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request-5'>HTTP Request</h3>
 <p><code>GET management/v1/audience/{placeholderId}</code></p>
@@ -4805,14 +4799,21 @@ select both in the UI):</p>
 <p>Send a user to the place order page with a specific blueprint selected</p>
 </blockquote>
 <div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">redirectUser</span><span class="p">(</span>
-  <span class="dl">"</span><span class="s2">https://your-white-label-domain.com/#/architecture/&lt;ARCHITECTURE_ID&gt;/programCreate?productIds=&lt;BLUEPRINT_ID&gt;</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">https://your-white-label-domain.com/#/architecture/&lt;ARCHITECTURE_ID&gt;/programCreate?productIds=&lt;BLUEPRINT_ID&gt;</span><span class="dl">"</span>
 <span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>Send a user to the place order page with a blueprint selected and one of their items selected</p>
 </blockquote>
 <div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">redirectUser</span><span class="p">(</span>
-  <span class="dl">"</span><span class="s2">https://your-white-label-domain.com/#/architecture/&lt;ARCHITECTURE_ID&gt;/programCreate?productIds=&lt;BLUEPRINT_ID&gt;&amp;contentIds=&lt;CONTENT_ID_1&gt;</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">https://your-white-label-domain.com/#/architecture/&lt;ARCHITECTURE_ID&gt;/programCreate?productIds=&lt;BLUEPRINT_ID&gt;&amp;contentIds=&lt;CONTENT_ID_1&gt;</span><span class="dl">"</span>
+<span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p>Send a user to the place order page with a blueprint selected and pre-selected filters in the content selector modal</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">redirectUser</span><span class="p">(</span>
+    <span class="dl">"</span><span class="s2">https://your-white-label-domain.com/#/architecture/&lt;ARCHITECTURE_ID&gt;/programCreate?productIds=&lt;BLUEPRINT_ID&gt;&amp;contentFilter=&lt;ENCODED_JSON_CONTENT_FILTER&gt;</span><span class="dl">"</span>
 <span class="p">);</span>
 </code></pre></div>
 <p>The following parameters can be used on their own or together to pre-select form field options for a user. These can
@@ -4838,6 +4839,12 @@ change these values once the page has loaded.</p>
 <td>false</td>
 <td>Int Array</td>
 <td>Comma-separated IDs. Pre-selects content to be used for the program.</td>
+</tr>
+<tr>
+<td>contentFilter</td>
+<td>false</td>
+<td>Encoded JSON</td>
+<td>JSON enabling filtering of content. Pre-filters content shown in the content selector modal.</td>
 </tr>
 <tr>
 <td>sideNav</td>
@@ -4870,25 +4877,36 @@ change these values once the page has loaded.</p>
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"column"</span><span class="p">:</span><span class="w"> </span><span class="s2">"agent_name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w"> </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eq"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jim FakeName"</span><span class="w"> </span><span class="p">},</span><span class="w">
-      </span><span class="p">{</span><span class="w"> </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eq"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane FakeName"</span><span class="w"> </span><span class="p">}</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eq"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jim FakeName"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eq"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane FakeName"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"column"</span><span class="p">:</span><span class="w"> </span><span class="s2">"price"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w"> </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"range"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"gt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w"> </span><span class="nl">"lt"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000000</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"range"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"gt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"lt"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000000</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Remove unnecessary white space. As long as all the white space is url encoded this step
-is not required, but it results in a shorter url. Take care not to remove space in string
-values e.g. &quot;New York&quot; vs &quot;NewYork&quot;</p>
+<p>Optionally remove whitespace and line breaks. As long as all the white space is url encoded this step is not required,
+but it results in a shorter url. Take care not to remove space in string values e.g. &quot;New York&quot; vs &quot;NewYork&quot;</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[{</span><span class="nl">"column"</span><span class="p">:</span><span class="s2">"agent_name"</span><span class="p">,</span><span class="nl">"rules"</span><span class="p">:[{</span><span class="nl">"operator"</span><span class="p">:</span><span class="s2">"eq"</span><span class="p">,</span><span class="nl">"value"</span><span class="p">:</span><span class="s2">"Jim FakeName"</span><span class="p">},{</span><span class="nl">"operator"</span><span class="p">:</span><span class="s2">"eq"</span><span class="p">,</span><span class="nl">"value"</span><span class="p">:</span><span class="s2">"Jane FakeName"</span><span class="p">}]},{</span><span class="nl">"column"</span><span class="p">:</span><span class="s2">"price"</span><span class="p">,</span><span class="nl">"rules"</span><span class="p">:[{</span><span class="nl">"operator"</span><span class="p">:</span><span class="s2">"range"</span><span class="p">,</span><span class="nl">"value"</span><span class="p">:{</span><span class="nl">"gt"</span><span class="p">:</span><span class="mi">1000000</span><span class="p">,</span><span class="nl">"lt"</span><span class="p">:</span><span class="mi">2000000</span><span class="p">}}]}]</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre class="highlight plaintext"><code>[{"column":"agent_name","rules":[{"operator":"eq","value":"Jim FakeName"},{"operator":"eq","value":"Jane FakeName"}]},{"column":"price","rules":[{"operator":"range","value":{"gt":1000000,"lt":2000000}}]}]
+</code></pre></div>
 <blockquote>
 <p>Convert to url parameter</p>
 </blockquote>
@@ -4924,7 +4942,8 @@ values e.g. &quot;New York&quot; vs &quot;NewYork&quot;</p>
 
 <p><strong>Filters</strong></p>
 
-<p>As explained in the query param table above, <code>filters</code> is a json array of filters with the column you are filtering, along
+<p>As explained in the query param table above, <code>filters</code> is a json array of filters with the column you are filtering,
+along
 with an array of rules with operator and value:</p>
 
 <ul>
@@ -4932,7 +4951,9 @@ with an array of rules with operator and value:</p>
 <li>&quot;rules&quot;: list of operator value pairs eg: rules: <code>[{&quot;operator&quot;:&quot;contains&quot;,&quot;value&quot;:&quot;Seattle&quot;}]</code>
 
 <ul>
-<li>&quot;operator&quot; (meaning - Column|Types):</li>
+<li>&quot;operator&quot; (meaning - Column|Types):
+
+<ul>
 <li>&quot;eq&quot; - (equals - String|Number|Date)</li>
 <li>&quot;contains&quot; - (contains - String)</li>
 <li>&quot;gt&quot; - (greater than - Number)</li>
@@ -4942,10 +4963,14 @@ with an array of rules with operator and value:</p>
 <li>&quot;before&quot; - (before - Date)</li>
 <li>&quot;is_true&quot; - true</li>
 <li>&quot;is_false&quot; - false</li>
-<li>value - the value e.g</li>
+</ul></li>
+<li>value - the value e.g
+
+<ul>
 <li>use empty string &quot;&quot; for Boolean (true false) types e.g. {&quot;operator&quot;:&quot;is_true&quot;,&quot;value&quot;:&quot;&quot;}</li>
 <li>use no &quot;&quot; for number types e.g. {&quot;operator&quot;:&quot;gt&quot;,&quot;value&quot;:100}</li>
 <li>range is a special case. eg. between 100-2,000: &quot;value&quot;:{&quot;gt&quot;:100,&quot;lt&quot;:2000}</li>
+</ul></li>
 </ul></li>
 </ul>
 
