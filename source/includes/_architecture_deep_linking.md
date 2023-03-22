@@ -139,38 +139,11 @@ This URL will take a user to the automated program creation screen.
 ]
 ```
 
-> Remove unnecessary white space. As long as all the white space is url encoded this step
-> is not required, but it results in a shorter url. Take care not to remove space in string
-> values e.g. "New York" vs "NewYork"
+> Optionally remove whitespace and line breaks. As long as all the white space is url encoded this step is not required,
+> but it results in a shorter url. Take care not to remove space in string values e.g. "New York" vs "NewYork"
 
-```json
-[
-  {
-    "column": "agent_name",
-    "rules": [
-      {
-        "operator": "eq",
-        "value": "Jim FakeName"
-      },
-      {
-        "operator": "eq",
-        "value": "Jane FakeName"
-      }
-    ]
-  },
-  {
-    "column": "price",
-    "rules": [
-      {
-        "operator": "range",
-        "value": {
-          "gt": 1000000,
-          "lt": 2000000
-        }
-      }
-    ]
-  }
-]
+```text
+[{"column":"agent_name","rules":[{"operator":"eq","value":"Jim FakeName"},{"operator":"eq","value":"Jane FakeName"}]},{"column":"price","rules":[{"operator":"range","value":{"gt":1000000,"lt":2000000}}]}]
 ```
 
 > Convert to url parameter
