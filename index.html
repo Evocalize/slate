@@ -3572,6 +3572,9 @@ partner-provided audience can immediately be used in blueprints supporting audie
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"Tag 1"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
   </span><span class="nl">"grants"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -3594,7 +3597,10 @@ partner-provided audience can immediately be used in blueprints supporting audie
     </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Tag 1"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -3626,6 +3632,12 @@ section for more details.</p>
 <td>false</td>
 <td>String</td>
 <td>The description of the Audience Placeholder. Visible to users in the CMP. Fallbacks to the Audience Placeholder&#39;s name if not present.</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>false</td>
+<td>String List</td>
+<td>A list of tags to add to the Audience Placeholder.</td>
 </tr>
 <tr>
 <td>grants</td>
@@ -3724,7 +3736,10 @@ d42d751294f09be1b195bdea0f5049af7c7da93a99f4c688705ddcacdd16b4c1,88fb2986c52c22f
     </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Tag 1"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -3782,6 +3797,9 @@ form.</p>
   </span><span class="nl">"channelAudienceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_facebook_audience_id"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"Tag 1"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
   </span><span class="nl">"grants"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"grantee"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -3804,6 +3822,9 @@ form.</p>
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Tag 1"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
     </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook"</span><span class="p">,</span><span class="w">
@@ -3859,6 +3880,12 @@ section for more details.</p>
 <td>false</td>
 <td>String</td>
 <td>The description of the Audience Placeholder you are creating. Fallbacks to the channel audience&#39;s description if not present</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>false</td>
+<td>String List</td>
+<td>A list of tags to add to the Audience Placeholder.</td>
 </tr>
 <tr>
 <td>grants</td>
@@ -3917,7 +3944,10 @@ attempt to associate to a non-existent user or group.</li>
     </span><span class="nl">"placeholderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Tag 1"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -4024,6 +4054,9 @@ See <a href="#access-control">Access Control</a> for full details. <code>READ</c
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Tag 1"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
     </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -4037,6 +4070,9 @@ See <a href="#access-control">Access Control</a> for full details. <code>READ</c
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Tag 1"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
     </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook"</span><span class="p">,</span><span class="w">
@@ -4060,6 +4096,9 @@ See <a href="#access-control">Access Control</a> for full details. <code>READ</c
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Tag 1"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
     </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook"</span><span class="p">,</span><span class="w">
@@ -4123,6 +4162,12 @@ See <a href="#access-control">Access Control</a> for full details. <code>READ</c
 <td>false</td>
 <td>String</td>
 <td>The status of the Audience Placeholder.</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>false</td>
+<td>String List</td>
+<td>A list of tags to add to the Audience Placeholder.</td>
 </tr>
 <tr>
 <td>audiences</td>
@@ -4225,6 +4270,9 @@ audience.</li>
       </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Name"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audience Placeholder Description"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"Tag 1"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
       </span><span class="nl">"audiences"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="nl">"channel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook"</span><span class="p">,</span><span class="w">
@@ -4289,6 +4337,12 @@ audience.</li>
 <td>false</td>
 <td>String</td>
 <td>The status of the Audience Placeholder.</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>false</td>
+<td>String List</td>
+<td>A list of tags to add to the Audience Placeholder.</td>
 </tr>
 <tr>
 <td>audiences</td>
