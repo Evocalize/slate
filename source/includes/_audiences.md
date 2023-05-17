@@ -43,6 +43,9 @@ partner-provided audience can immediately be used in blueprints supporting audie
 {
   "name": "Audience Placeholder Name",
   "description": "Audience Placeholder Description",
+  "tags": [
+    "Tag 1"
+  ],
   "grants": [
     {
       "grantee": {
@@ -66,7 +69,10 @@ partner-provided audience can immediately be used in blueprints supporting audie
     "placeholderId": "1234",
     "name": "Audience Placeholder Name",
     "description": "Audience Placeholder Description",
-    "status": "pending"
+    "status": "pending",
+    "tags": [
+      "Tag 1"
+    ]
   }
 }
 ```
@@ -84,11 +90,12 @@ section for more details.
 
 ### Create Audience Placeholder Request Properties
 
-| Field       | Required | Type       | Description                                                                                                                            |
-|-------------|----------|------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| name        | true     | String     | The name of the Audience Placeholder.                                                                                                  |
-| description | false    | String     | The description of the Audience Placeholder. Visible to users in the CMP. Fallbacks to the Audience Placeholder's name if not present. |
-| grants      | false    | Grant List | A list of grants that define access to the audience placeholder.                                                                       |                                                                                          |
+| Field       | Required | Type        | Description                                                                                                                            |
+|-------------|----------|-------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| name        | true     | String      | The name of the Audience Placeholder.                                                                                                  |
+| description | false    | String      | The description of the Audience Placeholder. Visible to users in the CMP. Fallbacks to the Audience Placeholder's name if not present. |
+| tags        | false    | String List | A list of tags to add to the Audience Placeholder.                                                                                     |
+| grants      | false    | Grant List  | A list of grants that define access to the audience placeholder.                                                                       |                                                                                          
 
 **Response Codes**:
 
@@ -158,7 +165,10 @@ d42d751294f09be1b195bdea0f5049af7c7da93a99f4c688705ddcacdd16b4c1,88fb2986c52c22f
     "placeholderId": "1234",
     "name": "Audience Placeholder Name",
     "description": "Audience Placeholder Description",
-    "status": "processing"
+    "status": "processing",
+    "tags": [
+      "Tag 1"
+    ]
   }
 }
 ```
@@ -199,6 +209,9 @@ form.
   "channelAudienceId": "test_facebook_audience_id",
   "name": "Audience Placeholder Name",
   "description": "Audience Placeholder Description",
+  "tags": [
+    "Tag 1"
+  ],
   "grants": [
     {
       "grantee": {
@@ -222,6 +235,9 @@ form.
     "name": "Audience Placeholder Name",
     "description": "Audience Placeholder Description",
     "status": "completed",
+    "tags": [
+      "Tag 1"
+    ],
     "audiences": [
       {
         "channel": "Facebook",
@@ -257,6 +273,7 @@ section for more details.
 | channelAudienceId | true     | String               | The ID of the channel-specific audience to be imported.                                                                      |
 | name              | false    | String               | The name of the Audience Placeholder you are creating. Fallbacks to the channel audience's name if not present               |
 | description       | false    | String               | The description of the Audience Placeholder you are creating. Fallbacks to the channel audience's description if not present |
+| tags              | false    | String List          | A list of tags to add to the Audience Placeholder.                                                                           |
 | grants            | false    | [Grant](#grant) List | A list of grants that define access to the audience placeholder.                                                             |
 
 **Response Codes**:
@@ -307,7 +324,10 @@ section for more details.
     "placeholderId": "1234",
     "name": "Audience Placeholder Name",
     "description": "Audience Placeholder Description",
-    "status": "completed"
+    "status": "completed",
+    "tags": [
+      "Tag 1"
+    ]
   }
 }
 ```
@@ -401,6 +421,9 @@ Returns the Audience Placeholder and associated audiences.
     "name": "Audience Placeholder Name",
     "description": "Audience Placeholder Description",
     "status": "pending",
+    "tags": [
+      "Tag 1"
+    ],
     "audiences": []
   }
 }
@@ -415,6 +438,9 @@ Returns the Audience Placeholder and associated audiences.
     "name": "Audience Placeholder Name",
     "description": "Audience Placeholder Description",
     "status": "processing",
+    "tags": [
+      "Tag 1"
+    ],
     "audiences": [
       {
         "channel": "Facebook",
@@ -439,6 +465,9 @@ Returns the Audience Placeholder and associated audiences.
     "name": "Audience Placeholder Name",
     "description": "Audience Placeholder Description",
     "status": "completed",
+    "tags": [
+      "Tag 1"
+    ],
     "audiences": [
       {
         "channel": "Facebook",
@@ -466,13 +495,14 @@ Returns the Audience Placeholder and associated audiences.
 
 ### Get Audience Placeholder By ID Response Properties
 
-| Field         | Nullable | Type       | Description                                                                 |
-|---------------|----------|------------|-----------------------------------------------------------------------------|
-| placeholderId | false    | String     | The ID of the Audience Placeholder.                                         |
-| name          | false    | String     | The name of the Audience Placeholder.                                       |
-| description   | false    | String     | The description of the Audience Placeholder.                                |
-| status        | false    | String     | The status of the Audience Placeholder.                                     |
-| audiences     | false    | JSON ARRAY | JSON Array of Audience objects. List includes created and active audiences. |
+| Field         | Nullable | Type        | Description                                                                 |
+|---------------|----------|-------------|-----------------------------------------------------------------------------|
+| placeholderId | false    | String      | The ID of the Audience Placeholder.                                         |
+| name          | false    | String      | The name of the Audience Placeholder.                                       |
+| description   | false    | String      | The description of the Audience Placeholder.                                |
+| status        | false    | String      | The status of the Audience Placeholder.                                     |
+| tags          | false    | String List | A list of tags to add to the Audience Placeholder.                          |
+| audiences     | false    | JSON ARRAY  | JSON Array of Audience objects. List includes created and active audiences. |
 
 **Placeholder Statuses**:
 
@@ -523,6 +553,9 @@ Returns a list of Audience Placeholders and associated audiences available to th
       "name": "Audience Placeholder Name",
       "description": "Audience Placeholder Description",
       "status": "completed",
+      "tags": [
+        "Tag 1"
+      ],
       "audiences": [
         {
           "channel": "Facebook",
@@ -551,13 +584,14 @@ Returns a list of Audience Placeholders and associated audiences available to th
 
 ### Get Audience Placeholders For User Response Properties
 
-| Field         | Nullable | Type       | Description                                                                 |
-|---------------|----------|------------|-----------------------------------------------------------------------------|
-| placeholderId | false    | String     | The ID of the Audience Placeholder that is user-accessible.                 |
-| name          | false    | String     | The name of the Audience Placeholder.                                       |
-| description   | false    | String     | The description of the Audience Placeholder.                                |
-| status        | false    | String     | The status of the Audience Placeholder.                                     |
-| audiences     | false    | JSON ARRAY | JSON Array of Audience objects. List includes created and active audiences. |
+| Field         | Nullable | Type        | Description                                                                 |
+|---------------|----------|-------------|-----------------------------------------------------------------------------|
+| placeholderId | false    | String      | The ID of the Audience Placeholder that is user-accessible.                 |
+| name          | false    | String      | The name of the Audience Placeholder.                                       |
+| description   | false    | String      | The description of the Audience Placeholder.                                |
+| status        | false    | String      | The status of the Audience Placeholder.                                     |
+| tags          | false    | String List | A list of tags to add to the Audience Placeholder.                          |
+| audiences     | false    | JSON ARRAY  | JSON Array of Audience objects. List includes created and active audiences. |
 
 ### Audience Response Properties
 
