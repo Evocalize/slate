@@ -253,6 +253,7 @@ Returns a list of media associated to the user.
 | URL Param | type   | Required | Description                                     |
 |-----------|--------|----------|-------------------------------------------------|
 | userId    | String | true     | The ID of the user whose media you want to view |
+| type   | String | false    | The media type associated with the URL. Valid types are `image`, `video`. |
 
 ### Request Params
 
