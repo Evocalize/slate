@@ -224,6 +224,47 @@ Returns a list of Facebook pages associated to the user.
 - `200 OK ` status code on sucess
 - `404 NOT FOUND` when it can't locate the user.
 
+## Get User Associated Media
+
+> Get User Associated Media Response
+
+```json
+{
+  "data": [
+    {
+      "id": "1234567890abcdef1234",
+      "name": "My Image",
+      "type": "image",
+      "url": "https://www.example.com/1234567890abcdef1234.jpg"
+    }
+  ],
+  "nextPageToken": "SnVzdCBhbiBleGFtcGxlIHRva2VuCg=="
+}
+```
+
+Returns a list of media associated to the user.
+
+### HTTP Request
+
+`GET management/v1/user/{userId}/media`
+
+### URL Params
+
+| URL Param | type   | Required | Description                                     |
+|-----------|--------|----------|-------------------------------------------------|
+| userId    | String | true     | The ID of the user whose media you want to view |
+
+### Request Params
+
+| Param     | Required | Description                                                                                             |
+|-----------|----------|---------------------------------------------------------------------------------------------------------|
+| pageToken | false    | The page token (taken from `nextPageToken` provided in the response) for the page you want to retrieve. |
+
+**Response Codes**:
+
+- `200 OK ` status code on sucess
+- `404 NOT FOUND` when it can't locate the user.
+
 ## Create Or Update User Batch
 
 > Batch Create Request
