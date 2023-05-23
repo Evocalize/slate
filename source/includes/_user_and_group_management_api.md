@@ -400,7 +400,7 @@ Endpoint for creating new groups or updating existing ones.
 
 ## Create Or Update Group Batch
 
-> Group Create Batch Request
+> Group Create Request
 
 ```json
 [
@@ -412,7 +412,7 @@ Endpoint for creating new groups or updating existing ones.
 ]
 ```
 
-> Group Create Batch Response
+> Group Create Response
 
 ```json
 {
