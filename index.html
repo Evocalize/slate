@@ -350,6 +350,9 @@
                     <a href="#get-user-associated-facebook-pages" class="toc-h2 toc-link" data-title="Get User Associated Facebook Pages">Get User Associated Facebook Pages</a>
                   </li>
                   <li>
+                    <a href="#get-user-associated-media" class="toc-h2 toc-link" data-title="Get User Associated Media">Get User Associated Media</a>
+                  </li>
+                  <li>
                     <a href="#create-or-update-user-batch" class="toc-h2 toc-link" data-title="Create Or Update User Batch">Create Or Update User Batch</a>
                   </li>
                   <li>
@@ -1142,6 +1145,68 @@ case of update we would only update their name and/or email.</p>
 <li><code>200 OK</code> status code on sucess</li>
 <li><code>404 NOT FOUND</code> when it can&#39;t locate the user.</li>
 </ul>
+<h2 id='get-user-associated-media'>Get User Associated Media</h2>
+<blockquote>
+<p>Get User Associated Media Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890abcdef1234"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Image"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.example.com/1234567890abcdef1234.jpg"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"nextPageToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SnVzdCBhbiBleGFtcGxlIHRva2VuCg=="</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Returns a list of media associated to the user.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>GET management/v1/user/{userId}/media</code></p>
+<h3 id='url-params-3'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>String</td>
+<td>true</td>
+<td>The ID of the user whose media you want to view</td>
+</tr>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>false</td>
+<td>The media type associated with the URL. Valid types are <code>image</code>, <code>video</code>.</td>
+</tr>
+</tbody></table>
+<h3 id='request-params-2'>Request Params</h3>
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pageToken</td>
+<td>false</td>
+<td>The page token (taken from <code>nextPageToken</code> provided in the response) for the page you want to retrieve.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> status code on sucess</li>
+<li><code>404 NOT FOUND</code> when it can&#39;t locate the user.</li>
+</ul>
 <h2 id='create-or-update-user-batch'>Create Or Update User Batch</h2>
 <blockquote>
 <p>Batch Create Request</p>
@@ -1197,7 +1262,7 @@ receive a <code>report_id</code> which can be used to track status of the reques
 stored for 30 days.</p>
 
 <p>The JSON objects passed in the array are the same as the ones listed in Create Or Update User.</p>
-<h3 id='http-request-5'>HTTP Request</h3>
+<h3 id='http-request-6'>HTTP Request</h3>
 <p><code>POST management/v1/users</code></p>
 
 <p><strong>Response Codes</strong>:</p>
@@ -1213,7 +1278,7 @@ stored for 30 days.</p>
 <div class="highlight"><pre class="highlight plaintext"><code>No Body returned
 </code></pre></div>
 <p>Deactivates all active programs for a given user placing them in an inactive state.</p>
-<h3 id='http-request-6'>HTTP Request</h3>
+<h3 id='http-request-7'>HTTP Request</h3>
 <p><code>DELETE management/v1/user/{userId}</code></p>
 
 <p><strong>Response Codes</strong>:</p>
@@ -1250,9 +1315,9 @@ stored for 30 days.</p>
 </span></code></pre></div>
 <p>Returns all groups. This is a paginated response - returning 100 results per page with optional page tokens to go to the
 next page and previous page if they exist.</p>
-<h3 id='http-request-7'>HTTP Request</h3>
+<h3 id='http-request-8'>HTTP Request</h3>
 <p><code>GET management/v1/groups</code></p>
-<h3 id='request-params-2'>Request Params</h3>
+<h3 id='request-params-3'>Request Params</h3>
 <table><thead>
 <tr>
 <th>Param</th>
@@ -1292,7 +1357,7 @@ next page and previous page if they exist.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Endpoint for creating new groups or updating existing ones.</p>
-<h3 id='http-request-8'>HTTP Request</h3>
+<h3 id='http-request-9'>HTTP Request</h3>
 <p><code>POST management/v1/group</code></p>
 <h3 id='create-update-group-properties'>Create / Update Group Properties</h3>
 <table><thead>
@@ -1347,7 +1412,7 @@ next page and previous page if they exist.</p>
 at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive
 a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored
 for 30 days.</p>
-<h3 id='http-request-9'>HTTP Request</h3>
+<h3 id='http-request-10'>HTTP Request</h3>
 <p><code>POST management/v1/groups</code></p>
 
 <p><strong>Response Codes</strong>:</p>
