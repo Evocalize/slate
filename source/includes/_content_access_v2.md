@@ -317,7 +317,7 @@ delete grants for specific grantees by providing a
 
 Across the entire repository: `DELETE management/v1/repository/{repositoryId}/grants`
 
-For a specific item: `DELETE management/v1/repository/{repositoryId}/items/{itemId}/grants`
+For a specific item: `DELETE management/v1/repository/{repositoryId}/item/{itemId}/grants`
 
 ### URL Params
 

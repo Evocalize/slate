@@ -32,13 +32,13 @@ Returns a single repository and associated fields.
 ### URL Params
 
 | URL Param    | Required | type   | Description                                          |
-| ------------ | -------- | ------ | ---------------------------------------------------- |
+|--------------|----------|--------|------------------------------------------------------|
 | repositoryId | true     | String | The ID of the repository you are wanting to retrieve |
 
 ### Response Codes:
 
-- `200 OK ` status code on sucess
-- `404 NOT FOUND` when it can't locate the repository.
+- `200 OK` - status code on success.
+- `404 NOT FOUND` - when it can't locate the repository.
 
 ## Get Repositories
 
@@ -64,7 +64,7 @@ Returns a list of repositories.
 
 ### Response Codes:
 
-- `200 OK ` status code on sucess
+- `200 OK` - status code on success
 
 ## Get Item
 
@@ -83,7 +83,8 @@ Returns a list of repositories.
 }
 ```
 
-Returns a content item. The JSON object in the `values` field of the response will contains fields defined by the repository's fields.
+Returns a content item. The JSON object in the `values` field of the response will contains fields defined by the
+repository's fields.
 
 ### HTTP Request
 
@@ -92,14 +93,14 @@ Returns a content item. The JSON object in the `values` field of the response wi
 ### URL Params
 
 | URL Param    | Required | type   | Description                                          |
-| ------------ | -------- | ------ | ---------------------------------------------------- |
+|--------------|----------|--------|------------------------------------------------------|
 | repositoryId | true     | String | The ID of the repository you are wanting to retrieve |
 | itemId       | true     | String | The ID of the item you are wanting to retrieve       |
 
 ### Response Codes:
 
-- `200 OK ` status code on sucess
-- `404 NOT FOUND` when it can't locate the item
+- `200 OK` - status code on success.
+- `404 NOT FOUND` - when it can't locate the item.
 
 ## Create Or Update Item
 
@@ -140,12 +141,14 @@ Creates or updates a content item. The JSON request object should contain fields
 ### URL Params
 
 | URL Param    | Required | type   | Description                                                                   |
-| ------------ | -------- | ------ | ----------------------------------------------------------------------------- |
+|--------------|----------|--------|-------------------------------------------------------------------------------|
 | repositoryId | true     | String | The ID of the repository in which you are wanting to create or update an item |
 
 ### Response Codes:
 
-- `200 OK ` status code on sucess
+- `201 CREATED` - status code on success.
+- `400 BAD REQUEST` - malformed request.
+- `404 NOT FOUND` - when it can't locate the repository.
 
 ## Create Or Update Item Batch
 
@@ -165,7 +168,7 @@ Creates or updates a content item. The JSON request object should contain fields
 ]
 ```
 
-> Create and Update Batch Repsonse
+> Create and Update Batch Response
 
 ```json
 {
@@ -175,7 +178,10 @@ Creates or updates a content item. The JSON request object should contain fields
 }
 ```
 
-This endpoint allows you to pass a JSON Array of Item Request objects for creation or updating. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a `report_id` which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.
+This endpoint allows you to pass a JSON Array of Item Request objects for creation or updating. Batches are limited to
+1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will
+receive a `report_id` which can be used to track status of the requests as they are processed in our system. Reports are
+stored for 30 days.
 
 The JSON objects passed in the array are the same as the ones listed in Create Or Update Item.
 
@@ -186,13 +192,14 @@ The JSON objects passed in the array are the same as the ones listed in Create O
 ### URL Params
 
 | URL Param    | Required | type   | Description                                                                 |
-| ------------ | -------- | ------ | --------------------------------------------------------------------------- |
+|--------------|----------|--------|-----------------------------------------------------------------------------|
 | repositoryId | true     | String | The ID of the repository in which you are wanting to create or update items |
 
 **Response Codes**:
 
 - `202 ACCEPTED` - List has been received and submitted for processing.
 - `400 BAD REQUEST` - Malformed request.
+- `404 NOT FOUND` - when it can't locate the repository.
 
 ## Delete Item
 
@@ -220,14 +227,14 @@ Deletes a content item.
 ### URL Params
 
 | URL Param    | Required | type   | Description                                                         |
-| ------------ | -------- | ------ | ------------------------------------------------------------------- |
+|--------------|----------|--------|---------------------------------------------------------------------|
 | repositoryId | true     | String | The ID of the repository in which you are wanting to delete an item |
 | itemId       | true     | String | The ID of the item you are wanting to delete                        |
 
 ### Response Codes:
 
-- `200 OK ` status code on sucess
-- `404 NOT FOUND` when it can't locate the item
+- `200 OK` - status code on success.
+- `404 NOT FOUND` - when it can't locate the repository or item.
 
 ## Delete Item Batch
 
@@ -241,7 +248,7 @@ Deletes a content item.
 ]
 ```
 
-> Delete Batch Repsonse
+> Delete Batch Response
 
 ```json
 {
@@ -251,7 +258,9 @@ Deletes a content item.
 }
 ```
 
-This endpoint allows you to pass a JSON Array of Item IDs for deletion. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a `report_id` which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.
+This endpoint allows you to pass a JSON Array of Item IDs for deletion. Batches are limited to 1000 items at a time. The
+creation option is asynchronous - rather than returning the newly created items, you will receive a `report_id` which
+can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.
 
 The JSON objects passed in the array are the same as the ones listed in Create Or Update Item.
 
@@ -262,7 +271,7 @@ The JSON objects passed in the array are the same as the ones listed in Create O
 ### URL Params
 
 | URL Param    | Required | type   | Description                                                       |
-| ------------ | -------- | ------ | ----------------------------------------------------------------- |
+|--------------|----------|--------|-------------------------------------------------------------------|
 | repositoryId | true     | String | The ID of the repository in which you are wanting to delete items |
 
 **Response Codes**:
