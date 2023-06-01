@@ -1603,8 +1603,8 @@ When this is the case, we utilize an object with a single <code>grants</code> pr
 </tbody></table>
 <h3 id='response-codes'>Response Codes:</h3>
 <ul>
-<li><code>200 OK</code> status code on sucess</li>
-<li><code>404 NOT FOUND</code> when it can&#39;t locate the repository.</li>
+<li><code>200 OK</code> - status code on success.</li>
+<li><code>404 NOT FOUND</code> - when it can&#39;t locate the repository.</li>
 </ul>
 <h2 id='get-repositories'>Get Repositories</h2>
 <blockquote>
@@ -1625,7 +1625,7 @@ When this is the case, we utilize an object with a single <code>grants</code> pr
 <p><code>GET management/v1/repositories</code></p>
 <h3 id='response-codes-2'>Response Codes:</h3>
 <ul>
-<li><code>200 OK</code> status code on sucess</li>
+<li><code>200 OK</code> - status code on success</li>
 </ul>
 <h2 id='get-item'>Get Item</h2>
 <blockquote>
@@ -1642,7 +1642,8 @@ When this is the case, we utilize an object with a single <code>grants</code> pr
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Returns a content item. The JSON object in the <code>values</code> field of the response will contains fields defined by the repository&#39;s fields.</p>
+<p>Returns a content item. The JSON object in the <code>values</code> field of the response will contains fields defined by the
+repository&#39;s fields.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET management/v1/repository/{repositoryId}/item/{itemId}</code></p>
 <h3 id='url-params-2'>URL Params</h3>
@@ -1669,8 +1670,8 @@ When this is the case, we utilize an object with a single <code>grants</code> pr
 </tbody></table>
 <h3 id='response-codes-3'>Response Codes:</h3>
 <ul>
-<li><code>200 OK</code> status code on sucess</li>
-<li><code>404 NOT FOUND</code> when it can&#39;t locate the item</li>
+<li><code>200 OK</code> - status code on success.</li>
+<li><code>404 NOT FOUND</code> - when it can&#39;t locate the item.</li>
 </ul>
 <h2 id='create-or-update-item'>Create Or Update Item</h2>
 <blockquote>
@@ -1720,7 +1721,9 @@ When this is the case, we utilize an object with a single <code>grants</code> pr
 </tbody></table>
 <h3 id='response-codes-4'>Response Codes:</h3>
 <ul>
-<li><code>200 OK</code> status code on sucess</li>
+<li><code>201 CREATED</code> - status code on success.</li>
+<li><code>400 BAD REQUEST</code> - malformed request.</li>
+<li><code>404 NOT FOUND</code> - when it can&#39;t locate the repository.</li>
 </ul>
 <h2 id='create-or-update-item-batch'>Create Or Update Item Batch</h2>
 <blockquote>
@@ -1739,7 +1742,7 @@ When this is the case, we utilize an object with a single <code>grants</code> pr
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Create and Update Batch Repsonse</p>
+<p>Create and Update Batch Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1747,7 +1750,10 @@ When this is the case, we utilize an object with a single <code>grants</code> pr
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows you to pass a JSON Array of Item Request objects for creation or updating. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
+<p>This endpoint allows you to pass a JSON Array of Item Request objects for creation or updating. Batches are limited to
+1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will
+receive a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are
+stored for 30 days.</p>
 
 <p>The JSON objects passed in the array are the same as the ones listed in Create Or Update Item.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
@@ -1774,6 +1780,7 @@ When this is the case, we utilize an object with a single <code>grants</code> pr
 <ul>
 <li><code>202 ACCEPTED</code> - List has been received and submitted for processing.</li>
 <li><code>400 BAD REQUEST</code> - Malformed request.</li>
+<li><code>404 NOT FOUND</code> - when it can&#39;t locate the repository.</li>
 </ul>
 <h2 id='delete-item'>Delete Item</h2>
 <blockquote>
@@ -1817,8 +1824,8 @@ When this is the case, we utilize an object with a single <code>grants</code> pr
 </tbody></table>
 <h3 id='response-codes-5'>Response Codes:</h3>
 <ul>
-<li><code>200 OK</code> status code on sucess</li>
-<li><code>404 NOT FOUND</code> when it can&#39;t locate the item</li>
+<li><code>200 OK</code> - status code on success.</li>
+<li><code>404 NOT FOUND</code> - when it can&#39;t locate the repository or item.</li>
 </ul>
 <h2 id='delete-item-batch'>Delete Item Batch</h2>
 <blockquote>
@@ -1831,7 +1838,7 @@ When this is the case, we utilize an object with a single <code>grants</code> pr
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Delete Batch Repsonse</p>
+<p>Delete Batch Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1839,7 +1846,9 @@ When this is the case, we utilize an object with a single <code>grants</code> pr
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows you to pass a JSON Array of Item IDs for deletion. Batches are limited to 1000 items at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
+<p>This endpoint allows you to pass a JSON Array of Item IDs for deletion. Batches are limited to 1000 items at a time. The
+creation option is asynchronous - rather than returning the newly created items, you will receive a <code>report_id</code> which
+can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
 
 <p>The JSON objects passed in the array are the same as the ones listed in Create Or Update Item.</p>
 <h3 id='http-request-7'>HTTP Request</h3>
@@ -2215,7 +2224,7 @@ delete grants for specific grantees by providing a
 <h3 id='http-request-4'>HTTP Request</h3>
 <p>Across the entire repository: <code>DELETE management/v1/repository/{repositoryId}/grants</code></p>
 
-<p>For a specific item: <code>DELETE management/v1/repository/{repositoryId}/items/{itemId}/grants</code></p>
+<p>For a specific item: <code>DELETE management/v1/repository/{repositoryId}/item/{itemId}/grants</code></p>
 <h3 id='url-params-4'>URL Params</h3>
 <table><thead>
 <tr>
@@ -2263,7 +2272,7 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
 <h1 id='content-access-api-v1-deprecated'>Content Access API V1 (Deprecated)</h1>
 <p>This API is now deprecated. Use <em>Content Access API V2</em> instead.</p>
 <h2 id='access-basics'>Access Basics</h2>
-<p>For each content item your organization uploads you will need coresponding access records. Access records define who can use the item for their ad campaigns and whether or not they have the ability to edit the item after it is in the system. Content Items have a one to many relationship to access records, although it is completely valid to have a content item only accessible by a single user.</p>
+<p>For each content item your organization uploads you will need corresponding access records. Access records define who can use the item for their ad campaigns and whether or not they have the ability to edit the item after it is in the system. Content Items have a one to many relationship to access records, although it is completely valid to have a content item only accessible by a single user.</p>
 
 <p>Access to a given content item can be defined at the following levels:
 - User based
@@ -2538,7 +2547,7 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Create and Update Batch Repsonse</p>
+<p>Create and Update Batch Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2630,7 +2639,7 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Remove All Access Records In a Respository (Request Does Not Include <code>/{contentItemId}</code>)</p>
+<p>Remove All Access Records In a Repository (Request Does Not Include <code>/{contentItemId}</code>)</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
