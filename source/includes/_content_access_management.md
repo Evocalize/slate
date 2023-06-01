@@ -3,7 +3,7 @@ This API is now deprecated. Use _Content Access API V2_ instead.
 
 ## Access Basics
 
-For each content item your organization uploads you will need coresponding access records. Access records define who can use the item for their ad campaigns and whether or not they have the ability to edit the item after it is in the system. Content Items have a one to many relationship to access records, although it is completely valid to have a content item only accessible by a single user.
+For each content item your organization uploads you will need corresponding access records. Access records define who can use the item for their ad campaigns and whether or not they have the ability to edit the item after it is in the system. Content Items have a one to many relationship to access records, although it is completely valid to have a content item only accessible by a single user.
 
 Access to a given content item can be defined at the following levels:
 - User based
@@ -189,7 +189,7 @@ If you decline to pass query params - this call will return all access records a
 ]
 ```
 
-> Create and Update Batch Repsonse
+> Create and Update Batch Response
 
 ```json
 {
@@ -280,7 +280,7 @@ The JSON objects passed in the array are the same as the ones listed in Create O
 }
 ```
 
-> Remove All Access Records In a Respository (Request Does Not Include `/{contentItemId}`)
+> Remove All Access Records In a Repository (Request Does Not Include `/{contentItemId}`)
 
 ```json
 {
