@@ -31,12 +31,12 @@ Returns a single user and associated groups.
 ### URL Params
 
 | URL Param | type   | Required | Description                                    |
-| --------- | ------ | -------- | ---------------------------------------------- |
+|-----------|--------|----------|------------------------------------------------|
 | userId    | String | true     | The ID of the user you are wanting to retrieve |
 
 **Response Codes**:
 
-- `200 OK ` status code on sucess
+- `200 OK` status code on success
 - `404 NOT FOUND` when it can't locate the user.
 
 ## Get Users
@@ -82,7 +82,7 @@ next page and previous page if they exist.
 ### Request Params
 
 | Param     | Required | Description                                                                                                                                       |
-| --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------|
 | pageToken | false    | The page token (taken from either `nextPageToken`, or `previousPageToken` provided in the response) for the page you of results you want to view. |
 
 **Response Codes**:
@@ -126,7 +126,7 @@ next page and previous page if they exist.
 }
 ```
 
-> Create and Update Repsonse
+> Create and Update Response
 
 ```json
 {
@@ -184,11 +184,16 @@ The group you want to associate with the user MUST exist prior to making this ca
 
 - group_user
 - group_admin
+- team_guest
+- team_member
+- team_viewer
+- team_lead
+- team_admin
 
 **Response Codes**:
 
 - `201 CREATED` - Returning the newly created or updated user.
-- `400 BAD REQUEST` - When the request is malformed or you attempt to associate to a non existant group.
+- `400 BAD REQUEST` - When the request is malformed or you attempt to associate to a non existent group.
 
 ## Get User Associated Facebook Pages
 
@@ -221,7 +226,7 @@ Returns a list of Facebook pages associated to the user.
 
 **Response Codes**:
 
-- `200 OK ` status code on sucess
+- `200 OK` status code on success
 - `404 NOT FOUND` when it can't locate the user.
 
 ## Get User Associated Media
@@ -250,10 +255,10 @@ Returns a list of media associated to the user.
 
 ### URL Params
 
-| URL Param | type   | Required | Description                                     |
-|-----------|--------|----------|-------------------------------------------------|
-| userId    | String | true     | The ID of the user whose media you want to view |
-| type   | String | false    | The media type associated with the URL. Valid types are `image`, `video`. |
+| URL Param | type   | Required | Description                                                               |
+|-----------|--------|----------|---------------------------------------------------------------------------|
+| userId    | String | true     | The ID of the user whose media you want to view                           |
+| type      | String | false    | The media type associated with the URL. Valid types are `image`, `video`. |
 
 ### Request Params
 
@@ -263,7 +268,7 @@ Returns a list of media associated to the user.
 
 **Response Codes**:
 
-- `200 OK ` status code on sucess
+- `200 OK` status code on success
 - `404 NOT FOUND` when it can't locate the user.
 
 ## Create Or Update User Batch
@@ -309,7 +314,7 @@ Returns a list of media associated to the user.
 ]
 ```
 
-> Create and Update Batch Repsonse
+> Create and Update Batch Response
 
 ```json
 {
@@ -394,7 +399,7 @@ next page and previous page if they exist.
 ### Request Params
 
 | Param     | Required | Description                                                                                                                            |
-| --------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------|----------|----------------------------------------------------------------------------------------------------------------------------------------|
 | pageToken | false    | The page token (taken from either `nextPageToken`, or `previousPageToken` provided in the response) for the page you want to retrieve. |
 
 **Response Codes**:
@@ -431,9 +436,9 @@ Endpoint for creating new groups or updating existing ones.
 
 ### Create / Update Group Properties
 
-| Field | Required | Type   | Description                                         |
-| ----- | -------- | ------ | --------------------------------------------------- |
-| id    | true     | String | ID of the group you wish to create or update.       |
+| Field | Required | Type   | Description                                                        |
+|-------|----------|--------|--------------------------------------------------------------------|
+| id    | true     | String | ID of the group you wish to create or update.                      |
 | name  | true     | String | The human-readable name of the group you are creating or updating. |
 
 **Response Codes**:
