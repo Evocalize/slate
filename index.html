@@ -881,7 +881,7 @@ button that loads the <code>/sso</code> endpoint again when it is clicked.</li>
 <p><strong>Response Codes</strong>:</p>
 
 <ul>
-<li><code>200 OK</code> status code on sucess</li>
+<li><code>200 OK</code> status code on success</li>
 <li><code>404 NOT FOUND</code> when it can&#39;t locate the user.</li>
 </ul>
 <h2 id='get-users'>Get Users</h2>
@@ -974,7 +974,7 @@ next page and previous page if they exist.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Create and Update Repsonse</p>
+<p>Create and Update Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
@@ -1099,13 +1099,18 @@ case of update we would only update their name and/or email.</p>
 <ul>
 <li>group_user</li>
 <li>group_admin</li>
+<li>team_guest</li>
+<li>team_member</li>
+<li>team_viewer</li>
+<li>team_lead</li>
+<li>team_admin</li>
 </ul>
 
 <p><strong>Response Codes</strong>:</p>
 
 <ul>
 <li><code>201 CREATED</code> - Returning the newly created or updated user.</li>
-<li><code>400 BAD REQUEST</code> - When the request is malformed or you attempt to associate to a non existant group.</li>
+<li><code>400 BAD REQUEST</code> - When the request is malformed or you attempt to associate to a non existent group.</li>
 </ul>
 <h2 id='get-user-associated-facebook-pages'>Get User Associated Facebook Pages</h2>
 <blockquote>
@@ -1145,7 +1150,7 @@ case of update we would only update their name and/or email.</p>
 <p><strong>Response Codes</strong>:</p>
 
 <ul>
-<li><code>200 OK</code> status code on sucess</li>
+<li><code>200 OK</code> status code on success</li>
 <li><code>404 NOT FOUND</code> when it can&#39;t locate the user.</li>
 </ul>
 <h2 id='get-user-associated-media'>Get User Associated Media</h2>
@@ -1207,7 +1212,7 @@ case of update we would only update their name and/or email.</p>
 <p><strong>Response Codes</strong>:</p>
 
 <ul>
-<li><code>200 OK</code> status code on sucess</li>
+<li><code>200 OK</code> status code on success</li>
 <li><code>404 NOT FOUND</code> when it can&#39;t locate the user.</li>
 </ul>
 <h2 id='create-or-update-user-batch'>Create Or Update User Batch</h2>
@@ -1251,7 +1256,7 @@ case of update we would only update their name and/or email.</p>
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <blockquote>
-<p>Create and Update Batch Repsonse</p>
+<p>Create and Update Batch Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
