@@ -393,6 +393,18 @@ in the request path.
 
 `GET management/v1/audience/{placeholderId}/grants`
 
+### URL Params
+
+| URL Param     | Required | type   | Description                                                     |
+|---------------|----------|--------|-----------------------------------------------------------------|
+| placeholderId | true     | String | The ID of the Audience Placeholder you are wanting to retrieve. |
+
+### Request Params
+
+| Param     | Required | Description                                                                                             |
+|-----------|----------|---------------------------------------------------------------------------------------------------------|
+| pageToken | false    | The page token (taken from `nextPageToken` provided in the response) for the page you want to retrieve. |
+
 **Response Codes**:
 
 - `200 OK` - Returning the grants associated with the Audience Placeholder ID.
@@ -406,6 +418,26 @@ See [Access Control](#access-control) for full details. `READ` is the only valid
 | Field  | Nullable | Type                            | Description                     |
 |--------|----------|---------------------------------|---------------------------------|
 | grants | false    | List of [Grant](#grant) objects | A list of the grants retrieved. |
+
+## Get Audience Placeholders
+
+Returns Audience Placeholders and their associated audiences.
+
+
+### HTTP Request
+
+`GET management/v1/audience
+
+### Request Params
+
+| Param     | Required | Description                                                                                             |
+|-----------|----------|---------------------------------------------------------------------------------------------------------|
+| pageToken | false    | The page token (taken from `nextPageToken` provided in the response) for the page you want to retrieve. |
+
+**Response Codes**:
+
+- `200 OK` - Returning the available Audience Placeholders and associated audiences for a user.
+- `404 NOT FOUND` - When the request is malformed.
 
 ## Get Audience Placeholder By ID
 

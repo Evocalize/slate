@@ -224,6 +224,12 @@ Returns a list of Facebook pages associated to the user.
 |-----------|--------|----------|-------------------------------------------------|
 | userId    | String | true     | The ID of the user whose pages you want to view |
 
+### Request Params
+
+| Param     | Required | Description                                                                                             |
+|-----------|----------|---------------------------------------------------------------------------------------------------------|
+| pageToken | false    | The page token (taken from `nextPageToken` provided in the response) for the page you want to retrieve. |
+
 **Response Codes**:
 
 - `200 OK` status code on success
@@ -258,12 +264,12 @@ Returns a list of media associated to the user.
 | URL Param | type   | Required | Description                                                               |
 |-----------|--------|----------|---------------------------------------------------------------------------|
 | userId    | String | true     | The ID of the user whose media you want to view                           |
-| type      | String | false    | The media type associated with the URL. Valid types are `image`, `video`. |
 
 ### Request Params
 
 | Param     | Required | Description                                                                                             |
 |-----------|----------|---------------------------------------------------------------------------------------------------------|
+| type      | false    | The media type associated with the URL. Valid types are `image`, `video`.                               |
 | pageToken | false    | The page token (taken from `nextPageToken` provided in the response) for the page you want to retrieve. |
 
 **Response Codes**:
