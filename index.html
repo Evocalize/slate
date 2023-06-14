@@ -518,6 +518,9 @@
                     <a href="#get-audience-placeholder-permissions" class="toc-h2 toc-link" data-title="Get Audience Placeholder Permissions">Get Audience Placeholder Permissions</a>
                   </li>
                   <li>
+                    <a href="#get-audience-placeholders" class="toc-h2 toc-link" data-title="Get Audience Placeholders">Get Audience Placeholders</a>
+                  </li>
+                  <li>
                     <a href="#get-audience-placeholder-by-id" class="toc-h2 toc-link" data-title="Get Audience Placeholder By ID">Get Audience Placeholder By ID</a>
                   </li>
                   <li>
@@ -1146,6 +1149,20 @@ case of update we would only update their name and/or email.</p>
 <td>The ID of the user whose pages you want to view</td>
 </tr>
 </tbody></table>
+<h3 id='request-params-2'>Request Params</h3>
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pageToken</td>
+<td>false</td>
+<td>The page token (taken from <code>nextPageToken</code> provided in the response) for the page you want to retrieve.</td>
+</tr>
+</tbody></table>
 
 <p><strong>Response Codes</strong>:</p>
 
@@ -1187,14 +1204,8 @@ case of update we would only update their name and/or email.</p>
 <td>true</td>
 <td>The ID of the user whose media you want to view</td>
 </tr>
-<tr>
-<td>type</td>
-<td>String</td>
-<td>false</td>
-<td>The media type associated with the URL. Valid types are <code>image</code>, <code>video</code>.</td>
-</tr>
 </tbody></table>
-<h3 id='request-params-2'>Request Params</h3>
+<h3 id='request-params-3'>Request Params</h3>
 <table><thead>
 <tr>
 <th>Param</th>
@@ -1202,6 +1213,11 @@ case of update we would only update their name and/or email.</p>
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>type</td>
+<td>false</td>
+<td>The media type associated with the URL. Valid types are <code>image</code>, <code>video</code>.</td>
+</tr>
 <tr>
 <td>pageToken</td>
 <td>false</td>
@@ -1325,7 +1341,7 @@ stored for 30 days.</p>
 next page and previous page if they exist.</p>
 <h3 id='http-request-8'>HTTP Request</h3>
 <p><code>GET management/v1/groups</code></p>
-<h3 id='request-params-3'>Request Params</h3>
+<h3 id='request-params-4'>Request Params</h3>
 <table><thead>
 <tr>
 <th>Param</th>
@@ -4098,6 +4114,36 @@ section for more details.</p>
 in the request path.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>GET management/v1/audience/{placeholderId}/grants</code></p>
+<h3 id='url-params-2'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>placeholderId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the Audience Placeholder you are wanting to retrieve.</td>
+</tr>
+</tbody></table>
+<h3 id='request-params'>Request Params</h3>
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pageToken</td>
+<td>false</td>
+<td>The page token (taken from <code>nextPageToken</code> provided in the response) for the page you want to retrieve.</td>
+</tr>
+</tbody></table>
 
 <p><strong>Response Codes</strong>:</p>
 
@@ -4124,6 +4170,31 @@ See <a href="#access-control">Access Control</a> for full details. <code>READ</c
 <td>A list of the grants retrieved.</td>
 </tr>
 </tbody></table>
+<h2 id='get-audience-placeholders'>Get Audience Placeholders</h2>
+<p>Returns Audience Placeholders and their associated audiences.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p>`GET management/v1/audience</p>
+<h3 id='request-params-2'>Request Params</h3>
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pageToken</td>
+<td>false</td>
+<td>The page token (taken from <code>nextPageToken</code> provided in the response) for the page you want to retrieve.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Returning the available Audience Placeholders and associated audiences for a user.</li>
+<li><code>404 NOT FOUND</code> - When the request is malformed.</li>
+</ul>
 <h2 id='get-audience-placeholder-by-id'>Get Audience Placeholder By ID</h2>
 <p>Returns the Audience Placeholder and associated audiences.</p>
 
@@ -4194,9 +4265,9 @@ See <a href="#access-control">Access Control</a> for full details. <code>READ</c
     </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-5'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-6'>HTTP Request</h3>
 <p><code>GET management/v1/audience/{placeholderId}</code></p>
-<h3 id='url-params-2'>URL Params</h3>
+<h3 id='url-params-3'>URL Params</h3>
 <table><thead>
 <tr>
 <th>URL Param</th>
@@ -4369,9 +4440,9 @@ audience.</li>
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-6'>HTTP Request</h3>
+</span></code></pre></div><h3 id='http-request-7'>HTTP Request</h3>
 <p><code>GET management/v1/user/{userId}/audiences</code></p>
-<h3 id='url-params-3'>URL Params</h3>
+<h3 id='url-params-4'>URL Params</h3>
 <table><thead>
 <tr>
 <th>URL Param</th>
