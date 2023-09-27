@@ -2,7 +2,7 @@
 
 ## API Endpoint
 
-`https://office-api.evocalize.com/`
+`https://partner-api-production.evocalize.com/`
 
 ## Requests
 
