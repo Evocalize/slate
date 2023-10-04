@@ -12,7 +12,6 @@ includes:
 - _content_access_management
 - _batch_report_api
 - _webhook_integration
-- _facebook_audiences
 - _audiences
 - _digital_asset_management
 - _errors
