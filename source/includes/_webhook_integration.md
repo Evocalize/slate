@@ -15,10 +15,10 @@ operations.
 
 ### Policies
 
-- ℹ️ **Duplicate Leads: If any update sent to your server fails, we will retry several times with decreasing frequency until
-  we get a success. While this helps ensure you receive all of your leads, it can create duplicates on your end so your
-  server should handle deduplication in these cases. All leads have a unique `leads[].id` field you can use for the deduplication
-  process.**
+- ℹ️ **Duplicate Leads: Each lead may be delivered more than once. For example, if any update sent to your server fails,
+  we will retry several times with decreasing frequency until we get a success. While this helps ensure you receive all
+  of your leads, it can create duplicates on your end so your server should handle deduplication in these cases. All
+  leads have a unique `leads[].id` field you can use for the deduplication process.**
 - Any response code in the range of 200 - 299 is considered a success, any other response code is considered a failure
   and we will attempt to redeliver the lead notification.
 - The HTTPS request will time out after 5 seconds. If this happens, delivery is considered a failure and we will attempt
