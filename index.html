@@ -2807,15 +2807,27 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
 
 <p><code>200 OK</code></p>
 <h1 id='webhooks'>Webhooks</h1><h2 id='client-leads-webhook'>Client Leads Webhook</h2>
-<p>Evocalize can notify your organization via webhook any time a new lead is ingested from an upstream platform such as Facebook or Google. Upon notification from the upstream platform that new lead data has been created, we combine that with Evocalize data and your data, and send it to you, allowing you to handle leads in near real-time.</p>
+<p>Evocalize can notify your organization via webhook any time a new lead is ingested from an upstream platform such as
+Facebook or Google. Upon notification from the upstream platform that new lead data has been created, we combine that
+with Evocalize data and your data, and send it to you, allowing you to handle leads in near real-time.</p>
 <h3 id='setup'>Setup</h3>
-<p>You will need to work with your account manager and supply Evocalize with an endpoint url where you would like to be notified with the payload specified below. Your endpoint url must use SSL (https) and accept a POST. You will need to have a <code>ClientKeyID</code> and a <code>ClientSecret</code>. These are the same values that you will use to call our API for other operations.</p>
+<p>You will need to work with your account manager and supply Evocalize with an endpoint url where you would like to be
+notified with the payload specified below. Your endpoint url must use SSL (https) and accept a POST. You will need to
+have a <code>ClientKeyID</code> and a <code>ClientSecret</code>. These are the same values that you will use to call our API for other
+operations.</p>
 <h3 id='policies'>Policies</h3>
 <ul>
-<li>Each lead may be delivered more than once. This is rare, but it is possible. The leads[].id is unique to a particular lead and will not change between deliveries if a lead is delivered multiple times.</li>
-<li>Any response code in the range of 200 - 299 is considered a success, any other response code is considered a failure and we will attempt to redeliver the lead notification.</li>
-<li>The HTTPS request will time out after 5 seconds. If this happens, delivery is considered a failure and we will attempt to redeliver the lead notification.</li>
-<li>The time between retry attempts is exponential, with a maximum of 15 minutes between tries. After three hours have elapsed since the first attempt, we will no longer try to deliver the leads. If something has happened causing your platform to stop ingesting leads for more than 3 hours, contact your Evocalize account representative.</li>
+<li>ℹ️ <strong>Duplicate Leads: Each lead may be delivered more than once. For example, if any update sent to your server fails,
+we will retry several times with decreasing frequency until we get a success. While this helps ensure you receive all
+of your leads, it can create duplicates on your end so your server should handle deduplication in these cases. All
+leads have a unique <code>leads[].id</code> field you can use for the deduplication process.</strong></li>
+<li>Any response code in the range of 200 - 299 is considered a success, any other response code is considered a failure
+and we will attempt to redeliver the lead notification.</li>
+<li>The HTTPS request will time out after 5 seconds. If this happens, delivery is considered a failure and we will attempt
+to redeliver the lead notification.</li>
+<li>The time between retry attempts is exponential, with a maximum of 15 minutes between tries. After three hours have
+elapsed since the first attempt, we will no longer try to deliver the leads. If something has happened causing your
+platform to stop ingesting leads for more than 3 hours, contact your Evocalize account representative.</li>
 </ul>
 <h3 id='headers'>Headers</h3>
 <ul>
@@ -2842,7 +2854,10 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
 <span class="c1">// expectedSignature will match request.headers["X-Evocalize-Signature"]</span>
 <span class="kd">val</span> <span class="py">expectedSignature</span> <span class="p">=</span> <span class="nc">Hashing</span><span class="p">.</span><span class="nf">sha256</span><span class="p">().</span><span class="nf">hashString</span><span class="p">(</span><span class="n">toValidate</span><span class="p">,</span> <span class="nc">Charsets</span><span class="p">.</span><span class="nc">UTF_8</span><span class="p">)</span>
 </code></pre></div>
-<p>For extra security, partners may have the need or desire to validate each individual request signature. Validating the request signature provides extra security over relying solely on the <code>ClientKeyId</code> because it uses the <code>ClientSecret</code> above. The <code>ClientSecret</code> is never sent over the wire. The methodology is simple. Join the following values into one string, separated by a newline, then hash them using SHA-256</p>
+<p>For extra security, partners may have the need or desire to validate each individual request signature. Validating the
+request signature provides extra security over relying solely on the <code>ClientKeyId</code> because it uses the <code>ClientSecret</code>
+above. The <code>ClientSecret</code> is never sent over the wire. The methodology is simple. Join the following values into one
+string, separated by a newline, then hash them using SHA-256</p>
 
 <ul>
 <li>urlPath</li>
@@ -2851,7 +2866,8 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
 <li>ClientSecret</li>
 </ul>
 
-<p>Since we require the use of the https protocol for our webhooks, it is up to each partner to choose if they would like to validate the signature.</p>
+<p>Since we require the use of the https protocol for our webhooks, it is up to each partner to choose if they would like
+to validate the signature.</p>
 <h3 id='payload'>Payload</h3>
 <blockquote>
 <p>Payload Example (Facebook Lead)</p>
@@ -2873,7 +2889,9 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
         </span><span class="nl">"leadForm"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
           </span><span class="p">{</span><span class="w">
             </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"field_one"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"value one"</span><span class="p">]</span><span class="w">
+            </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="s2">"value one"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
           </span><span class="p">}</span><span class="w">
         </span><span class="p">]</span><span class="w">
       </span><span class="p">},</span><span class="w">
@@ -2928,7 +2946,14 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
           </span><span class="nl">"gclId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gclId-1652440203604"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"leadId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1652440203598"</span><span class="w">
         </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"leadForm"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"field_one"</span><span class="p">,</span><span class="w"> </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"value one"</span><span class="p">]</span><span class="w"> </span><span class="p">}]</span><span class="w">
+        </span><span class="nl">"leadForm"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"field_one"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="s2">"value one"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">[</span><span class="w">
@@ -2980,7 +3005,14 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
           </span><span class="nl">"adId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1652440203722</span><span class="p">,</span><span class="w">
           </span><span class="nl">"createdAtEpochSeconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">1652440203724</span><span class="w">
         </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"leadForm"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"field_one"</span><span class="p">,</span><span class="w"> </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"value_one"</span><span class="p">]</span><span class="w"> </span><span class="p">}]</span><span class="w">
+        </span><span class="nl">"leadForm"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"field_one"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="s2">"value_one"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">[</span><span class="w">
@@ -3017,9 +3049,12 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Special consideration should be taken not to fail if a new field is present in your data that you did not expect. We will notify you when a field is removed from our specification, but we will not notify you when a field is added to the specification. If a field is removed from the specification, the payloadVersion will increment.</p>
+<p>Special consideration should be taken not to fail if a new field is present in your data that you did not expect. We
+will notify you when a field is removed from our specification, but we will not notify you when a field is added to the
+specification. If a field is removed from the specification, the payloadVersion will increment.</p>
 
-<p>The potential values of leadForm and content depends upon your imported data and program setup. Your account representative can help with this.</p>
+<p>The potential values of leadForm and content depends upon your imported data and program setup. Your account
+representative can help with this.</p>
 
 <table><thead>
 <tr>
@@ -3199,7 +3234,8 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
 </tr>
 </tbody></table>
 
-<p><sup>*</sup>If you have values that you need our API to return for this field, please contact your Evocalize account representative.</p>
+<p><sup>*</sup>If you have values that you need our API to return for this field, please contact your Evocalize account
+representative.</p>
 <h3 id='facebook-lead-data'>Facebook Lead Data</h3>
 <table><thead>
 <tr>
