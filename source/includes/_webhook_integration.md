@@ -93,6 +93,12 @@ to validate the signature.
               "value one"
             ]
           }
+        ],
+        "leadFormDisclaimerResponses": [
+          {
+            "consentText": "Example Consent Text",
+            "isConsentChecked": true
+          }
         ]
       },
       "content": [
@@ -295,21 +301,25 @@ representative.
 
 ### Facebook Lead Data
 
-| Field                                          | Nullable | Type   | Description                                                                                              |
-|------------------------------------------------|----------|--------|----------------------------------------------------------------------------------------------------------|
-| leads[].facebook.summary                       | false    | object | Summary data for this Facebook lead.                                                                     |
-| leads[].facebook.summary.leadgenId             | false    | string | Facebook's leadgen_id.                                                                                   |
-| leads[].facebook.summary.pageId                | false    | string | The Facebook page that the ad for this lead is associated with.                                          |
-| leads[].facebook.summary.leadFormId            | false    | string | The Facebook lead form id associated with this lead.                                                     |
-| leads[].facebook.summary.adgroupId             | false    | string | The Facebook adgroup id associated with this lead.                                                       |
-| leads[].facebook.summary.adId                  | false    | string | The Facebook ad id associated with this lead.                                                            |
-| leads[].facebook.summary.retailerItemId        | false    | string | (Dynamic Ads Only) Id of the content (in catalog) that the user clicked on before submitting their lead. |
-| leads[].facebook.summary.createdAtEpochSeconds | false    | long   | The time this lead was created, as a unix timestamp in seconds.                                          |
-| leads[].facebook.leadForm                      | false    | array  | Values that a person filled out on the lead form.                                                        |
-| leads[].facebook.leadForm[]                    | false    | object |                                                                                                          |
-| leads[].facebook.leadForm[].name               | false    | string | The name of the Facebook lead form field.                                                                |
-| leads[].facebook.leadForm[].values             | false    | array  | An array of the values the user filled out.                                                              |
-| leads[].facebook.leadForm[].values[]           | false    | string | Each element is a value that the end user selected or entered. In most cases there is only one element.  |
+| Field                                                           | Nullable | Type    | Description                                                                                              |
+|-----------------------------------------------------------------|----------|---------|----------------------------------------------------------------------------------------------------------|
+| leads[].facebook.summary                                        | false    | object  | Summary data for this Facebook lead.                                                                     |
+| leads[].facebook.summary.leadgenId                              | false    | string  | Facebook's leadgen_id.                                                                                   |
+| leads[].facebook.summary.pageId                                 | false    | string  | The Facebook page that the ad for this lead is associated with.                                          |
+| leads[].facebook.summary.leadFormId                             | false    | string  | The Facebook lead form id associated with this lead.                                                     |
+| leads[].facebook.summary.adgroupId                              | false    | string  | The Facebook adgroup id associated with this lead.                                                       |
+| leads[].facebook.summary.adId                                   | false    | string  | The Facebook ad id associated with this lead.                                                            |
+| leads[].facebook.summary.retailerItemId                         | false    | string  | (Dynamic Ads Only) Id of the content (in catalog) that the user clicked on before submitting their lead. |
+| leads[].facebook.summary.createdAtEpochSeconds                  | false    | long    | The time this lead was created, as a unix timestamp in seconds.                                          |
+| leads[].facebook.leadForm                                       | false    | array   | Values that a person filled out on the lead form.                                                        |
+| leads[].facebook.leadForm[]                                     | false    | object  |                                                                                                          |
+| leads[].facebook.leadForm[].name                                | false    | string  | The name of the Facebook lead form field.                                                                |
+| leads[].facebook.leadForm[].values                              | false    | array   | An array of the values the user filled out.                                                              |
+| leads[].facebook.leadForm[].values[]                            | false    | string  | Each element is a value that the end user selected or entered. In most cases there is only one element.  |
+| leads[].facebook.leadFormDisclaimerResponses                    | true     | array   | Values that a person filled out on the lead form custom disclaimer.                                      |
+| leads[].facebook.leadFormDisclaimerResponses[]                  | false    | object  |                                                                                                          |
+| leads[].facebook.leadFormDisclaimerResponses[].consentText      | false    | string  | The consent text of the Facebook lead form custom disclaimer checkbox.                                   |
+| leads[].facebook.leadFormDisclaimerResponses[].isConsentChecked | false    | boolean | Indicates if the Facebook lead form custom disclaimer checkbox was checked.                              |
 
 ### Google Lead Data
 
