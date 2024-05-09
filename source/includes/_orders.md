@@ -89,8 +89,8 @@ This endpoint allows you to place a one-time purchase order.
 
 ### Payment
 
-- `paymentAmount` should be denominated in USD, formatted to two decimal places, and pass the minimum and maximum spend
-  required to place an order.
+- `paymentAmount` should be denominated in USD, rounded to two decimal places, and pass the spend requirements. For more
+  details regarding spend requirements for a specific product, contact your Client Success representative.
 - For more details regarding minimum and maximum spend requirements for a specific product, contact your Client Success
   representative.
 
