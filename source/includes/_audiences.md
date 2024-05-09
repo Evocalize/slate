@@ -1,7 +1,7 @@
 # Audience Manager API
 
 The Audience Manager is a comprehensive audience management system capable of creating, importing, and managing custom
-audiences for use in marketing campaigns. Evocalize currently supports the creation and management of Meta audiences.
+audiences for use in marketing campaigns. Evocalize currently supports the creation and management of Meta and Google audiences.
 
 Audience Placeholders are used to associate channel-agnostic audience properties, such as customer data, with multiple
 audiences spanning multiple channels. Audience Placeholders can be associated with Evocalize-created or partner-provided
