@@ -472,6 +472,32 @@
               </ul>
           </li>
           <li>
+            <a href="#orders" class="toc-h1 toc-link" data-title="Orders">Orders</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#place-purchase-order" class="toc-h2 toc-link" data-title="Place Purchase Order">Place Purchase Order</a>
+                  </li>
+                  <li>
+                    <a href="#place-subscription-order" class="toc-h2 toc-link" data-title="Place Subscription Order">Place Subscription Order</a>
+                  </li>
+                  <li>
+                    <a href="#edit-purchase-order" class="toc-h2 toc-link" data-title="Edit Purchase Order">Edit Purchase Order</a>
+                  </li>
+                  <li>
+                    <a href="#edit-subscription-order" class="toc-h2 toc-link" data-title="Edit Subscription Order">Edit Subscription Order</a>
+                  </li>
+                  <li>
+                    <a href="#cancel-order" class="toc-h2 toc-link" data-title="Cancel Order">Cancel Order</a>
+                  </li>
+                  <li>
+                    <a href="#get-order-by-id" class="toc-h2 toc-link" data-title="Get Order By ID">Get Order By ID</a>
+                  </li>
+                  <li>
+                    <a href="#get-order-refund-preview-by-id" class="toc-h2 toc-link" data-title="Get Order Refund Preview By ID">Get Order Refund Preview By ID</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
               <ul class="toc-list-h2">
                   <li>
@@ -2806,6 +2832,1101 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
 <p><strong>Response Codes</strong>:</p>
 
 <p><code>200 OK</code></p>
+<h1 id='orders'>Orders</h1><h2 id='place-purchase-order'>Place Purchase Order</h2>
+<blockquote>
+<p>Place Purchase Order Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchase"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"endTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1738396800</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pageId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Place Purchase Order Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchase"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"endTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1738396800</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to place a one-time purchase order.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST management/v1/order</code></p>
+<h3 id='place-purchase-order-request-properties'>Place Purchase Order Request Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the user placing the order.</td>
+</tr>
+<tr>
+<td>groupId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the group associated with the user.</td>
+</tr>
+<tr>
+<td>productCode</td>
+<td>true</td>
+<td>String</td>
+<td>Code identifying the product for the order.</td>
+</tr>
+<tr>
+<td>orderType</td>
+<td>true</td>
+<td>String</td>
+<td>Must be set to &quot;purchase&quot; for one-time purchase orders.</td>
+</tr>
+<tr>
+<td>paymentAmount</td>
+<td>true</td>
+<td>Float</td>
+<td>The total payment amount, in USD, for the order.</td>
+</tr>
+<tr>
+<td>schedule</td>
+<td>true</td>
+<td>Object</td>
+<td>Contains scheduling information for the order.</td>
+</tr>
+<tr>
+<td>schedule.startTimestamp</td>
+<td>true</td>
+<td>Int</td>
+<td>Start time of the purchase period in Pacific Time (Unix timestamp format in seconds).</td>
+</tr>
+<tr>
+<td>schedule.endTimestamp</td>
+<td>true</td>
+<td>Int</td>
+<td>End time of the purchase period in Pacific Time (Unix timestamp format in seconds).</td>
+</tr>
+<tr>
+<td>contentItemIds</td>
+<td>false</td>
+<td>String List</td>
+<td>An array of content item IDs representing specific content items to include in the order.</td>
+</tr>
+<tr>
+<td>variableValues</td>
+<td>false</td>
+<td>Map</td>
+<td>A map providing creative data required to supply the product.</td>
+</tr>
+</tbody></table>
+<h3 id='general-constraints'>General Constraints</h3>
+<ul>
+<li><code>userId</code> and <code>groupId</code> must exist and the user should be associated with the group.</li>
+<li><code>productCode</code> must correspond to an active product code or product ID. To pass a product ID, use the
+format <code>pid_&lt;PRODUCT_ID&gt;</code>.</li>
+</ul>
+<h3 id='scheduling'>Scheduling</h3>
+<ul>
+<li><code>startTimestamp</code> must precede <code>endTimestamp</code> by at least 24 hours.</li>
+<li><code>startTimestamp</code> should be a future date and cannot be set to a date that has already passed.</li>
+</ul>
+<h3 id='payment'>Payment</h3>
+<ul>
+<li><code>paymentAmount</code> should be denominated in USD, rounded to two decimal places, and pass the spend requirements. For more
+details regarding spend requirements for a specific product, contact your Client Success representative.</li>
+<li>For more details regarding minimum and maximum spend requirements for a specific product, contact your Client Success
+representative.</li>
+</ul>
+<h3 id='content'>Content</h3>
+<ul>
+<li>If <code>contentItemIds</code> are specified, Evocalize will provide the necessary creative data using those content item IDs for
+the product.</li>
+<li>Certain variables may become immutable after placing the order due to specific product requirements. Make sure to
+manage these immutable variable values correctly when placing the order.</li>
+</ul>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Successfully created the purchase order.</li>
+<li><code>400 BAD REQUEST</code> - Request is malformed or contains invalid data.</li>
+</ul>
+<h2 id='place-subscription-order'>Place Subscription Order</h2>
+<blockquote>
+<p>Place Subscription Order Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Place Subscription Order Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to place a subscription order, which is scheduled to start at the beginning of the month, runs
+until the specified monthly budget is exhausted, and renews at the start of each new month.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST management/v1/order</code></p>
+<h3 id='place-subscription-order-request-properties'>Place Subscription Order Request Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the user placing the order.</td>
+</tr>
+<tr>
+<td>groupId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the group associated with the user.</td>
+</tr>
+<tr>
+<td>productCode</td>
+<td>true</td>
+<td>String</td>
+<td>Code identifying the product for the order.</td>
+</tr>
+<tr>
+<td>orderType</td>
+<td>true</td>
+<td>String</td>
+<td>Must be set to &quot;subscription&quot; for subscription orders.</td>
+</tr>
+<tr>
+<td>paymentAmount</td>
+<td>true</td>
+<td>Float</td>
+<td>The total payment amount, in USD, for the order.</td>
+</tr>
+<tr>
+<td>schedule</td>
+<td>true</td>
+<td>Object</td>
+<td>Contains scheduling information for the order.</td>
+</tr>
+<tr>
+<td>schedule.startTimestamp</td>
+<td>true</td>
+<td>Int</td>
+<td>Start time of the subscription period in Pacific Time (Unix timestamp format in seconds).</td>
+</tr>
+<tr>
+<td>contentItemIds</td>
+<td>false</td>
+<td>String List</td>
+<td>An array of content item IDs representing specific content items to include in the order.</td>
+</tr>
+<tr>
+<td>variableValues</td>
+<td>false</td>
+<td>Map</td>
+<td>A map providing creative data required to supply the product.</td>
+</tr>
+</tbody></table>
+<h3 id='general-constraints-2'>General Constraints</h3>
+<ul>
+<li><code>userId</code> and <code>groupId</code> must exist and the user should be associated with the group.</li>
+<li><code>productCode</code> must correspond to an active product code or product ID. To pass a product ID, use the
+format <code>pid_&lt;PRODUCT_ID&gt;</code>.</li>
+</ul>
+<h3 id='scheduling-2'>Scheduling</h3>
+<ul>
+<li><code>startTimestamp</code> should be a future date and cannot be set to a date that has already passed.</li>
+</ul>
+<h3 id='payment-2'>Payment</h3>
+<ul>
+<li><code>paymentAmount</code> should be in USD, rounded to two decimal places, and fall within the available price range. For more
+details regarding the available price range, contact your Client Success representative.</li>
+</ul>
+<h3 id='content-2'>Content</h3>
+<ul>
+<li>If <code>contentItemIds</code> are specified, Evocalize will provide the necessary creative data using those content item IDs for
+the product.</li>
+<li>Certain variables, like marketing account IDs, may become immutable after placing the order due to specific product
+requirements. Make sure these immutable variable values are handled appropriately when placing the order.</li>
+</ul>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Successfully created the purchase order.</li>
+<li><code>400 BAD REQUEST</code> - Request is malformed or contains invalid data.</li>
+<li><code>404 NOT FOUND</code> - A specified ID does not exist.</li>
+</ul>
+<h2 id='edit-purchase-order'>Edit Purchase Order</h2>
+<blockquote>
+<p>Edit Purchase Order Request - Adjust Payment Amount</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Purchase Order Response - Adjust Payment Amount</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchase"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"endTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1738396800</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Purchase Order Request - Adjust Schedule Start</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735804380</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Purchase Order Response - Adjust Schedule Start</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchase"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735804380</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"endTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1738396800</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Purchase Order Request - Adjust Schedule End</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"endTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1738482780</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Purchase Order Response - Adjust Schedule End</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchase"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"endTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1738482780</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Purchase Order Request - Adjust Variable Value</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test updated"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Purchase Order Response - Adjust Variable Value</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchase"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"endTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1738396800</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test updated"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to edit a one-time purchase order.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>PUT management/v1/order/{orderId}</code></p>
+
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>orderId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the purchase order to be edited.</td>
+</tr>
+</tbody></table>
+<h3 id='edit-purchase-order-request-properties'>Edit Purchase Order Request Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>paymentAmount</td>
+<td>false</td>
+<td>Float</td>
+<td>The total payment amount, in USD, for the order.</td>
+</tr>
+<tr>
+<td>schedule</td>
+<td>false</td>
+<td>Object</td>
+<td>Contains scheduling information for the order.</td>
+</tr>
+<tr>
+<td>schedule.startTimestamp</td>
+<td>false</td>
+<td>Int</td>
+<td>Start time of the purchase period in Pacific Time (Unix timestamp format in seconds).</td>
+</tr>
+<tr>
+<td>schedule.endTimestamp</td>
+<td>false</td>
+<td>Int</td>
+<td>End time of the purchase period in Pacific Time (Unix timestamp format in seconds).</td>
+</tr>
+<tr>
+<td>variableValues</td>
+<td>false</td>
+<td>Map</td>
+<td>A map providing new creative data required to supply the product.</td>
+</tr>
+</tbody></table>
+<h3 id='general-constraints-3'>General Constraints</h3>
+<ul>
+<li>At least one of the fields must be present in the request.</li>
+</ul>
+<h3 id='scheduling-3'>Scheduling</h3>
+<ul>
+<li>Orders expiring in less than 24 hours cannot be edited.</li>
+<li>Orders that have a scheduled start date already past the current date cannot have their schedule start adjusted.</li>
+<li><code>startTimestamp</code> and <code>endTimestamp</code> can be adjusted in the same api call or separately in separate api calls.</li>
+<li><code>startTimestamp</code> should be a future date and cannot be set to a date that has already passed.</li>
+<li><code>endTimestamp</code> should be a date after the order&#39;s schedule start or <code>startTimestamp</code> if specified. The rule that
+scheduled end must be 24 hours after the scheduled start applies as well.</li>
+</ul>
+<h3 id='payment-3'>Payment</h3>
+<ul>
+<li>Order payments cannot be updated if the order is set expire in less than 48 hours. Extending the order past the end
+period is required to adjust the budget.</li>
+<li><code>paymentAmount</code> should be denominated in USD, rounded to two decimal places, and pass the spend requirements. For more
+details regarding spend requirements for a specific product, contact your Client Success representative.</li>
+</ul>
+<h3 id='content-3'>Content</h3>
+<ul>
+<li><code>variableValues</code> should contain the information necessary for adding or overwriting existing values. If a field is
+absent in the request&#39;s variable values but present in the current order, the existing variable values will remain
+unchanged.</li>
+<li>Make sure not to include immutable variables.</li>
+</ul>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Successfully edited the purchase order.</li>
+<li><code>400 BAD REQUEST</code> - Request is malformed or contains invalid data.</li>
+<li><code>404 NOT FOUND</code> - The order ID does not exist.</li>
+</ul>
+<h2 id='edit-subscription-order'>Edit Subscription Order</h2>
+<blockquote>
+<p>Edit Subscription Order Request - Adjust Payment Amount</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Subscription Order Response - Adjust Payment Amount</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Subscription Order Request - Adjust Schedule Start</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735804380</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Subscription Order Response - Adjust Schedule Start</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735804380</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Subscription Order Request - Adjust Variable Value</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test updated"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Subscription Order Response - Adjust Variable Value</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test updated"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to edit a subscription order.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>PUT management/v1/order/{orderId}</code></p>
+<h3 id='url-params'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>orderId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the subscription order to be edited.</td>
+</tr>
+</tbody></table>
+<h3 id='edit-subscription-order-request-properties'>Edit Subscription Order Request Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>paymentAmount</td>
+<td>false</td>
+<td>Float</td>
+<td>The total payment amount, in USD, for the order.</td>
+</tr>
+<tr>
+<td>schedule</td>
+<td>false</td>
+<td>Object</td>
+<td>Contains scheduling information for the order.</td>
+</tr>
+<tr>
+<td>schedule.startTimestamp</td>
+<td>false</td>
+<td>Int</td>
+<td>Start time of the subscription period in Pacific Time (Unix timestamp format in seconds).</td>
+</tr>
+<tr>
+<td>variableValues</td>
+<td>false</td>
+<td>Map</td>
+<td>A map providing new creative data required to supply the product.</td>
+</tr>
+</tbody></table>
+<h3 id='general-constraints-4'>General Constraints</h3>
+<ul>
+<li>At least one of the fields must be present in the request.</li>
+</ul>
+<h3 id='scheduling-4'>Scheduling</h3>
+<ul>
+<li>Orders that have a scheduled start date already past the current date cannot have their schedule start adjusted.</li>
+<li><code>startTimestamp</code> should be a future date and cannot be set to a date that has already passed.</li>
+</ul>
+<h3 id='payment-4'>Payment</h3>
+<ul>
+<li><code>paymentAmount</code> should be denominated in USD, rounded to two decimal places, and pass the spend requirements. For more
+details regarding spend requirements for a specific product, contact your Client Success representative.</li>
+</ul>
+<h3 id='content-4'>Content</h3>
+<ul>
+<li><code>variableValues</code> should contain the information necessary for adding or overwriting existing values. If a field is
+absent in the request&#39;s variable values but present in the current order, the existing variable values will remain
+unchanged.</li>
+<li>Make sure not to include immutable variables.</li>
+</ul>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Successfully edited the subscription order.</li>
+<li><code>400 BAD REQUEST</code> - Request is malformed or contains invalid data.</li>
+<li><code>404 NOT FOUND</code> - The order ID does not exist.</li>
+</ul>
+<h2 id='cancel-order'>Cancel Order</h2>
+<blockquote>
+<p>Cancel Order Order Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"refundAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to cancel a purchase or subscription order.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>POST management/v1/order/{orderId}/cancel</code></p>
+<h3 id='url-params-2'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>orderId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the order to be cancelled.</td>
+</tr>
+</tbody></table>
+<h3 id='place-purchase-order-response-properties'>Place Purchase Order Response Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Nullable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>orderId</td>
+<td>false</td>
+<td>String</td>
+<td>The ID of the order that was cancelled</td>
+</tr>
+<tr>
+<td>refundAmount</td>
+<td>false</td>
+<td>Float</td>
+<td>The refunded amount of the cancelled order.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Successfully cancelled the order.</li>
+<li><code>400 BAD REQUEST</code> - Request is malformed or contains invalid data.</li>
+<li><code>404 NOT FOUND</code> - The order ID does not exist.</li>
+</ul>
+<h2 id='get-order-by-id'>Get Order By ID</h2>
+<p>Returns the order information given an order ID.</p>
+
+<blockquote>
+<p>Get Order By ID Response - Purchase</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchase"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"endTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1738396800</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Get Order By ID Response - Subscription</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"subscriptionDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"renewsOnTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"endsOnTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"subscriptionAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-6'>HTTP Request</h3>
+<p><code>GET management/v1/order/{orderId}</code></p>
+<h3 id='url-params-3'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>orderId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the order you are wanting to retrieve.</td>
+</tr>
+</tbody></table>
+<h3 id='get-order-by-id-response-properties'>Get Order By ID Response Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Nullable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>false</td>
+<td>String</td>
+<td>The ID of the order.</td>
+</tr>
+<tr>
+<td>userId</td>
+<td>false</td>
+<td>String</td>
+<td>The ID of the user associated to the order.</td>
+</tr>
+<tr>
+<td>groupId</td>
+<td>false</td>
+<td>String</td>
+<td>The ID of the group associated the user.</td>
+</tr>
+<tr>
+<td>productCode</td>
+<td>false</td>
+<td>String</td>
+<td>Code identifying the product for the order.</td>
+</tr>
+<tr>
+<td>orderType</td>
+<td>false</td>
+<td>String</td>
+<td>The type of order which can be <code>purchase</code> or <code>subscription</code>.</td>
+</tr>
+<tr>
+<td>paymentAmount</td>
+<td>false</td>
+<td>Float</td>
+<td>The total payment amount, in USD, for the order.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>false</td>
+<td>String</td>
+<td>The status of the order.</td>
+</tr>
+<tr>
+<td>schedule</td>
+<td>false</td>
+<td>Object</td>
+<td>Contains scheduling information for the order.</td>
+</tr>
+<tr>
+<td>schedule.startTimestamp</td>
+<td>false</td>
+<td>Int</td>
+<td>Start time of the purchase/subscription period in Pacific Time (Unix timestamp format in seconds).</td>
+</tr>
+<tr>
+<td>schedule.endTimestamp</td>
+<td>true</td>
+<td>Int</td>
+<td>End time of the purchase period in Pacific Time (Unix timestamp format in seconds).</td>
+</tr>
+<tr>
+<td>contentItemIds</td>
+<td>false</td>
+<td>String List</td>
+<td>An array of content item IDs representing specific content items included in the order.</td>
+</tr>
+<tr>
+<td>variableValues</td>
+<td>false</td>
+<td>Map</td>
+<td>A map containing the creative data required to supply the product.</td>
+</tr>
+<tr>
+<td>subscriptionDetails</td>
+<td>true</td>
+<td>Object</td>
+<td>Details related to the subscription if the order is a subscription.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Order Statuses</strong>:</p>
+
+<ul>
+<li><code>pending</code> - The order is pending.</li>
+<li><code>active</code> - The order was successfully placed and is active.</li>
+<li><code>failed</code> - An error occurred for this order.</li>
+<li><code>cancelled</code> - The order was cancelled.</li>
+<li><code>completed</code> - The order was successfully placed and has expired.</li>
+</ul>
+<h3 id='subscription-details-response-properties'>Subscription Details Response Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Nullable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>renewsOnTimestamp</td>
+<td>true</td>
+<td>Int</td>
+<td>Renewal time of the subscription period in Pacific Time (Unix timestamp format in seconds).</td>
+</tr>
+<tr>
+<td>endsOnTimestamp</td>
+<td>true</td>
+<td>Int</td>
+<td>End time of the subscription period in Pacific Time (Unix timestamp format in seconds).</td>
+</tr>
+<tr>
+<td>subscriptionAmount</td>
+<td>false</td>
+<td>Float</td>
+<td>The payment amount for the subscription interval.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>false</td>
+<td>String</td>
+<td>The status of the subscription interval.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Subscription Detail Statuses</strong>:</p>
+
+<ul>
+<li><code>will_not_renew</code> - The subscription interval will not be renewed.</li>
+<li><code>active</code> - The subscription interval is active.</li>
+<li><code>pending</code> - The subscription interval is pending and processing renewal.</li>
+</ul>
+<h2 id='get-order-refund-preview-by-id'>Get Order Refund Preview By ID</h2>
+<p>Returns the order refund preview information given an order ID.</p>
+
+<blockquote>
+<p>Get Order Refund Preview By ID Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"subTotal"</span><span class="p">:</span><span class="w"> </span><span class="mf">100.0000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"cancellationFee"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalRefund"</span><span class="p">:</span><span class="w"> </span><span class="mf">100.0000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"cancellationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"immediate"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"daysRemaining"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nextIntervalPaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-7'>HTTP Request</h3>
+<p><code>GET management/v1/order/{orderId}/refundpreview</code></p>
+<h3 id='url-params-4'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>Required</th>
+<th>type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>orderId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the order you are wanting to preview refund.</td>
+</tr>
+</tbody></table>
+<h3 id='get-order-by-id-response-properties-2'>Get Order By ID Response Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Nullable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>orderId</td>
+<td>false</td>
+<td>String</td>
+<td>The ID of the order.</td>
+</tr>
+<tr>
+<td>subTotal</td>
+<td>false</td>
+<td>Float</td>
+<td>The refund amount of the order before applying fees.</td>
+</tr>
+<tr>
+<td>cancellationFee</td>
+<td>false</td>
+<td>Float</td>
+<td>The cancellation fee of the order.</td>
+</tr>
+<tr>
+<td>totalRefund</td>
+<td>false</td>
+<td>Float</td>
+<td>The refund amount of the order after applying fees.</td>
+</tr>
+<tr>
+<td>cancellationType</td>
+<td>false</td>
+<td>String</td>
+<td>The type of order cancellation which can be <code>immediate</code> or <code>deferred</code>.</td>
+</tr>
+<tr>
+<td>daysRemaining</td>
+<td>false</td>
+<td>Int</td>
+<td>The remaining days for this order.</td>
+</tr>
+<tr>
+<td>nextIntervalPaidAmount</td>
+<td>true</td>
+<td>String</td>
+<td>The future interval amount to be refunded without fee.</td>
+</tr>
+</tbody></table>
 <h1 id='webhooks'>Webhooks</h1><h2 id='client-leads-webhook'>Client Leads Webhook</h2>
 <p>Evocalize can notify your organization via webhook any time a new lead is ingested from an upstream platform such as
 Facebook or Google. Upon notification from the upstream platform that new lead data has been created, we combine that
@@ -3520,7 +4641,7 @@ representative.</p>
 </tbody></table>
 <h1 id='audience-manager-api'>Audience Manager API</h1>
 <p>The Audience Manager is a comprehensive audience management system capable of creating, importing, and managing custom
-audiences for use in marketing campaigns. Evocalize currently supports the creation and management of Meta audiences.</p>
+audiences for use in marketing campaigns. Evocalize currently supports the creation and management of Meta and Google audiences.</p>
 
 <p>Audience Placeholders are used to associate channel-agnostic audience properties, such as customer data, with multiple
 audiences spanning multiple channels. Audience Placeholders can be associated with Evocalize-created or partner-provided
@@ -4804,7 +5925,8 @@ for 30 days.</p>
 <li><code>400 BAD REQUEST</code> - Malformed request.</li>
 </ul>
 <h1 id='errors'>Errors</h1>
-<p>We return the appropriate HTTP Status code when we return an error. Additionally we do our best to provide a human readable error message to help you figure out what went wrong.</p>
+<p>We return the appropriate HTTP Status code when we return an error. Additionally we do our best to provide a human
+readable error message to help you figure out what went wrong.</p>
 
 <table><thead>
 <tr>
@@ -4832,6 +5954,26 @@ for 30 days.</p>
 <td>EV_BAD_REQUEST_DUPLICATE</td>
 <td>400</td>
 <td>An object with a different id already exists.</td>
+</tr>
+<tr>
+<td>EV_BAD_REQUEST_INVALID_BUDGET</td>
+<td>400</td>
+<td>The requested budget change is invalid.</td>
+</tr>
+<tr>
+<td>EV_BAD_REQUEST_INVALID_SCHEDULE</td>
+<td>400</td>
+<td>The requested schedule change is invalid.</td>
+</tr>
+<tr>
+<td>EV_BAD_REQUEST_INVALID_VARIABLE_VALUE</td>
+<td>400</td>
+<td>The requested variable value change is invalid.</td>
+</tr>
+<tr>
+<td>EV_OBJECT_NOT_EDITABLE_TEMPORARILY</td>
+<td>400</td>
+<td>The object cannot be edited at the moment. Please try again later.</td>
 </tr>
 <tr>
 <td>EV_OBJECT_NOT_FOUND</td>
