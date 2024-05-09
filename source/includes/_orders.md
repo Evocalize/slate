@@ -105,7 +105,6 @@ This endpoint allows you to place a one-time purchase order.
 
 - `200 OK` - Successfully created the purchase order.
 - `400 BAD REQUEST` - Request is malformed or contains invalid data.
-- `404 NOT FOUND` - A specified ID does not exist.
 
 ## Place Subscription Order
 
@@ -626,7 +625,7 @@ Returns the order information given an order ID.
     "userId": "test_user_id",
     "groupId": "test_group_id",
     "productCode": "pid_1234567890",
-    "status": "fulfilled",
+    "status": "active",
     "orderType": "purchase",
     "paymentAmount": 100,
     "schedule": {
@@ -654,7 +653,7 @@ Returns the order information given an order ID.
     "userId": "test_user_id",
     "groupId": "test_group_id",
     "productCode": "pid_1234567890",
-    "status": "fulfilled",
+    "status": "active",
     "orderType": "subscription",
     "paymentAmount": 100,
     "schedule": {
@@ -708,12 +707,11 @@ Returns the order information given an order ID.
 
 **Order Statuses**:
 
-- `pending` - The order is pending order placement.
-- `fulfilled` - The order was successfully placed.
-- `error` - An error occurred for this order.
+- `pending` - The order is pending.
+- `active` - The order was successfully placed and is active.
+- `failed` - An error occurred for this order.
 - `cancelled` - The order was cancelled.
-- `billing_failure` - A billing error occurred.
-- `cancelling` - The order is in the process of being cancelled.
+- `completed` - The order was successfully placed and has expired.
 
 ### Subscription Details Response Properties
 
