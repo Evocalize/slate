@@ -11,6 +11,7 @@ includes:
 - _content_access_v2
 - _content_access_management
 - _batch_report_api
+- _orders
 - _webhook_integration
 - _audiences
 - _digital_asset_management
