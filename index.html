@@ -3134,7 +3134,6 @@ requirements. Make sure these immutable variable values are handled appropriatel
 <ul>
 <li><code>200 OK</code> - Successfully created the purchase order.</li>
 <li><code>400 BAD REQUEST</code> - Request is malformed or contains invalid data.</li>
-<li><code>404 NOT FOUND</code> - A specified ID does not exist.</li>
 </ul>
 <h2 id='edit-purchase-order'>Edit Purchase Order</h2>
 <blockquote>
@@ -3840,6 +3839,13 @@ unchanged.</li>
 <li><code>active</code> - The subscription interval is active.</li>
 <li><code>pending</code> - The subscription interval is pending and processing renewal.</li>
 </ul>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Returning the order information.</li>
+<li><code>404 NOT FOUND</code> - The order ID does not exist.</li>
+</ul>
 <h2 id='get-order-refund-preview-by-id'>Get Order Refund Preview By ID</h2>
 <p>Returns the order refund preview information given an order ID.</p>
 
@@ -3927,6 +3933,13 @@ unchanged.</li>
 <td>The future interval amount to be refunded without fee.</td>
 </tr>
 </tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Returning the refund preview for the order.</li>
+<li><code>404 NOT FOUND</code> - The order ID does not exist.</li>
+</ul>
 <h1 id='webhooks'>Webhooks</h1><h2 id='client-leads-webhook'>Client Leads Webhook</h2>
 <p>Evocalize can notify your organization via webhook any time a new lead is ingested from an upstream platform such as
 Facebook or Google. Upon notification from the upstream platform that new lead data has been created, we combine that
@@ -5182,7 +5195,7 @@ See <a href="#access-control">Access Control</a> for full details. <code>READ</c
 <h2 id='get-audience-placeholders'>Get Audience Placeholders</h2>
 <p>Returns Audience Placeholders and their associated audiences.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p>`GET management/v1/audience</p>
+<p><code>GET management/v1/audience</code></p>
 <h3 id='request-params-2'>Request Params</h3>
 <table><thead>
 <tr>
@@ -5939,6 +5952,11 @@ readable error message to help you figure out what went wrong.</p>
 <td>EV_BAD_REQUEST_INVALID_FIELDS</td>
 <td>400</td>
 <td>Request is missing required fields or has failed validation check.</td>
+</tr>
+<tr>
+<td>EV_BAD_REQUEST_INVALID_USER_IDENTITY</td>
+<td>400</td>
+<td>Request contains an invalid user or group, e.g., user does not exist.</td>
 </tr>
 <tr>
 <td>EV_BAD_REQUEST_TOO_MANY_ITEMS</td>
