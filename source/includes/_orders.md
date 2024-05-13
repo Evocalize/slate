@@ -205,7 +205,6 @@ until the specified monthly budget is exhausted, and renews at the start of each
 
 - `200 OK` - Successfully created the purchase order.
 - `400 BAD REQUEST` - Request is malformed or contains invalid data.
-- `404 NOT FOUND` - A specified ID does not exist.
 
 ## Edit Purchase Order
 
@@ -728,6 +727,11 @@ Returns the order information given an order ID.
 - `active` - The subscription interval is active.
 - `pending` - The subscription interval is pending and processing renewal.
 
+**Response Codes**:
+
+- `200 OK` - Returning the order information.
+- `404 NOT FOUND` - The order ID does not exist.
+
 ## Get Order Refund Preview By ID
 
 Returns the order refund preview information given an order ID.
@@ -769,3 +773,8 @@ Returns the order refund preview information given an order ID.
 | cancellationType       | false    | String | The type of order cancellation which can be `immediate` or `deferred`. |                                                                                          
 | daysRemaining          | false    | Int    | The remaining days for this order.                                     |                                                                                          
 | nextIntervalPaidAmount | true     | String | The future interval amount to be refunded without fee.                 |
+
+**Response Codes**:
+
+- `200 OK` - Returning the refund preview for the order.
+- `404 NOT FOUND` - The order ID does not exist.

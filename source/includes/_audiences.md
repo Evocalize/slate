@@ -426,7 +426,7 @@ Returns Audience Placeholders and their associated audiences.
 
 ### HTTP Request
 
-`GET management/v1/audience
+`GET management/v1/audience`
 
 ### Request Params
 
