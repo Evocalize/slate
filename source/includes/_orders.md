@@ -69,12 +69,13 @@ This endpoint allows you to place a one-time purchase order.
 | groupId                 | true     | String      | The ID of the group associated with the user.                                             |
 | productCode             | true     | String      | Code identifying the product for the order.                                               |
 | orderType               | true     | String      | Must be set to "purchase" for one-time purchase orders.                                   |                                                                                          
-| paymentAmount           | true     | Float       | The total payment amount, in USD, for the order.                                          |                                                                                          
-| schedule                | true     | Object      | Contains scheduling information for the order.                                            |                                                                                          
+| paymentAmount           | true     | Float       | The total payment amount, in USD, for the order.                                             |                                                                                          
+| schedule                | true     | Object      | Contains scheduling information for the order.                                             |                                                                                          
 | schedule.startTimestamp | true     | Int         | Start time of the purchase period in Pacific Time (Unix timestamp format in seconds).     |                                                                                          
 | schedule.endTimestamp   | true     | Int         | End time of the purchase period in Pacific Time (Unix timestamp format in seconds).       |                                                                                          
 | contentItemIds          | false    | String List | An array of content item IDs representing specific content items to include in the order. |                                                                                          
-| variableValues          | false    | Map         | A map providing creative data required to supply the product.                             |                                                                                          
+| variableValues          | false    | Map         | A map providing creative data required to supply the product.                             |
+| programName             | false    | String      | A Custom Name for the order if desired.                                                   |
 
 ### General Constraints
 
@@ -178,6 +179,8 @@ until the specified monthly budget is exhausted, and renews at the start of each
 | schedule.startTimestamp | true     | Int         | Start time of the subscription period in Pacific Time (Unix timestamp format in seconds). |                                                                                          
 | contentItemIds          | false    | String List | An array of content item IDs representing specific content items to include in the order. |                                                                                          
 | variableValues          | false    | Map         | A map providing creative data required to supply the product.                             |
+| programName             | false    | String      | A Custom Name for the order if desired.                                                   |
+
 
 ### General Constraints
 
@@ -359,6 +362,43 @@ until the specified monthly budget is exhausted, and renews at the start of each
 }
 ```
 
+> Edit Purchase Order Request - Change Program Name
+
+```json
+{
+  "programName": "My Cool Program Name"
+}
+```
+
+> Edit Purchase Order Response - Change Program Name
+
+```json
+{
+  "data": {
+    "id": "1234567890",
+    "userId": "test_user_id",
+    "groupId": "test_group_id",
+    "productCode": "pid_1234567890",
+    "status": "pending",
+    "orderType": "purchase",
+    "paymentAmount": 100,
+    "programName": "My Cool Program Name",
+    "schedule": {
+      "startTimestamp": 1735718400,
+      "endTimestamp": 1738396800
+    },
+    "contentItemIds": [],
+    "variableValues": {
+      "accountId": "1234567890",
+      "headline": "headline test updated",
+      "bodyText": "body text test",
+      "image": "https://image.test",
+      ...
+    }
+  }
+}
+```
+
 This endpoint allows you to edit a one-time purchase order.
 
 ### HTTP Request
@@ -378,6 +418,7 @@ This endpoint allows you to edit a one-time purchase order.
 | schedule.startTimestamp | false    | Int    | Start time of the purchase period in Pacific Time (Unix timestamp format in seconds). |                                                                                          
 | schedule.endTimestamp   | false    | Int    | End time of the purchase period in Pacific Time (Unix timestamp format in seconds).   |                                                                                          
 | variableValues          | false    | Map    | A map providing new creative data required to supply the product.                     |
+| programName             | false    | String | A String providing the desired programName                                            |
 
 ### General Constraints
 
@@ -434,6 +475,42 @@ This endpoint allows you to edit a one-time purchase order.
     "status": "pending",
     "orderType": "subscription",
     "paymentAmount": 200,
+    "schedule": {
+      "startTimestamp": 1735718400
+    },
+    "contentItemIds": [],
+    "variableValues": {
+      "accountId": "1234567890",
+      "headline": "headline test",
+      "bodyText": "body text test",
+      "image": "https://image.test",
+      ...
+    }
+  }
+}
+```
+
+> Edit Subscription Order Request - Change Program Name
+
+```json
+{
+  "programName": "My Cool Program Name"
+}
+```
+
+> Edit Subscription Order Response - Change Program Name
+
+```json
+{
+  "data": {
+    "id": "1234567890",
+    "userId": "test_user_id",
+    "groupId": "test_group_id",
+    "productCode": "pid_1234567890",
+    "status": "pending",
+    "orderType": "subscription",
+    "paymentAmount": 200,
+    "programName": "My Cool Program Name",
     "schedule": {
       "startTimestamp": 1735718400
     },
