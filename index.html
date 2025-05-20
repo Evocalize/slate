@@ -2956,6 +2956,12 @@ is our standard <a href="#grantees">Grantees</a> object.</p>
 <td>Map</td>
 <td>A map providing creative data required to supply the product.</td>
 </tr>
+<tr>
+<td>programName</td>
+<td>false</td>
+<td>String</td>
+<td>A Custom Name for the order if desired.</td>
+</tr>
 </tbody></table>
 <h3 id='general-constraints'>General Constraints</h3>
 <ul>
@@ -3104,6 +3110,12 @@ until the specified monthly budget is exhausted, and renews at the start of each
 <td>false</td>
 <td>Map</td>
 <td>A map providing creative data required to supply the product.</td>
+</tr>
+<tr>
+<td>programName</td>
+<td>false</td>
+<td>String</td>
+<td>A Custom Name for the order if desired.</td>
 </tr>
 </tbody></table>
 <h3 id='general-constraints-2'>General Constraints</h3>
@@ -3279,6 +3291,41 @@ requirements. Make sure these immutable variable values are handled appropriatel
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<blockquote>
+<p>Edit Purchase Order Request - Change Program Name</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"programName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Cool Program Name"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Purchase Order Response - Change Program Name</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchase"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"programName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Cool Program Name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"endTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1738396800</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test updated"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <p>This endpoint allows you to edit a one-time purchase order.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>PUT management/v1/order/{orderId}</code></p>
@@ -3337,6 +3384,12 @@ requirements. Make sure these immutable variable values are handled appropriatel
 <td>Map</td>
 <td>A map providing new creative data required to supply the product.</td>
 </tr>
+<tr>
+<td>programName</td>
+<td>false</td>
+<td>String</td>
+<td>A String providing the desired programName</td>
+</tr>
 </tbody></table>
 <h3 id='general-constraints-3'>General Constraints</h3>
 <ul>
@@ -3393,6 +3446,40 @@ unchanged.</li>
     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"contentItemIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"variableValues"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"headline test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bodyText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body text test"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://image.test"</span><span class="p">,</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Subscription Order Request - Change Program Name</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"programName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Cool Program Name"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Edit Subscription Order Response - Change Program Name</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_user_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_group_id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"productCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pid_1234567890"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"orderType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"paymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"programName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Cool Program Name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1735718400</span><span class="w">
     </span><span class="p">},</span><span class="w">
