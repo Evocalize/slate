@@ -354,3 +354,112 @@ representative.
 | leads[].tikTok.leadForm[].name               | false    | string | The name of the facebook lead form field.                                                               |
 | leads[].tikTok.leadForm[].values             | false    | array  | An array of the values the user filled out.                                                             |
 | leads[].tikTok.leadForm[].values[]           | false    | string | Each element is a value that the end user selected or entered. In most cases there is only one element. |
+
+## Lead Concierge Webhook Events
+
+Evocalize can notify your organization via webhook when lead concierge events occur, such as status changes and call
+outcomes. This allows you to track the lifecycle of leads being handled by the concierge service in near real-time.
+
+### Setup
+
+You will need to work with your account manager and supply Evocalize with an endpoint url where you would like to
+receive lead concierge event notifications. This is a separate endpoint from the Client Leads Webhook. Your endpoint
+url must use SSL (https) and accept a POST. You will need to have a `ClientKeyID` and a `ClientSecret`. These are the
+same values that you will use to call our API for other operations.
+
+### Policies
+
+- Any response code in the range of 200 - 299 is considered a success, any other response code is considered a failure
+  and we will attempt to redeliver the event notification.
+- The HTTPS request will time out after 5 seconds. If this happens, delivery is considered a failure and we will attempt
+  to redeliver the event notification.
+- The time between retry attempts is exponential, with a maximum of 15 minutes between tries. After three hours have
+  elapsed since the first attempt, we will no longer try to deliver the event. If something has happened causing your
+  platform to stop ingesting events for more than 3 hours, contact your Evocalize account representative.
+- Each event may be delivered more than once. Use the `idempotencyKey` field to deduplicate events on your end.
+
+### Headers
+
+- `X-Evocalize-Payload-Version` - The version of the payload.
+- `X-Evocalize-Client-Key-Id` - Provided by Evocalize, your `ClientKeyId` from above.
+- `X-Evocalize-Timestamp` - Timestamp of when the request was sent.
+- `X-Evocalize-Signature` - The signature of the payload. Refer to the [Signature Validation](#signature-validation-optional) section above for details.
+
+### Payload
+
+> Lead Concierge Event Payload Example
+
+```json
+{
+    "idempotencyKey": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "orderData": {
+        "architectureId": 3799517520646443763,
+        "architectureName": "Org 3799517520210236106 Arch 1772769684906",
+        "productId": 3799517520763884281,
+        "productName": "Product Name 1772769684910",
+        "orderId": 3799517520663220980,
+        "userId": "email-1772769684902@example.com",
+        "groupId": "34e3fbfc-ef96-43ef-b46f-726d8047a059",
+        "orderItem": {
+            "orderItemId": 3799517521485304607
+        }
+    },
+    "programData": {
+        "projectId": 3799517520898102019,
+        "programId": 3799517520629666546,
+        "programName": "programName-1772769684904",
+        "programDescription": "verbose program description-1772769684905",
+        "programVariables": {
+            "var1": "foo"
+        }
+    },
+    "leadConciergeData": {
+        "internalLeadId": "100",
+        "conciergeProviderLeadId": "1095675601",
+        "conciergeEventId": "1772769685200",
+        "leadType": "1",
+        "currentStatus": "completed",
+        "previousStatus": "NEW",
+        "currentOutcome": "COMPLETED_CLOSED_OTHER",
+        "summary": "Test call summary",
+        "transcript": "Test transcript content"
+    }
+}
+```
+
+Special consideration should be taken not to fail if a new field is present in your data that you did not expect. We
+will notify you when a field is removed from our specification, but we will not notify you when a field is added to the
+specification. If a field is removed from the specification, the payloadVersion will increment.
+
+| Field                                          | Nullable | Type   | Description                                                                |
+|------------------------------------------------|----------|--------|----------------------------------------------------------------------------|
+| idempotencyKey                                 | false    | string | A unique key for this event. Use this to deduplicate events on your end.   |
+| orderData                                      | false    | object | Details about the order associated with this lead concierge event.         |
+| orderData.architectureId                       | false    | long   | The id of the architecture associated to the order.                        |
+| orderData.architectureName                     | false    | string | The name of the architecture associated to the order.                      |
+| orderData.productId                            | false    | long   | The id of the product associated to the order.                             |
+| orderData.productName                          | false    | string | The name of the product associated to the order.                           |
+| orderData.orderId                              | false    | long   | The order id associated with the program.                                  |
+| orderData.userId                               | false    | string | The user id associated with this order. This is the id in your system.     |
+| orderData.groupId                              | false    | string | The group id associated with this order. This is the id in your system.    |
+| orderData.orderItem                            | false    | object |                                                                            |
+| orderData.orderItem.orderItemId                | false    | long   | The order item id associated with the order project.                       |
+| programData                                    | false    | object | Details about the program associated with this lead concierge event.       |
+| programData.projectId                          | false    | long   | The evocalize project id associated with this event.                       |
+| programData.programId                          | false    | long   | The evocalize program id associated with this event.                       |
+| programData.programName                        | false    | string | The name of the program that published this ad.                            |
+| programData.programDescription                 | true     | string | The description of the program that published this ad.                     |
+| programData.programVariables<sup>\*</sup>      | true     | object | A key-value map containing values specific to your application.            |
+| leadConciergeData                              | false    | object | Details about the lead concierge event.                                    |
+| leadConciergeData.internalLeadId               | false    | string | The internal lead id.                                                      |
+| leadConciergeData.conciergeProviderLeadId      | false    | string | The lead id from the concierge provider.                                   |
+| leadConciergeData.conciergeEventId             | false    | string | The unique identifier for this concierge event.                            |
+| leadConciergeData.leadType                     | false    | string | The type of the lead. <!-- TODO: Document possible values -->              |
+| leadConciergeData.currentStatus                | false    | string | The current status of the lead. <!-- TODO: Document possible values -->    |
+| leadConciergeData.previousStatus               | false    | string | The previous status of the lead. <!-- TODO: Document possible values -->   |
+| leadConciergeData.currentOutcome               | true     | string | The outcome of the lead. <!-- TODO: Document possible values -->           |
+| leadConciergeData.summary                      | true     | string | A summary of the concierge interaction.                                    |
+| leadConciergeData.transcript                   | true     | string | The transcript of the concierge interaction.                               |
+
+<sup>\*</sup>If you have values that you need our API to return for this field, please contact your Evocalize account
+representative.
