@@ -454,10 +454,10 @@ specification. If a field is removed from the specification, the payloadVersion 
 | leadConciergeData.internalLeadId               | false    | string | The internal lead id.                                                      |
 | leadConciergeData.conciergeProviderLeadId      | false    | string | The lead id from the concierge provider.                                   |
 | leadConciergeData.conciergeEventId             | false    | string | The unique identifier for this concierge event.                            |
-| leadConciergeData.leadType                     | false    | string | The type of the lead. <!-- TODO: Document possible values -->              |
-| leadConciergeData.currentStatus                | false    | string | The current status of the lead. <!-- TODO: Document possible values -->    |
-| leadConciergeData.previousStatus               | false    | string | The previous status of the lead. <!-- TODO: Document possible values -->   |
-| leadConciergeData.currentOutcome               | true     | string | The outcome of the lead. <!-- TODO: Document possible values -->           |
+| leadConciergeData.leadType                     | false    | string | The id for the concierge campaign.                               |
+| leadConciergeData.currentStatus                | false    | string | The current status of the lead. Possible values: `UNKNOWN`, `NEW`, `OPEN`, `CALLBACK_TO_TRANSFER`, `CLOSED`, `CLOSED_INCOMPLETE`, `LOST`, `SCHEDULE_COMPLETED`, `OUT_OF_TERRITORY`, `BAD_NUMBER`, `CANCELLED`, `DNC_TEXT`, `DNC_CALL`, `DNC_BOTH`. |
+| leadConciergeData.previousStatus               | false    | string | The previous status of the lead. Possible values: `UNKNOWN`, `NEW`, `OPEN`, `CALLBACK_TO_TRANSFER`, `CLOSED`, `CLOSED_INCOMPLETE`, `LOST`, `SCHEDULE_COMPLETED`, `OUT_OF_TERRITORY`, `BAD_NUMBER`, `CANCELLED`, `DNC_TEXT`, `DNC_CALL`, `DNC_BOTH`. |
+| leadConciergeData.currentOutcome               | true     | string | The call outcome associated with the current status.                       |
 | leadConciergeData.summary                      | true     | string | A summary of the concierge interaction.                                    |
 | leadConciergeData.transcript                   | true     | string | The transcript of the concierge interaction.                               |
 
