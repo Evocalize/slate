@@ -1,0 +1,7 @@
+version: "1.0"
+entries:
+  - path: "architecture/project-overview.md"
+    title: "Project Overview"
+    tags: ["architecture", "overview", "slate", "evocalize", "api"]
+    last_updated: "2026-03-05"
+    summary: "Comprehensive overview of the Evocalize Management API documentation project: tech stack, repository structure, API surface area, authentication, common patterns, build/deploy pipelines, and how to add new docs."
