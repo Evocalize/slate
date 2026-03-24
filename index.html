@@ -509,6 +509,14 @@
               </ul>
           </li>
           <li>
+            <a href="#leads" class="toc-h1 toc-link" data-title="Leads">Leads</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#opt-out-lead" class="toc-h2 toc-link" data-title="Opt-Out Lead">Opt-Out Lead</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#audience-manager-api" class="toc-h1 toc-link" data-title="Audience Manager API">Audience Manager API</a>
               <ul class="toc-list-h2">
                   <li>
@@ -4986,6 +4994,44 @@ specification. If a field is removed from the specification, the payloadVersion 
 
 <p><sup>*</sup>If you have values that you need our API to return for this field, please contact your Evocalize account
 representative.</p>
+<h1 id='leads'>Leads</h1><h2 id='opt-out-lead'>Opt-Out Lead</h2>
+<blockquote>
+<p>Opt-Out Lead Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>POST management/v1/opt-out/12345
+</code></pre></div>
+<blockquote>
+<p>Opt-Out Lead Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>HTTP 200 OK
+(empty body)
+</code></pre></div>
+<p>This endpoint opts a lead out of being a part of the lead concierge process. All interactions with the lead will cease.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST management/v1/opt-out/{internalLeadId}</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>internalLeadId</td>
+<td>true</td>
+<td>Long</td>
+<td>The internal ID of the lead to opt out.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Successfully opted the lead out.</li>
+<li><code>404 Not Found</code> - The specified lead could not be found.</li>
+</ul>
 <h1 id='audience-manager-api'>Audience Manager API</h1>
 <p>The Audience Manager is a comprehensive audience management system capable of creating, importing, and managing custom
 audiences for use in marketing campaigns. Evocalize currently supports the creation and management of Meta and Google audiences.</p>
