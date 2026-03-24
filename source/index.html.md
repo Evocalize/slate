@@ -13,6 +13,7 @@ includes:
 - _batch_report_api
 - _orders
 - _webhook_integration
+- _leads
 - _audiences
 - _digital_asset_management
 - _errors
