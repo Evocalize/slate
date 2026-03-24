@@ -1,6 +1,6 @@
 ---
 title: "Project Overview"
-last_updated: "2026-03-05"
+last_updated: "2026-03-24"
 contributors: ["arf"]
 related_files: [
   "source/index.html.md",
@@ -48,6 +48,7 @@ source/
     _batch_report_api.md
     _orders.md
     _webhook_integration.md
+    _leads.md
     _audiences.md
     _digital_asset_management.md
     _errors.md
@@ -91,10 +92,11 @@ All management endpoints live under `https://partner-api-production.evocalize.co
 8. **Batch Report API** - Async operation status tracking
 9. **Orders** - Purchase and subscription order lifecycle
 10. **Webhook Integration** - Client leads webhook (Facebook, Google, TikTok) and Lead Concierge webhook events
-11. **Audiences** - Audience placeholder management, CSV upload
-12. **Digital Asset Management** - Media (image/video) CRUD and permissions
-13. **Errors** - Standard error codes and HTTP status reference
-14. **Deep Linking** - Client-side URL construction for Evocalize UI
+11. **Leads** - Lead management operations (opt-out / TCPA compliance)
+12. **Audiences** - Audience placeholder management, CSV upload
+13. **Digital Asset Management** - Media (image/video) CRUD and permissions
+14. **Errors** - Standard error codes and HTTP status reference
+15. **Deep Linking** - Client-side URL construction for Evocalize UI
 
 ### Authentication
 
