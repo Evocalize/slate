@@ -277,6 +277,192 @@ Returns a list of media associated to the user.
 - `200 OK` status code on success
 - `404 NOT FOUND` when it can't locate the user.
 
+## Get User Profile
+
+> Get User Profile Response (real_estate_agent)
+
+```json
+{
+  "data": {
+    "profileType": "real_estate_agent",
+    "profileData": {
+      "fullName": "Jane Smith",
+      "phoneNumber": "+1 (555) 867 5309",
+      "zip": "90210",
+      "brokerageName": "Summit Realty Group",
+      "agentLicenseNumber": "RE-9281034",
+      "businessLogo": {
+        "id": "1234567890123456789",
+        "type": "image"
+      },
+      "profileImageHeadshot": {
+        "id": "9876543210987654321",
+        "type": "image"
+      }
+    },
+    "isActive": true,
+    "updatedAt": "2026-07-20T17:59:36.723+00:00"
+  }
+}
+```
+
+> Get User Profile Response (mortgage_loan_officer)
+
+```json
+{
+  "data": {
+    "profileType": "mortgage_loan_officer",
+    "profileData": {
+      "fullName": "Alex Johnson",
+      "phoneNumber": "+1 (555) 482 1337",
+      "lenderName": "Crestview Mortgage",
+      "lenderNmlsId": "100234",
+      "individualNmlsId": "56789",
+      "businessLogo": {
+        "id": "1122334455667788990",
+        "type": "image"
+      },
+      "profileImageHeadshot": {
+        "id": "9988776655443322110",
+        "type": "image"
+      }
+    },
+    "isActive": true,
+    "updatedAt": "2026-07-20T17:59:36.723+00:00"
+  }
+}
+```
+
+Returns the profile for a given user. If the user has multiple profile types, you can specify which one to retrieve
+using the optional `profileType` query parameter.
+
+### HTTP Request
+
+`GET management/v1/user/{userId}/profile`
+
+### URL Params
+
+| URL Param | type   | Required | Description                                         |
+|-----------|--------|----------|-----------------------------------------------------|
+| userId    | String | true     | The ID of the user whose profile you want to view   |
+
+### Request Params
+
+| Param       | Required | Description                                                                                  |
+|-------------|----------|----------------------------------------------------------------------------------------------|
+| profileType | false    | The profile type to retrieve. If omitted, the user's assigned profile type is used.          |
+
+**Response Codes**:
+
+- `200 OK` status code on success
+- `400 BAD REQUEST` when an invalid profile type is provided.
+- `404 NOT FOUND` when it can't locate the user or the user has no profile.
+
+## Create Or Update User Profile
+
+> Create Or Update User Profile Request (real_estate_agent)
+
+```json
+{
+  "profileType": "real_estate_agent",
+  "profileData": {
+    "fullName": "Jane Smith",
+    "phoneNumber": "+1 (555) 867 5309",
+    "zip": "90210",
+    "brokerageName": "Summit Realty Group",
+    "agentLicenseNumber": "RE-9281034",
+    "businessLogo": {
+      "id": "1234567890123456789",
+      "type": "image"
+    },
+    "profileImageHeadshot": {
+      "id": "9876543210987654321",
+      "type": "image"
+    }
+  },
+  "isActive": true
+}
+```
+
+> Create Or Update User Profile Request (mortgage_loan_officer)
+
+```json
+{
+  "profileType": "mortgage_loan_officer",
+  "profileData": {
+    "fullName": "Alex Johnson",
+    "phoneNumber": "+1 (555) 482 1337",
+    "lenderName": "Crestview Mortgage",
+    "lenderNmlsId": "100234",
+    "individualNmlsId": "56789",
+    "businessLogo": {
+      "id": "1122334455667788990",
+      "type": "image"
+    },
+    "profileImageHeadshot": {
+      "id": "9988776655443322110",
+      "type": "image"
+    }
+  },
+  "isActive": true
+}
+```
+
+> Create Or Update User Profile Response
+
+```json
+{
+  "data": {
+    "profileType": "real_estate_agent",
+    "profileData": {
+      "fullName": "Jane Smith",
+      "phoneNumber": "+1 (555) 867 5309",
+      "zip": "90210",
+      "brokerageName": "Summit Realty Group",
+      "agentLicenseNumber": "RE-9281034",
+      "businessLogo": {
+        "id": "1234567890123456789",
+        "type": "image"
+      },
+      "profileImageHeadshot": {
+        "id": "9876543210987654321",
+        "type": "image"
+      }
+    },
+    "isActive": true,
+    "updatedAt": "2026-07-20T17:59:36.723+00:00"
+  }
+}
+```
+
+This endpoint allows you to create or update a profile for a user. If the user already has a profile of the specified
+type, it will be updated. Otherwise, a new profile will be created. If the `profileData` contains a `fullName` field,
+the user's name will be synced to match.
+
+### HTTP Request
+
+`POST management/v1/user/{userId}/profile`
+
+### URL Params
+
+| URL Param | type   | Required | Description                                           |
+|-----------|--------|----------|-------------------------------------------------------|
+| userId    | String | true     | The ID of the user whose profile you want to update   |
+
+### Request Properties
+
+| Field       | Required | Type       | Description                                                                                                    |
+|-------------|----------|------------|----------------------------------------------------------------------------------------------------------------|
+| profileType | false    | String     | The profile type to create or update. If omitted, defaults to the user's assigned type or the organization's configured type. |
+| profileData | true     | JSON Object | A key-value map of profile fields.                                                                            |
+| isActive    | false    | boolean    | Whether the profile is active. Defaults to `true`.                                                             |
+
+**Response Codes**:
+
+- `200 OK` - Returning the created or updated profile.
+- `400 BAD REQUEST` - When the profile type is not configured for the organization or the request is malformed.
+- `404 NOT FOUND` - When it can't locate the user.
+
 ## Create Or Update User Batch
 
 > Batch Create Request
@@ -340,6 +526,87 @@ The JSON objects passed in the array are the same as the ones listed in Create O
 ### HTTP Request
 
 `POST management/v1/users`
+
+**Response Codes**:
+
+- `202 ACCEPTED` - List has been received and submitted for processing.
+- `400 BAD REQUEST` - Malformed request.
+
+## Create Or Update User Profile Batch
+
+> Batch User Profile Request
+
+```json
+[
+  {
+    "userId": "1234",
+    "profileType": "real_estate_agent",
+    "profileData": {
+      "fullName": "Jane Smith",
+      "phoneNumber": "+1 (555) 867 5309",
+      "zip": "90210",
+      "brokerageName": "Summit Realty Group",
+      "agentLicenseNumber": "RE-9281034",
+      "businessLogo": {
+        "id": "1234567890123456789",
+        "type": "image"
+      },
+      "profileImageHeadshot": {
+        "id": "9876543210987654321",
+        "type": "image"
+      }
+    },
+    "isActive": true
+  },
+  {
+    "userId": "5678",
+    "profileType": "mortgage_loan_officer",
+    "profileData": {
+      "fullName": "Alex Johnson",
+      "phoneNumber": "+1 (555) 482 1337",
+      "lenderName": "Crestview Mortgage",
+      "lenderNmlsId": "100234",
+      "individualNmlsId": "56789",
+      "businessLogo": {
+        "id": "1122334455667788990",
+        "type": "image"
+      },
+      "profileImageHeadshot": {
+        "id": "9988776655443322110",
+        "type": "image"
+      }
+    }
+  }
+  // ...
+]
+```
+
+> Batch User Profile Response
+
+```json
+{
+  "data": {
+    "reportId": "HG3SrEndQch8dAZbjwBV"
+  }
+}
+```
+
+This endpoint allows you to pass a JSON Array of User Profile objects for creation or updating. Batches are limited to
+1000 items at a time. The operation is asynchronous - rather than returning the results, you will receive a `reportId`
+which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.
+
+### HTTP Request
+
+`POST management/v1/user/profiles`
+
+### Batch User Profile Request Properties
+
+| Field       | Required | Type        | Description                                                                                                    |
+|-------------|----------|-------------|----------------------------------------------------------------------------------------------------------------|
+| userId      | true     | String      | The ID of the user whose profile you want to create or update.                                                 |
+| profileType | false    | String      | The profile type to create or update. If omitted, defaults to the user's assigned type or the organization's configured type. |
+| profileData | true     | JSON Object | A key-value map of profile fields.                                                                             |
+| isActive    | false    | boolean     | Whether the profile is active. Defaults to `true`.                                                             |
 
 **Response Codes**:
 
