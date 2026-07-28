@@ -353,7 +353,16 @@
                     <a href="#get-user-associated-media" class="toc-h2 toc-link" data-title="Get User Associated Media">Get User Associated Media</a>
                   </li>
                   <li>
+                    <a href="#get-user-profile" class="toc-h2 toc-link" data-title="Get User Profile">Get User Profile</a>
+                  </li>
+                  <li>
+                    <a href="#create-or-update-user-profile" class="toc-h2 toc-link" data-title="Create Or Update User Profile">Create Or Update User Profile</a>
+                  </li>
+                  <li>
                     <a href="#create-or-update-user-batch" class="toc-h2 toc-link" data-title="Create Or Update User Batch">Create Or Update User Batch</a>
+                  </li>
+                  <li>
+                    <a href="#create-or-update-user-profile-batch" class="toc-h2 toc-link" data-title="Create Or Update User Profile Batch">Create Or Update User Profile Batch</a>
                   </li>
                   <li>
                     <a href="#deactivate-user" class="toc-h2 toc-link" data-title="Deactivate User">Deactivate User</a>
@@ -1254,6 +1263,231 @@ case of update we would only update their name and/or email.</p>
 <li><code>200 OK</code> status code on success</li>
 <li><code>404 NOT FOUND</code> when it can&#39;t locate the user.</li>
 </ul>
+<h2 id='get-user-profile'>Get User Profile</h2>
+<blockquote>
+<p>Get User Profile Response (real_estate_agent)</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"profileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"real_estate_agent"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"profileData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Smith"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1 (555) 867 5309"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"90210"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"brokerageName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Summit Realty Group"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"agentLicenseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE-9281034"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"businessLogo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890123456789"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"profileImageHeadshot"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876543210987654321"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"isActive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-07-20T17:59:36.723+00:00"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Get User Profile Response (mortgage_loan_officer)</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"profileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mortgage_loan_officer"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"profileData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alex Johnson"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1 (555) 482 1337"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lenderName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Crestview Mortgage"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lenderNmlsId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100234"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"individualNmlsId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56789"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"businessLogo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1122334455667788990"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"profileImageHeadshot"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9988776655443322110"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"isActive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-07-20T17:59:36.723+00:00"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Returns the profile for a given user. If the user has multiple profile types, you can specify which one to retrieve
+using the optional <code>profileType</code> query parameter.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>GET management/v1/user/{userId}/profile</code></p>
+<h3 id='url-params-4'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>String</td>
+<td>true</td>
+<td>The ID of the user whose profile you want to view</td>
+</tr>
+</tbody></table>
+<h3 id='request-params-4'>Request Params</h3>
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>profileType</td>
+<td>false</td>
+<td>The profile type to retrieve. If omitted, the user&#39;s assigned profile type is used.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> status code on success</li>
+<li><code>400 BAD REQUEST</code> when an invalid profile type is provided.</li>
+<li><code>404 NOT FOUND</code> when it can&#39;t locate the user or the user has no profile.</li>
+</ul>
+<h2 id='create-or-update-user-profile'>Create Or Update User Profile</h2>
+<blockquote>
+<p>Create Or Update User Profile Request (real_estate_agent)</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"profileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"real_estate_agent"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"profileData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Smith"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1 (555) 867 5309"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"90210"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"brokerageName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Summit Realty Group"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"agentLicenseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE-9281034"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"businessLogo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890123456789"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"profileImageHeadshot"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876543210987654321"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"isActive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Create Or Update User Profile Request (mortgage_loan_officer)</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"profileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mortgage_loan_officer"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"profileData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alex Johnson"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1 (555) 482 1337"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lenderName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Crestview Mortgage"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lenderNmlsId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100234"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"individualNmlsId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56789"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"businessLogo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1122334455667788990"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"profileImageHeadshot"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9988776655443322110"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"isActive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Create Or Update User Profile Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"profileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"real_estate_agent"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"profileData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Smith"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1 (555) 867 5309"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"90210"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"brokerageName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Summit Realty Group"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"agentLicenseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE-9281034"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"businessLogo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890123456789"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"profileImageHeadshot"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876543210987654321"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"isActive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-07-20T17:59:36.723+00:00"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to create or update a profile for a user. If the user already has a profile of the specified
+type, it will be updated. Otherwise, a new profile will be created. If the <code>profileData</code> contains a <code>fullName</code> field,
+the user&#39;s name will be synced to match.</p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>POST management/v1/user/{userId}/profile</code></p>
+<h3 id='url-params-5'>URL Params</h3>
+<table><thead>
+<tr>
+<th>URL Param</th>
+<th>type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>String</td>
+<td>true</td>
+<td>The ID of the user whose profile you want to update</td>
+</tr>
+</tbody></table>
+<h3 id='request-properties'>Request Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>profileType</td>
+<td>false</td>
+<td>String</td>
+<td>The profile type to create or update. If omitted, defaults to the user&#39;s assigned type or the organization&#39;s configured type.</td>
+</tr>
+<tr>
+<td>profileData</td>
+<td>true</td>
+<td>JSON Object</td>
+<td>A key-value map of profile fields.</td>
+</tr>
+<tr>
+<td>isActive</td>
+<td>false</td>
+<td>boolean</td>
+<td>Whether the profile is active. Defaults to <code>true</code>.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>200 OK</code> - Returning the created or updated profile.</li>
+<li><code>400 BAD REQUEST</code> - When the profile type is not configured for the organization or the request is malformed.</li>
+<li><code>404 NOT FOUND</code> - When it can&#39;t locate the user.</li>
+</ul>
 <h2 id='create-or-update-user-batch'>Create Or Update User Batch</h2>
 <blockquote>
 <p>Batch Create Request</p>
@@ -1309,8 +1543,110 @@ receive a <code>report_id</code> which can be used to track status of the reques
 stored for 30 days.</p>
 
 <p>The JSON objects passed in the array are the same as the ones listed in Create Or Update User.</p>
-<h3 id='http-request-6'>HTTP Request</h3>
+<h3 id='http-request-8'>HTTP Request</h3>
 <p><code>POST management/v1/users</code></p>
+
+<p><strong>Response Codes</strong>:</p>
+
+<ul>
+<li><code>202 ACCEPTED</code> - List has been received and submitted for processing.</li>
+<li><code>400 BAD REQUEST</code> - Malformed request.</li>
+</ul>
+<h2 id='create-or-update-user-profile-batch'>Create Or Update User Profile Batch</h2>
+<blockquote>
+<p>Batch User Profile Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"profileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"real_estate_agent"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"profileData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Smith"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1 (555) 867 5309"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"90210"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"brokerageName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Summit Realty Group"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"agentLicenseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE-9281034"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"businessLogo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890123456789"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"profileImageHeadshot"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876543210987654321"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"isActive"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5678"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"profileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mortgage_loan_officer"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"profileData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alex Johnson"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1 (555) 482 1337"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lenderName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Crestview Mortgage"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lenderNmlsId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100234"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"individualNmlsId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56789"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"businessLogo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1122334455667788990"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"profileImageHeadshot"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9988776655443322110"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="err">//</span><span class="w"> </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Batch User Profile Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"reportId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HG3SrEndQch8dAZbjwBV"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to pass a JSON Array of User Profile objects for creation or updating. Batches are limited to
+1000 items at a time. The operation is asynchronous - rather than returning the results, you will receive a <code>reportId</code>
+which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>POST management/v1/user/profiles</code></p>
+<h3 id='batch-user-profile-request-properties'>Batch User Profile Request Properties</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>true</td>
+<td>String</td>
+<td>The ID of the user whose profile you want to create or update.</td>
+</tr>
+<tr>
+<td>profileType</td>
+<td>false</td>
+<td>String</td>
+<td>The profile type to create or update. If omitted, defaults to the user&#39;s assigned type or the organization&#39;s configured type.</td>
+</tr>
+<tr>
+<td>profileData</td>
+<td>true</td>
+<td>JSON Object</td>
+<td>A key-value map of profile fields.</td>
+</tr>
+<tr>
+<td>isActive</td>
+<td>false</td>
+<td>boolean</td>
+<td>Whether the profile is active. Defaults to <code>true</code>.</td>
+</tr>
+</tbody></table>
 
 <p><strong>Response Codes</strong>:</p>
 
@@ -1325,7 +1661,7 @@ stored for 30 days.</p>
 <div class="highlight"><pre class="highlight plaintext"><code>No Body returned
 </code></pre></div>
 <p>Deactivates all active programs for a given user placing them in an inactive state.</p>
-<h3 id='http-request-7'>HTTP Request</h3>
+<h3 id='http-request-10'>HTTP Request</h3>
 <p><code>DELETE management/v1/user/{userId}</code></p>
 
 <p><strong>Response Codes</strong>:</p>
@@ -1362,9 +1698,9 @@ stored for 30 days.</p>
 </span></code></pre></div>
 <p>Returns all groups. This is a paginated response - returning 100 results per page with optional page tokens to go to the
 next page and previous page if they exist.</p>
-<h3 id='http-request-8'>HTTP Request</h3>
+<h3 id='http-request-11'>HTTP Request</h3>
 <p><code>GET management/v1/groups</code></p>
-<h3 id='request-params-4'>Request Params</h3>
+<h3 id='request-params-5'>Request Params</h3>
 <table><thead>
 <tr>
 <th>Param</th>
@@ -1404,7 +1740,7 @@ next page and previous page if they exist.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Endpoint for creating new groups or updating existing ones.</p>
-<h3 id='http-request-9'>HTTP Request</h3>
+<h3 id='http-request-12'>HTTP Request</h3>
 <p><code>POST management/v1/group</code></p>
 <h3 id='create-update-group-properties'>Create / Update Group Properties</h3>
 <table><thead>
@@ -1459,7 +1795,7 @@ next page and previous page if they exist.</p>
 at a time. The creation option is asynchronous - rather than returning the newly created items, you will receive
 a <code>report_id</code> which can be used to track status of the requests as they are processed in our system. Reports are stored
 for 30 days.</p>
-<h3 id='http-request-10'>HTTP Request</h3>
+<h3 id='http-request-13'>HTTP Request</h3>
 <p><code>POST management/v1/groups</code></p>
 
 <p><strong>Response Codes</strong>:</p>
