@@ -439,6 +439,11 @@ This endpoint allows you to create or update a profile for a user. If the user a
 type, it will be updated. Otherwise, a new profile will be created. If the `profileData` contains a `fullName` field,
 the user's name will be synced to match.
 
+The image fields within `profileData`, such as `businessLogo` and `profileImageHeadshot`, do not accept image URLs or
+file uploads. They reference media assets that already exist in your organization's Media Library. Import the asset
+first via [Create Or Update Media](#create-or-update-media), then supply the `id` you assigned to it along with its
+`type`. See the [Digital Asset Management API](#digital-asset-management-api) section for more details.
+
 ### HTTP Request
 
 `POST management/v1/user/{userId}/profile`
@@ -454,7 +459,7 @@ the user's name will be synced to match.
 | Field       | Required | Type       | Description                                                                                                    |
 |-------------|----------|------------|----------------------------------------------------------------------------------------------------------------|
 | profileType | false    | String     | The profile type to create or update. If omitted, defaults to the user's assigned type or the organization's configured type. |
-| profileData | true     | JSON Object | A key-value map of profile fields.                                                                            |
+| profileData | true     | JSON Object | A key-value map of profile fields. Image fields such as `businessLogo` and `profileImageHeadshot` reference media assets by `id` and `type`. See [Digital Asset Management API](#digital-asset-management-api). |
 | isActive    | false    | boolean    | Whether the profile is active. Defaults to `true`.                                                             |
 
 **Response Codes**:
@@ -595,6 +600,12 @@ This endpoint allows you to pass a JSON Array of User Profile objects for creati
 1000 items at a time. The operation is asynchronous - rather than returning the results, you will receive a `reportId`
 which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.
 
+As with [Create Or Update User Profile](#create-or-update-user-profile), the image fields within `profileData`, such as
+`businessLogo` and `profileImageHeadshot`, reference media assets in your organization's Media Library rather than
+image URLs. Import the asset first via [Create Or Update Media](#create-or-update-media), then supply the `id` you
+assigned to it along with its `type`. See the [Digital Asset Management API](#digital-asset-management-api) section for
+more details.
+
 ### HTTP Request
 
 `POST management/v1/user/profiles`
@@ -605,7 +616,7 @@ which can be used to track status of the requests as they are processed in our s
 |-------------|----------|-------------|----------------------------------------------------------------------------------------------------------------|
 | userId      | true     | String      | The ID of the user whose profile you want to create or update.                                                 |
 | profileType | false    | String      | The profile type to create or update. If omitted, defaults to the user's assigned type or the organization's configured type. |
-| profileData | true     | JSON Object | A key-value map of profile fields.                                                                             |
+| profileData | true     | JSON Object | A key-value map of profile fields. Image fields such as `businessLogo` and `profileImageHeadshot` reference media assets by `id` and `type`. See [Digital Asset Management API](#digital-asset-management-api). |
 | isActive    | false    | boolean     | Whether the profile is active. Defaults to `true`.                                                             |
 
 **Response Codes**:
