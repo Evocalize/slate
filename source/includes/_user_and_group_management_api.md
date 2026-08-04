@@ -442,7 +442,9 @@ the user's name will be synced to match.
 The image fields within `profileData`, such as `businessLogo` and `profileImageHeadshot`, do not accept image URLs or
 file uploads. They reference media assets that already exist in your organization's Media Library. Import the asset
 first via [Create Or Update Media](#create-or-update-media), then supply the `id` you assigned to it along with its
-`type`. See the [Digital Asset Management API](#digital-asset-management-api) section for more details.
+`type`. The media asset must also be assigned to the same user whose profile you are updating - include a grant with a
+`USER` grantee for that `userId` and the `READ` permission when importing the asset. See the
+[Digital Asset Management API](#digital-asset-management-api) section for more details.
 
 ### HTTP Request
 
@@ -459,7 +461,7 @@ first via [Create Or Update Media](#create-or-update-media), then supply the `id
 | Field       | Required | Type       | Description                                                                                                    |
 |-------------|----------|------------|----------------------------------------------------------------------------------------------------------------|
 | profileType | false    | String     | The profile type to create or update. If omitted, defaults to the user's assigned type or the organization's configured type. |
-| profileData | true     | JSON Object | A key-value map of profile fields. Image fields such as `businessLogo` and `profileImageHeadshot` reference media assets by `id` and `type`. See [Digital Asset Management API](#digital-asset-management-api). |
+| profileData | true     | JSON Object | A key-value map of profile fields. Image fields such as `businessLogo` and `profileImageHeadshot` reference media assets by `id` and `type`, and each asset must be assigned to this user. See [Digital Asset Management API](#digital-asset-management-api). |
 | isActive    | false    | boolean    | Whether the profile is active. Defaults to `true`.                                                             |
 
 **Response Codes**:
@@ -603,8 +605,9 @@ which can be used to track status of the requests as they are processed in our s
 As with [Create Or Update User Profile](#create-or-update-user-profile), the image fields within `profileData`, such as
 `businessLogo` and `profileImageHeadshot`, reference media assets in your organization's Media Library rather than
 image URLs. Import the asset first via [Create Or Update Media](#create-or-update-media), then supply the `id` you
-assigned to it along with its `type`. See the [Digital Asset Management API](#digital-asset-management-api) section for
-more details.
+assigned to it along with its `type`. Each media asset must also be assigned to the same user whose profile it appears
+on - include a grant with a `USER` grantee for that entry's `userId` and the `READ` permission when importing the
+asset. See the [Digital Asset Management API](#digital-asset-management-api) section for more details.
 
 ### HTTP Request
 
@@ -616,7 +619,7 @@ more details.
 |-------------|----------|-------------|----------------------------------------------------------------------------------------------------------------|
 | userId      | true     | String      | The ID of the user whose profile you want to create or update.                                                 |
 | profileType | false    | String      | The profile type to create or update. If omitted, defaults to the user's assigned type or the organization's configured type. |
-| profileData | true     | JSON Object | A key-value map of profile fields. Image fields such as `businessLogo` and `profileImageHeadshot` reference media assets by `id` and `type`. See [Digital Asset Management API](#digital-asset-management-api). |
+| profileData | true     | JSON Object | A key-value map of profile fields. Image fields such as `businessLogo` and `profileImageHeadshot` reference media assets by `id` and `type`, and each asset must be assigned to that entry's user. See [Digital Asset Management API](#digital-asset-management-api). |
 | isActive    | false    | boolean     | Whether the profile is active. Defaults to `true`.                                                             |
 
 **Response Codes**:
