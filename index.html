@@ -1434,6 +1434,13 @@ using the optional <code>profileType</code> query parameter.</p>
 <p>This endpoint allows you to create or update a profile for a user. If the user already has a profile of the specified
 type, it will be updated. Otherwise, a new profile will be created. If the <code>profileData</code> contains a <code>fullName</code> field,
 the user&#39;s name will be synced to match.</p>
+
+<p>The image fields within <code>profileData</code>, such as <code>businessLogo</code> and <code>profileImageHeadshot</code>, do not accept image URLs or
+file uploads. They reference media assets that already exist in your organization&#39;s Media Library. Import the asset
+first via <a href="#create-or-update-media">Create Or Update Media</a>, then supply the <code>id</code> you assigned to it along with its
+<code>type</code>. The media asset must also be assigned to the same user whose profile you are updating - include a grant with a
+<code>USER</code> grantee for that <code>userId</code> and the <code>READ</code> permission when importing the asset. See the
+<a href="#digital-asset-management-api">Digital Asset Management API</a> section for more details.</p>
 <h3 id='http-request-7'>HTTP Request</h3>
 <p><code>POST management/v1/user/{userId}/profile</code></p>
 <h3 id='url-params-5'>URL Params</h3>
@@ -1471,7 +1478,7 @@ the user&#39;s name will be synced to match.</p>
 <td>profileData</td>
 <td>true</td>
 <td>JSON Object</td>
-<td>A key-value map of profile fields.</td>
+<td>A key-value map of profile fields. Image fields such as <code>businessLogo</code> and <code>profileImageHeadshot</code> reference media assets by <code>id</code> and <code>type</code>, and each asset must be assigned to this user. See <a href="#digital-asset-management-api">Digital Asset Management API</a>.</td>
 </tr>
 <tr>
 <td>isActive</td>
@@ -1611,6 +1618,13 @@ stored for 30 days.</p>
 <p>This endpoint allows you to pass a JSON Array of User Profile objects for creation or updating. Batches are limited to
 1000 items at a time. The operation is asynchronous - rather than returning the results, you will receive a <code>reportId</code>
 which can be used to track status of the requests as they are processed in our system. Reports are stored for 30 days.</p>
+
+<p>As with <a href="#create-or-update-user-profile">Create Or Update User Profile</a>, the image fields within <code>profileData</code>, such as
+<code>businessLogo</code> and <code>profileImageHeadshot</code>, reference media assets in your organization&#39;s Media Library rather than
+image URLs. Import the asset first via <a href="#create-or-update-media">Create Or Update Media</a>, then supply the <code>id</code> you
+assigned to it along with its <code>type</code>. Each media asset must also be assigned to the same user whose profile it appears
+on - include a grant with a <code>USER</code> grantee for that entry&#39;s <code>userId</code> and the <code>READ</code> permission when importing the
+asset. See the <a href="#digital-asset-management-api">Digital Asset Management API</a> section for more details.</p>
 <h3 id='http-request-9'>HTTP Request</h3>
 <p><code>POST management/v1/user/profiles</code></p>
 <h3 id='batch-user-profile-request-properties'>Batch User Profile Request Properties</h3>
@@ -1638,7 +1652,7 @@ which can be used to track status of the requests as they are processed in our s
 <td>profileData</td>
 <td>true</td>
 <td>JSON Object</td>
-<td>A key-value map of profile fields.</td>
+<td>A key-value map of profile fields. Image fields such as <code>businessLogo</code> and <code>profileImageHeadshot</code> reference media assets by <code>id</code> and <code>type</code>, and each asset must be assigned to that entry&#39;s user. See <a href="#digital-asset-management-api">Digital Asset Management API</a>.</td>
 </tr>
 <tr>
 <td>isActive</td>
