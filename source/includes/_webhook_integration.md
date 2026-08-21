@@ -364,8 +364,12 @@ outcomes. This allows you to track the lifecycle of leads being handled by the c
 
 You will need to work with your account manager and supply Evocalize with an endpoint url where you would like to
 receive lead concierge event notifications. This is a separate endpoint from the Client Leads Webhook. Your endpoint
-url must use SSL (https) and accept a POST. You will need to have a `ClientKeyID` and a `ClientSecret`. These are the
-same values that you will use to call our API for other operations.
+url must use SSL (https) and accept a POST.
+
+Optionally, you may also supply your account manager with a shared secret. When a secret is configured for your
+subscription, Evocalize sends it with every request in the `X-Webhook-Secret` header so your endpoint can confirm the
+request came from us. The secret is configured by Evocalize on your subscription; it cannot be set, rotated, or removed
+through the API. Contact your account representative to add, change, or remove it.
 
 ### Policies
 
@@ -380,10 +384,13 @@ same values that you will use to call our API for other operations.
 
 ### Headers
 
-- `X-Evocalize-Payload-Version` - The version of the payload.
-- `X-Evocalize-Client-Key-Id` - Provided by Evocalize, your `ClientKeyId` from above.
-- `X-Evocalize-Timestamp` - Timestamp of when the request was sent.
-- `X-Evocalize-Signature` - The signature of the payload. Refer to the [Signature Validation](#signature-validation-optional) section above for details.
+- `X-Webhook-Secret` - The shared secret configured for your subscription, if one has been configured. This header is
+  omitted when no secret is configured.
+
+Unlike the Client Leads Webhook, this webhook does not send the `X-Evocalize-Payload-Version`,
+`X-Evocalize-Client-Key-Id`, `X-Evocalize-Timestamp`, or `X-Evocalize-Signature` headers, and signature validation is
+not available for these payloads. Requests are secured by the required use of https and, when configured, by the shared
+secret above.
 
 ### Payload
 
@@ -429,7 +436,8 @@ same values that you will use to call our API for other operations.
 
 Special consideration should be taken not to fail if a new field is present in your data that you did not expect. We
 will notify you when a field is removed from our specification, but we will not notify you when a field is added to the
-specification. If a field is removed from the specification, the payloadVersion will increment.
+specification. This webhook does not send a payload version header, so removals are communicated by your account
+representative rather than signalled on the request.
 
 | Field                                          | Nullable | Type   | Description                                                                |
 |------------------------------------------------|----------|--------|----------------------------------------------------------------------------|

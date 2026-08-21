@@ -3,5 +3,10 @@ entries:
   - path: "architecture/project-overview.md"
     title: "Project Overview"
     tags: ["architecture", "overview", "slate", "evocalize", "api"]
-    last_updated: "2026-03-05"
+    last_updated: "2026-08-21"
     summary: "Comprehensive overview of the Evocalize Management API documentation project: tech stack, repository structure, API surface area, authentication, common patterns, build/deploy pipelines, and how to add new docs."
+  - path: "workflows/docker-local-build.md"
+    title: "Running Slate Locally with Docker"
+    tags: ["workflow", "docker", "build", "local-development", "slate"]
+    last_updated: "2026-08-21"
+    summary: "Verified Docker steps for building and serving the docs locally: image build, static build with --user to avoid root-owned output, live-reload serve with a mounted source volume, and how to verify rendered output and anchors."
