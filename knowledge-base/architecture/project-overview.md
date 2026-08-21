@@ -1,6 +1,6 @@
 ---
 title: "Project Overview"
-last_updated: "2026-03-24"
+last_updated: "2026-08-21"
 contributors: ["arf"]
 related_files: [
   "source/index.html.md",
@@ -108,6 +108,13 @@ Two approaches (headers on every request):
 | Signature-based | `X-Evocalize-Client-Key-Id`, `X-Evocalize-Timestamp`, `X-Evocalize-Signature` |
 
 Signature uses HMAC SHA-256 over `clientKeyId + ":" + timestamp`.
+
+The table above covers **inbound** requests to the Evocalize API. **Outbound** webhooks differ from each other:
+
+| Webhook                       | Headers Sent |
+|-------------------------------|--------------|
+| Client Leads Webhook          | `X-Evocalize-Payload-Version`, `X-Evocalize-Client-Key-Id`, `X-Evocalize-Timestamp`, `X-Evocalize-Signature` (signature validation optional for the partner) |
+| Lead Concierge Webhook Events | `X-Webhook-Secret` only, and only when a secret is configured on the subscription. No signature validation is offered for these payloads (EE-2100). |
 
 ### Common Patterns
 
