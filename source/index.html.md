@@ -1,5 +1,7 @@
 ---
 title: Management API Reference
+heading: Evocalize Management API Reference
+canonical: https://api-docs.evocalize.com/
 
 includes:
 

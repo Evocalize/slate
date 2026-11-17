@@ -39,6 +39,9 @@ under the License.
       <% end %>
     <% end %>
     <title><%= current_page.data.title || "API Documentation" %></title>
+    <% if current_page.data.canonical %>
+      <link rel="canonical" href="<%= current_page.data.canonical %>">
+    <% end %>
     <%= favicon_tag 'favicon.png' %>
     <style media="screen">
       <%= Rouge::Themes::MonokaiSublimeSlate.render(:scope => '.highlight') %>
@@ -119,6 +122,7 @@ under the License.
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
+        <h1 class="page-title"><%= current_page.data.heading || current_page.data.title || "API Documentation" %></h1>
         <%= page_content %>
       </div>
       <div class="dark-box">
