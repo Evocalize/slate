@@ -39,6 +39,45 @@ under the License.
       <% end %>
     <% end %>
     <title><%= current_page.data.title || "API Documentation" %></title>
+    <% if current_page.data.canonical %>
+      <link rel="canonical" href="<%= current_page.data.canonical %>">
+    <% end %>
+    <% if current_page.data.canonical %>
+      <%# Structured data: identify the docs site and the company behind it.
+          The Organization uses the same @id as evocalize.com so search and
+          answer engines treat both sites as one brand. %>
+      <script type="application/ld+json">
+        <%= JSON.generate({
+          "@context" => "https://schema.org",
+          "@graph" => [
+            {
+              "@type" => "Organization",
+              "@id" => "https://evocalize.com/#organization",
+              "name" => "Evocalize",
+              "url" => "https://evocalize.com",
+              "logo" => { "@type" => "ImageObject", "url" => "https://evocalize.com/images/evocalize-logo.png" },
+              "sameAs" => [
+                "https://www.facebook.com/evocalize",
+                "https://twitter.com/evocalize",
+                "https://www.linkedin.com/company/evocalize",
+                "https://www.instagram.com/evocalize/",
+                "https://www.youtube.com/@evocalize",
+                "https://www.tiktok.com/@evocalize"
+              ]
+            },
+            {
+              "@type" => "WebSite",
+              "@id" => "#{current_page.data.canonical}#website",
+              "url" => current_page.data.canonical,
+              "name" => (current_page.data.heading || current_page.data.title),
+              "description" => "API reference for the Evocalize platform: authentication, users and groups, content, orders, leads, webhooks, audiences, and digital assets.",
+              "inLanguage" => "en-US",
+              "publisher" => { "@id" => "https://evocalize.com/#organization" }
+            }
+          ]
+        }) %>
+      </script>
+    <% end %>
     <%= favicon_tag 'favicon.png' %>
     <style media="screen">
       <%= Rouge::Themes::MonokaiSublimeSlate.render(:scope => '.highlight') %>
@@ -119,6 +158,7 @@ under the License.
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
+        <h1 class="page-title"><%= current_page.data.heading || current_page.data.title || "API Documentation" %></h1>
         <%= page_content %>
       </div>
       <div class="dark-box">

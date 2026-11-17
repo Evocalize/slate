@@ -19,6 +19,9 @@ class UniqueHeadCounter < Middleman::Renderers::MiddlemanRedcarpetHTML
     if @head_count[friendly_text] > 1
       friendly_text += "-#{@head_count[friendly_text]}"
     end
-    return "<h#{header_level} id='#{friendly_text}'>#{text}</h#{header_level}>"
+    # Demote every Markdown heading one level so the page has exactly one H1
+    # (the page title rendered in layout.erb). `#` -> h2, `##` -> h3, etc.
+    level = [header_level + 1, 6].min
+    return "<h#{level} id='#{friendly_text}'>#{text}</h#{level}>"
   end
 end
